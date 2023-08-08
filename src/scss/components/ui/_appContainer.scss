@@ -1,0 +1,14 @@
+@use "../../base/variables" as v;
+@use "../../base/mixins" as m;
+
+.appContainer {
+	&__section {
+		max-width: v.$tablet;
+		margin: 0 auto;
+
+		@include m.desktop {
+			display: flex;
+			justify-content: space-between;
+		}
+	}
+}
