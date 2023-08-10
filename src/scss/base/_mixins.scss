@@ -77,11 +77,11 @@
 	}
 }
 
-// @mixin grid($columns, $spacing) {
-// 	display: grid;
-// 	gap: $spacing;
-// 	grid-template-columns: repeat($columns, 1fr);
-// }
+@mixin grid($columns, $spacing) {
+	display: grid;
+	gap: $spacing;
+	grid-template-columns: repeat($columns, 1fr);
+}
 
 // @mixin transition($property, $time) {
 // 	transition: $property $time ease-in-out;
