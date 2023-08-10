@@ -1,0 +1,61 @@
+@use "../base/variables" as v;
+@use "../base/mixins" as m;
+
+.item {
+	display: flex;
+	flex-direction: column;
+	max-width: 30rem;
+	padding: 1rem;
+	background: v.$white;
+	position: relative;
+	overflow: visible;
+	box-shadow:
+		0 1px 3px rgba(0, 0, 0, 0.12),
+		0 1px 2px rgba(0, 0, 0, 0.24);
+
+	&__img {
+		height: 40%;
+		width: 100%;
+		border-radius: 0.5rem;
+		transition: 0.3s ease;
+	}
+
+	&__img:hover {
+		transform: translateY(-0.6rem);
+		cursor: pointer;
+		box-shadow: v.$crimson 0px 8px 10px -4px;
+	}
+
+	&__title {
+		font-weight: 900;
+		font-size: 1.2rem;
+		line-height: 1.5;
+	}
+
+	&__footer {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 2rem 1rem 1rem 1rem;
+		border-top: 1px solid v.$lightGray;
+	}
+
+	&__loveButton {
+		@include m.iconButton(v.$crimson, v.$gray);
+	}
+
+	&__dislikeButton {
+		@include m.iconButton(v.$skyBlue, v.$gray);
+	}
+
+	&__downloadButton {
+		@include m.button(v.$crimson);
+		margin: 0 auto;
+		padding: 1rem 2rem;
+	}
+
+	&__icon {
+		margin-left: 1rem;
+	}
+}
