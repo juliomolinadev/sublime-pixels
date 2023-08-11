@@ -1,18 +1,19 @@
 @use "../base/mixins" as m;
 
 .batch {
-	padding: 2rem;
-	@include m.grid(1, 2rem);
+	margin-top: 4rem;
+
+	@include m.grid(1, 4rem);
 
 	@include m.tablet {
-		@include m.grid(2, 2rem);
+		@include m.grid(2, 4rem);
 	}
 
 	@include m.desktop {
-		@include m.grid(4, 2rem);
+		@include m.grid(3, 6rem);
 	}
 
 	@include m.monitor {
-		@include m.grid(6, 2rem);
+		@include m.grid(5, 6rem);
 	}
 }

@@ -4,18 +4,16 @@
 .hero {
 	@include m.fadeIn(2000ms);
 
-	width: 95%;
-	margin: 1rem auto;
-	padding: 2rem;
+	margin-top: 4rem;
+	padding: 4rem 0;
 	border-radius: 1rem;
 	background-image: url(./img/sublimePixelsBanner.jpg);
 	background-repeat: no-repeat;
 	background-size: cover;
-	background-position-x: -10vw;
+	background-position-x: -20vw;
 	position: relative;
 
 	@include m.tablet {
-		margin: 1rem;
 		width: auto;
 		min-height: 20rem;
 		background-position-x: 30vw;
@@ -43,6 +41,7 @@
 	// }
 
 	&__info {
+		// background-color: v.$background;
 		@include m.desktop {
 			padding: 4rem;
 		}

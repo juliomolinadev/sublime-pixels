@@ -2,7 +2,7 @@
 @use "mixins" as m;
 
 #root {
-	height: 100vh;
+	height: auto;
 }
 
 ::-webkit-scrollbar {
@@ -47,8 +47,9 @@ p {
 .container {
 	width: 100%;
 	margin: 0 auto;
-	padding: 0 2rem;
+	padding: 0 1rem;
 	overflow-y: scroll;
+	background-color: v.$background;
 
 	@include m.desktop {
 		padding: 0 4rem;
