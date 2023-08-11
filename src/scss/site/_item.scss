@@ -47,7 +47,7 @@
 	}
 
 	&__downloadButton {
-		@include m.button(v.$crimson);
+		@include m.button(v.$purple);
 		margin: 0 auto;
 		padding: 1rem 2rem;
 	}

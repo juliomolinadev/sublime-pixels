@@ -33,6 +33,7 @@
 	cursor: pointer;
 	border-radius: 50px;
 	transition: 0.3s ease-in-out;
+	border-style: none;
 
 	&:hover {
 		border: 1px solid $color;
@@ -45,10 +46,11 @@
 	color: v.$white;
 	background-color: $color;
 	display: flex;
-	padding: 1rem;
+	padding: 1rem 2rem;
 	cursor: pointer;
 	border-radius: 50px;
 	transition: 0.3s ease-in-out;
+	border-style: none;
 
 	&:hover {
 		transform: translateY(-0.6rem);
@@ -87,19 +89,19 @@
 // 	transition: $property $time ease-in-out;
 // }
 
-// @mixin fadeIn($time) {
-// 	animation: fadeIn $time;
+@mixin fadeIn($time) {
+	animation: fadeIn $time;
 
-// 	@keyframes fadeIn {
-// 		from {
-// 			opacity: 0;
-// 		}
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
 
-// 		to {
-// 			opacity: 1;
-// 		}
-// 	}
-// }
+		to {
+			opacity: 1;
+		}
+	}
+}
 
 // @mixin shadow() {
 // 	// box-shadow: 0px 0px 10px 3px rgb(0 0 0 / 15%);

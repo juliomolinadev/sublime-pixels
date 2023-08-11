@@ -1,0 +1,77 @@
+@use "../base/variables" as v;
+@use "../base/mixins" as m;
+
+.hero {
+	@include m.fadeIn(2000ms);
+
+	width: 95%;
+	margin: 1rem auto;
+	padding: 2rem;
+	border-radius: 1rem;
+	background-image: url(./img/sublimePixelsBanner.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position-x: -10vw;
+	position: relative;
+
+	@include m.tablet {
+		margin: 1rem;
+		width: auto;
+		min-height: 20rem;
+		background-position-x: 30vw;
+	}
+
+	@include m.desktop {
+		min-height: 10rem;
+	}
+
+	@include m.monitor {
+		background-position-y: 60%;
+		background-position-x: 25vw;
+	}
+
+	// &::before {
+	// 	content: "";
+	// 	background-color: v.$navyBlue;
+	// 	position: absolute;
+	// 	top: 0;
+	// 	right: 0;
+	// 	bottom: 0;
+	// 	left: 0;
+	// 	opacity: 0.2;
+	// 	border-radius: 1rem;
+	// }
+
+	&__info {
+		@include m.desktop {
+			padding: 4rem;
+		}
+	}
+
+	&__keyword {
+		font-size: 0.8rem;
+		font-weight: 100;
+	}
+
+	&__mainValueProposition {
+		color: v.$black;
+		font-family: v.$headersFont;
+		font-size: 4rem;
+
+		@include m.tablet {
+			font-size: 6rem;
+		}
+
+		@include m.desktop {
+			max-width: 60%;
+		}
+	}
+
+	&__suportSubText {
+		font-weight: 700;
+	}
+
+	&__callToActionButton {
+		@include m.button(v.$crimson);
+	}
+}
