@@ -28,20 +28,7 @@
 		background-position-x: 25vw;
 	}
 
-	// &::before {
-	// 	content: "";
-	// 	background-color: v.$navyBlue;
-	// 	position: absolute;
-	// 	top: 0;
-	// 	right: 0;
-	// 	bottom: 0;
-	// 	left: 0;
-	// 	opacity: 0.2;
-	// 	border-radius: 1rem;
-	// }
-
 	&__info {
-		// background-color: v.$background;
 		@include m.desktop {
 			padding: 4rem;
 		}

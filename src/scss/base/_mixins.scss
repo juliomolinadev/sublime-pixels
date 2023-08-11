@@ -44,6 +44,7 @@
 
 @mixin button($color) {
 	color: v.$white;
+	font-weight: 700;
 	background-color: $color;
 	display: flex;
 	padding: 1rem 2rem;
