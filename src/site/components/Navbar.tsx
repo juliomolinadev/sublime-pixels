@@ -1,5 +1,6 @@
 import { useCheckAuth, useTypedDispatch, useTypedSelector } from "../../hooks";
-import { swichRegisterModal } from "../../store/ui";
+import { startLogout } from "../../store/auth";
+import { swichLoginModal } from "../../store/ui";
 
 export const Navbar = () => {
 	const status = useCheckAuth();
@@ -7,7 +8,11 @@ export const Navbar = () => {
 	const { displayName } = useTypedSelector((state) => state.auth);
 
 	const handleOpenLoginModal = (): void => {
-		dispatch(swichRegisterModal());
+		dispatch(swichLoginModal());
+	};
+
+	const handleLogout = (): void => {
+		dispatch(startLogout());
 	};
 
 	return (
@@ -17,11 +22,19 @@ export const Navbar = () => {
 			</div>
 
 			<div className="navbar__controls">
-				{status === "authenticated" && <div className="navbar__user">{displayName}</div>}
+				{status === "authenticated" ? (
+					<>
+						<div className="navbar__user">{displayName}</div>
 
-				<button className="navbar__loginButton" onClick={handleOpenLoginModal}>
-					Login
-				</button>
+						<button className="navbar__loginButton" onClick={handleLogout}>
+							Logout
+						</button>
+					</>
+				) : (
+					<button className="navbar__loginButton" onClick={handleOpenLoginModal}>
+						Login
+					</button>
+				)}
 			</div>
 		</nav>
 	);

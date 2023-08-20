@@ -6,12 +6,14 @@ interface UiSliceState {
 	errorMsg: string | null;
 	isLoading: boolean;
 	isOpenRegisterModal: boolean;
+	isOpenLoginModal: boolean;
 }
 
 const initialState: UiSliceState = {
 	errorMsg: null,
 	isLoading: false,
 	isOpenRegisterModal: false,
+	isOpenLoginModal: false,
 };
 
 export const uiSlice = createSlice({
@@ -29,9 +31,14 @@ export const uiSlice = createSlice({
 		swichRegisterModal: (state) => {
 			state.isOpenRegisterModal = !state.isOpenRegisterModal;
 		},
+
+		swichLoginModal: (state) => {
+			state.isOpenLoginModal = !state.isOpenLoginModal;
+		},
 	},
 });
 
-export const { changeLoadingState, setErrorMsg, swichRegisterModal } = uiSlice.actions;
+export const { changeLoadingState, setErrorMsg, swichRegisterModal, swichLoginModal } =
+	uiSlice.actions;
 export const selectCount = (state: RootState) => state.ui.errorMsg;
 export default uiSlice.reducer;
