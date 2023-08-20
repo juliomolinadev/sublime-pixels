@@ -1,0 +1,64 @@
+@use "../base/variables" as v;
+@use "../base/mixins" as m;
+
+.form {
+	padding: 1rem;
+
+	// &__section {
+	// 	background-color: lighten($color: v.$crimson, $amount: 70);
+	// 	border-radius: 0.5rem;
+	// 	padding: 1rem;
+	// 	margin-bottom: 2rem;
+	// }
+
+	&__inputGroup {
+		margin-bottom: 2rem;
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__label {
+		font-size: 1.4rem;
+		margin-bottom: 1rem;
+		color: v.$crimson;
+	}
+
+	&__input {
+		padding: 1rem;
+		border: 0.1rem solid lighten(v.$crimson, 70);
+		border-radius: 0.5rem;
+		width: 100%;
+
+		&::placeholder {
+			color: lighten(v.$gray, 40);
+		}
+
+		&--select {
+			background-color: v.$white;
+		}
+	}
+
+	&__error {
+		@include m.fadeIn(1000ms);
+
+		color: v.$danger;
+		border: 0.1rem solid lighten(v.$danger, 30);
+		padding: 1rem;
+		text-align: center;
+		border-radius: 0.5rem;
+		margin-bottom: 2rem;
+	}
+
+	&__button {
+		@include m.button(v.$crimson);
+		margin: 3rem auto 0 auto;
+		width: 20rem;
+		justify-content: center;
+		border-radius: 50px;
+	}
+
+	&__spinner {
+		@include m.spinner(0.2rem, 2.4rem, v.$crimson);
+		margin: 0 auto;
+	}
+}
