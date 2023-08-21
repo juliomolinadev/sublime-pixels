@@ -35,12 +35,10 @@ export const registerUserWithEmailPassword = async ({ email, password, displayNa
 		};
 
 		if (typeof error === "string") {
-			console.log(error);
 			resp.errorMessage = error;
 		}
 
 		if (error instanceof Error) {
-			console.log(error.message);
 			resp.errorMessage = error.message;
 		}
 
@@ -69,12 +67,10 @@ export const loginUserWithEmailPassword = async ({ email, password }: User) => {
 		};
 
 		if (typeof error === "string") {
-			console.log(error);
 			resp.errorMessage = error;
 		}
 
 		if (error instanceof Error) {
-			console.log(error.message);
 			resp.errorMessage = error.message;
 		}
 

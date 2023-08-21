@@ -33,13 +33,22 @@ export const RegisterForm = () => {
 		e.preventDefault();
 
 		if (isFormValid()) {
-			const emailRegisteredMessage = "Firebase: Error (auth/email-already-in-use).";
-
 			const result = await dispatch(
 				startCreatingUserWithEmailPassword({ email, password, displayName: name }),
 			);
 
-			if (result.errorMessage === emailRegisteredMessage) {
+			const emailRegisteredMessage = "Firebase: Error (auth/email-already-in-use).";
+			const networkErrorMessage = "Firebase: Error (auth/network-request-failed).";
+
+			const isNetworkError = result.errorMessage === networkErrorMessage;
+
+			if (!result.ok && isNetworkError) {
+				dispatch(
+					setErrorMsg("There is a network error, please check your connection or try again later."),
+				);
+			}
+
+			if (!result.ok && result.errorMessage === emailRegisteredMessage) {
 				dispatch(swichRegisterModal());
 
 				Swal.fire({

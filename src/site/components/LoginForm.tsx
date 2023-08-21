@@ -28,9 +28,26 @@ export const LoginForm = () => {
 		e.preventDefault();
 
 		if (isFormValid()) {
-			// const emailRegisteredMessage = "Firebase: Error (auth/email-already-in-use).";
-
 			const result = await dispatch(startLoginWithEmailPassword({ email, password }));
+
+			const emaiErrorMessage = "Firebase: Error (auth/user-not-found).";
+			const passwordErrorMessage = "Firebase: Error (auth/wrong-password).";
+			const networkErrorMessage = "Firebase: Error (auth/network-request-failed).";
+
+			const isCredentialsError =
+				result.errorMessage === emaiErrorMessage || result.errorMessage === passwordErrorMessage;
+
+			const isNetworkError = result.errorMessage === networkErrorMessage;
+
+			if (!result.ok && isNetworkError) {
+				dispatch(
+					setErrorMsg("There is a network error, please check your connection or try again later."),
+				);
+			}
+
+			if (!result.ok && isCredentialsError) {
+				dispatch(setErrorMsg("There is an error in your email or password"));
+			}
 
 			if (result.ok) {
 				resetForm();
@@ -42,6 +59,11 @@ export const LoginForm = () => {
 	const isFormValid = () => {
 		if (!isValidEmail(email)) {
 			dispatch(setErrorMsg("Invalid email"));
+			return false;
+		}
+
+		if (password.length === 0) {
+			dispatch(setErrorMsg("Enter your password"));
 			return false;
 		}
 
@@ -89,7 +111,7 @@ export const LoginForm = () => {
 						id="password"
 						type="password"
 						className="form__input"
-						placeholder="Set password"
+						placeholder="Your password"
 						autoComplete="off"
 						name="password"
 						value={password}
