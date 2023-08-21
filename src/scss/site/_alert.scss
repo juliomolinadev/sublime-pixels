@@ -2,6 +2,10 @@
 @use "../base/mixins" as m;
 
 .alert {
+	&__container {
+		font-size: 1.4rem;
+	}
+
 	&__aceptButton {
 		@include m.button(v.$crimson);
 		font-size: 1.4rem;

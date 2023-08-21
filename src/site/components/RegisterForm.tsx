@@ -1,10 +1,10 @@
 import Modal from "react-modal";
-import Swal from "sweetalert2";
+import { SweetAlertOptions } from "sweetalert2";
 
 import { useTypedDispatch, useTypedSelector } from "../../hooks/storeHooks";
 import { useForm } from "../../hooks";
 import { setErrorMsg, swichRegisterModal } from "../../store/ui";
-import { isValidEmail } from "../../helpers";
+import { isValidEmail, messageAlert } from "../../helpers";
 import { startCreatingUserWithEmailPassword } from "../../store/auth";
 
 Modal.setAppElement("#root");
@@ -51,41 +51,25 @@ export const RegisterForm = () => {
 			if (!result.ok && result.errorMessage === emailRegisteredMessage) {
 				dispatch(swichRegisterModal());
 
-				Swal.fire({
+				const alert: SweetAlertOptions = {
 					title: "The email is already registered",
 					icon: "error",
-					buttonsStyling: false,
-					customClass: {
-						confirmButton: "form__button spaceBottom",
-					},
-					showClass: {
-						popup: "animate__animated animate__fadeInDown",
-					},
-					hideClass: {
-						popup: "animate__animated animate__fadeOutUp",
-					},
-				});
+				};
+
+				messageAlert(alert);
 			}
 
 			if (result.ok) {
 				resetForm();
 				dispatch(swichRegisterModal());
 
-				Swal.fire({
+				const alert: SweetAlertOptions = {
 					title: "Please verify your email address",
 					text: "Check your inbox and follow the link.",
 					icon: "warning",
-					buttonsStyling: false,
-					customClass: {
-						confirmButton: "form__button spaceBottom",
-					},
-					showClass: {
-						popup: "animate__animated animate__fadeInDown",
-					},
-					hideClass: {
-						popup: "animate__animated animate__fadeOutUp",
-					},
-				});
+				};
+
+				messageAlert(alert);
 			}
 		}
 	};
