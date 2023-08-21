@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { useCheckAuth, useTypedDispatch, useTypedSelector } from "../../hooks";
 import { startLogout } from "../../store/auth";
 import { swichLoginModal } from "../../store/ui";
@@ -12,7 +13,25 @@ export const Navbar = () => {
 	};
 
 	const handleLogout = (): void => {
-		dispatch(startLogout());
+		Swal.fire({
+			title: "Are you sure you want to log out?",
+			icon: "warning",
+			confirmButtonText: "Yes",
+			showCancelButton: true,
+			buttonsStyling: false,
+			customClass: {
+				confirmButton: "alert__aceptButton",
+				cancelButton: "alert__cancelButton",
+			},
+			showClass: {
+				popup: "animate__animated animate__fadeInDown",
+			},
+			hideClass: {
+				popup: "animate__animated animate__fadeOutUp",
+			},
+		}).then((result) => {
+			if (result.isConfirmed) dispatch(startLogout());
+		});
 	};
 
 	return (

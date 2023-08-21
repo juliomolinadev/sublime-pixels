@@ -1,26 +1,26 @@
-@use "../base/variables" as v;
-@use "../base/mixins" as m;
+// @use "../base/variables" as v;
+// @use "../base/mixins" as m;
 
-.header {
-	&__logo {
-		display: flex;
-		justify-content: center;
-		align-items: end;
+// .header {
+// 	&__logo {
+// 		display: flex;
+// 		justify-content: center;
+// 		align-items: end;
 
-		height: 4.8rem;
-		font-family: v.$headersFont;
-		font-size: 2.2rem;
-		color: v.$crimson;
-	}
+// 		height: 4.8rem;
+// 		font-family: v.$headersFont;
+// 		font-size: 2.2rem;
+// 		color: v.$crimson;
+// 	}
 
-	&__date {
-		display: flex;
-		justify-content: center;
-		align-items: end;
+// 	&__date {
+// 		display: flex;
+// 		justify-content: center;
+// 		align-items: end;
 
-		height: 3.2rem;
-		font-family: v.$textFont;
-		font-size: 1.4rem;
-		color: v.$gray;
-	}
-}
+// 		height: 3.2rem;
+// 		font-family: v.$textFont;
+// 		font-size: 1.4rem;
+// 		color: v.$gray;
+// 	}
+// }

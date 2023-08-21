@@ -1,11 +1,11 @@
 import Modal from "react-modal";
+import Swal from "sweetalert2";
 
 import { useTypedDispatch, useTypedSelector } from "../../hooks/storeHooks";
 import { useForm } from "../../hooks";
 import { setErrorMsg, swichRegisterModal } from "../../store/ui";
 import { isValidEmail } from "../../helpers";
 import { startCreatingUserWithEmailPassword } from "../../store/auth";
-import Swal from "sweetalert2";
 
 Modal.setAppElement("#root");
 
