@@ -4,6 +4,7 @@
 .navbar {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	background-color: v.$black;
 	position: fixed;
 	width: 100%;
@@ -13,7 +14,7 @@
 	z-index: 99;
 
 	&__logo {
-		max-width: 18rem;
+		max-width: 16rem;
 	}
 
 	&__controls {
@@ -22,7 +23,15 @@
 	}
 
 	&__user {
-		margin-right: 2rem;
+		display: flex;
+		align-items: center;
+		border-radius: 50px;
+		border: 1px solid v.$gray;
+		font-size: 1.2rem;
+	}
+
+	&__userName {
+		margin: 0 2rem;
 		color: v.$white;
 		font-weight: 700;
 	}

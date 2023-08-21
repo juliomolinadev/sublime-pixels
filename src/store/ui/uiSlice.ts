@@ -35,10 +35,20 @@ export const uiSlice = createSlice({
 		swichLoginModal: (state) => {
 			state.isOpenLoginModal = !state.isOpenLoginModal;
 		},
+
+		swichAuthForm: (state) => {
+			state.isOpenLoginModal = !state.isOpenLoginModal;
+			state.isOpenRegisterModal = !state.isOpenRegisterModal;
+		},
 	},
 });
 
-export const { changeLoadingState, setErrorMsg, swichRegisterModal, swichLoginModal } =
-	uiSlice.actions;
+export const {
+	changeLoadingState,
+	setErrorMsg,
+	swichRegisterModal,
+	swichLoginModal,
+	swichAuthForm,
+} = uiSlice.actions;
 export const selectCount = (state: RootState) => state.ui.errorMsg;
 export default uiSlice.reducer;

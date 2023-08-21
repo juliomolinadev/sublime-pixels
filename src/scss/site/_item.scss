@@ -40,10 +40,12 @@
 
 	&__loveButton {
 		@include m.iconButton(v.$crimson, v.$gray);
+		font-size: 2rem;
 	}
 
 	&__dislikeButton {
 		@include m.iconButton(v.$skyBlue, v.$gray);
+		font-size: 2rem;
 	}
 
 	&__downloadButton {
@@ -54,5 +56,6 @@
 
 	&__icon {
 		margin-left: 1rem;
+		font-size: 2rem;
 	}
 }

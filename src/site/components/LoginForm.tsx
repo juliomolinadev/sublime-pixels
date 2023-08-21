@@ -2,7 +2,7 @@ import Modal from "react-modal";
 
 import { useTypedDispatch, useTypedSelector } from "../../hooks/storeHooks";
 import { useForm } from "../../hooks";
-import { setErrorMsg, swichLoginModal } from "../../store/ui";
+import { setErrorMsg, swichAuthForm, swichLoginModal } from "../../store/ui";
 import { isValidEmail } from "../../helpers";
 import { startLoginWithEmailPassword } from "../../store/auth";
 
@@ -76,6 +76,10 @@ export const LoginForm = () => {
 		dispatch(setErrorMsg(null));
 	};
 
+	const handleSwichAuthForm = (): void => {
+		dispatch(swichAuthForm());
+	};
+
 	return (
 		<Modal
 			isOpen={isOpenLoginModal}
@@ -129,10 +133,10 @@ export const LoginForm = () => {
 			</form>
 
 			<p className="authForm__footer text-center">
-				Already have an account?{" "}
-				{/* <Link to="/auth/login" className="authForm__link">
-						Iniciar sesión
-					</Link> */}
+				You have not yet registered?
+				<span className="authForm__link" onClick={handleSwichAuthForm}>
+					Sign up here
+				</span>
 			</p>
 		</Modal>
 	);

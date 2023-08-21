@@ -3,7 +3,7 @@ import { SweetAlertOptions } from "sweetalert2";
 
 import { useTypedDispatch, useTypedSelector } from "../../hooks/storeHooks";
 import { useForm } from "../../hooks";
-import { setErrorMsg, swichRegisterModal } from "../../store/ui";
+import { setErrorMsg, swichAuthForm, swichRegisterModal } from "../../store/ui";
 import { isValidEmail, messageAlert } from "../../helpers";
 import { startCreatingUserWithEmailPassword } from "../../store/auth";
 
@@ -98,6 +98,10 @@ export const RegisterForm = () => {
 		dispatch(setErrorMsg(null));
 	};
 
+	const handleSwichAuthForm = (): void => {
+		dispatch(swichAuthForm());
+	};
+
 	return (
 		<Modal
 			isOpen={isOpenRegisterModal}
@@ -106,7 +110,7 @@ export const RegisterForm = () => {
 			className="authForm animate__animated animate__fadeIn"
 			overlayClassName="authForm__overlay animate__animated animate__fadeIn"
 		>
-			<h2 className="authForm__heading text-center">Register</h2>
+			<h2 className="authForm__heading text-center">Signup</h2>
 
 			<form className="form" onSubmit={handleRegister}>
 				<div className="form__inputGroup">
@@ -181,9 +185,9 @@ export const RegisterForm = () => {
 
 			<p className="authForm__footer text-center">
 				Already have an account?{" "}
-				{/* <Link to="/auth/login" className="authForm__link">
-						Iniciar sesión
-					</Link> */}
+				<span className="authForm__link" onClick={handleSwichAuthForm}>
+					Login here
+				</span>
 			</p>
 		</Modal>
 	);

@@ -29,13 +29,12 @@ export const Navbar = () => {
 
 			<div className="navbar__controls">
 				{status === "authenticated" ? (
-					<>
-						<div className="navbar__user">{displayName}</div>
-
+					<div className="navbar__user">
+						<div className="navbar__userName">{displayName}</div>
 						<button className="navbar__loginButton" onClick={handleLogout}>
 							Logout
 						</button>
-					</>
+					</div>
 				) : (
 					<button className="navbar__loginButton" onClick={handleOpenLoginModal}>
 						Login
