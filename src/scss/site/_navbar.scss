@@ -3,15 +3,21 @@
 
 .navbar {
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background-color: v.$black;
+	flex-direction: column;
 	position: fixed;
 	width: 100%;
-	padding: 1rem 2rem;
 	top: 0;
 	left: 0;
 	z-index: 99;
+
+	&__main {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		background-color: v.$black;
+		width: 100%;
+		padding: 1rem 2rem;
+	}
 
 	&__logo {
 		max-width: 16rem;
@@ -38,5 +44,41 @@
 
 	&__loginButton {
 		@include m.button(v.$crimson);
+	}
+
+	&__alert {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		background-color: v.$alert;
+		padding: 1rem 2rem;
+		color: v.$gray;
+
+		@include m.tablet {
+			flex-direction: row;
+		}
+	}
+
+	&__alertMessage {
+		margin-right: 1rem;
+	}
+
+	&__alertAction {
+		display: flex;
+		text-decoration: none;
+		color: v.$black;
+		font-weight: 700;
+		transition: 0.3s ease-in-out;
+		cursor: pointer;
+
+		&:hover {
+			cursor: pointer;
+			box-shadow: v.$black 0px 4px 4px -4px;
+		}
+	}
+
+	&__alertSpinner {
+		margin-left: 2rem;
+		@include m.spinner(1px, 2rem, v.$black);
 	}
 }

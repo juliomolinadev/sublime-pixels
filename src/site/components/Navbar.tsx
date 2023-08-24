@@ -1,12 +1,12 @@
-import { useCheckAuth, useTypedDispatch, useTypedSelector } from "../../hooks";
-import { startLogout } from "../../store/auth";
+import { useTypedDispatch, useTypedSelector } from "../../hooks";
+import { startLogout, startResendEmailVerification } from "../../store/auth";
 import { swichLoginModal } from "../../store/ui";
 import { confirmAlert } from "../../helpers";
 
 export const Navbar = () => {
-	const status = useCheckAuth();
 	const dispatch = useTypedDispatch();
-	const { displayName } = useTypedSelector((state) => state.auth);
+	const { displayName, emailVerified, status } = useTypedSelector((state) => state.auth);
+	const { isLoading } = useTypedSelector((state) => state.ui);
 
 	const handleOpenLoginModal = (): void => {
 		dispatch(swichLoginModal());
@@ -21,26 +21,44 @@ export const Navbar = () => {
 		confirmAlert(alert);
 	};
 
+	const handleResendEmailVerification = (): void => {
+		dispatch(startResendEmailVerification());
+	};
+
 	return (
 		<nav className="navbar">
-			<div className="navbar__logo">
-				<img src="../../../img/sublimePixelsLogo.png" alt="Sublime pixels logo" />
+			<div className="navbar__main">
+				<div className="navbar__logo">
+					<img src="../../../img/sublimePixelsLogo.png" alt="Sublime pixels logo" />
+				</div>
+
+				<div className="navbar__controls">
+					{status === "authenticated" ? (
+						<div className="navbar__user">
+							<div className="navbar__userName">{displayName}</div>
+							<button className="navbar__loginButton" onClick={handleLogout}>
+								Logout
+							</button>
+						</div>
+					) : (
+						<button className="navbar__loginButton" onClick={handleOpenLoginModal}>
+							Login
+						</button>
+					)}
+				</div>
 			</div>
 
-			<div className="navbar__controls">
-				{status === "authenticated" ? (
-					<div className="navbar__user">
-						<div className="navbar__userName">{displayName}</div>
-						<button className="navbar__loginButton" onClick={handleLogout}>
-							Logout
-						</button>
+			{!emailVerified && status === "authenticated" && (
+				<div className="navbar__alert">
+					<div className="navbar__alertMessage">
+						Please confirm your email account. Haven't received the confirmation email yet?
 					</div>
-				) : (
-					<button className="navbar__loginButton" onClick={handleOpenLoginModal}>
-						Login
-					</button>
-				)}
-			</div>
+					<div className="navbar__alertAction" onClick={handleResendEmailVerification}>
+						Resend confirmation email
+						{isLoading && <div className="navbar__alertSpinner"></div>}
+					</div>
+				</div>
+			)}
 		</nav>
 	);
 };

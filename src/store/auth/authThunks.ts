@@ -1,10 +1,14 @@
+import { SweetAlertOptions } from "sweetalert2";
 import { checkingCredentials, login, logout } from ".";
 import { AppDispatch } from "..";
 import {
 	loginUserWithEmailPassword,
 	logoutFirebase,
 	registerUserWithEmailPassword,
+	resendEmailVerification,
 } from "../../firebase/firebaseProviders";
+import { messageAlert } from "../../helpers";
+import { switchLoadingState } from "../ui";
 
 interface User {
 	email: string;
@@ -16,7 +20,14 @@ export const startCreatingUserWithEmailPassword = ({ email, password, displayNam
 	return async (dispatch: AppDispatch) => {
 		dispatch(checkingCredentials());
 
-		const result = await registerUserWithEmailPassword({ email, password, displayName });
+		// TODO: Use dinamic url by enviroment
+		const redirectURL = "http://localhost:3000/";
+		const result = await registerUserWithEmailPassword({
+			email,
+			password,
+			displayName,
+			redirectURL,
+		});
 
 		if (!result.ok) {
 			dispatch(logout(result.errorMessage));
@@ -48,5 +59,24 @@ export const startLogout = () => {
 		await logoutFirebase();
 
 		dispatch(logout({}));
+	};
+};
+
+export const startResendEmailVerification = () => {
+	return async (dispatch: AppDispatch) => {
+		dispatch(switchLoadingState());
+
+		// TODO: Use dinamic url by enviroment
+		const redirectURL = "http://localhost:3000/";
+		await resendEmailVerification(redirectURL);
+		dispatch(switchLoadingState());
+
+		const alert: SweetAlertOptions = {
+			title: "Verification email has been resent.",
+			text: "Please check your inbox and spam folder.",
+			icon: "success",
+		};
+
+		messageAlert(alert);
 	};
 };

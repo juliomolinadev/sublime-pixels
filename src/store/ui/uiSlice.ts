@@ -20,7 +20,7 @@ export const uiSlice = createSlice({
 	name: "ui",
 	initialState,
 	reducers: {
-		changeLoadingState: (state) => {
+		switchLoadingState: (state) => {
 			state.isLoading = !state.isLoading;
 		},
 
@@ -44,7 +44,7 @@ export const uiSlice = createSlice({
 });
 
 export const {
-	changeLoadingState,
+	switchLoadingState,
 	setErrorMsg,
 	swichRegisterModal,
 	swichLoginModal,

@@ -100,6 +100,7 @@ export const RegisterForm = () => {
 
 	const handleSwichAuthForm = (): void => {
 		dispatch(swichAuthForm());
+		dispatch(setErrorMsg(null));
 	};
 
 	return (

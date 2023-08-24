@@ -67,7 +67,7 @@ export const LoginForm = () => {
 			return false;
 		}
 
-		dispatch(setErrorMsg(""));
+		dispatch(setErrorMsg(null));
 		return true;
 	};
 
@@ -78,6 +78,7 @@ export const LoginForm = () => {
 
 	const handleSwichAuthForm = (): void => {
 		dispatch(swichAuthForm());
+		dispatch(setErrorMsg(null));
 	};
 
 	return (

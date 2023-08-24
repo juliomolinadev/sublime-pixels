@@ -1,5 +1,6 @@
 import {
 	createUserWithEmailAndPassword,
+	sendEmailVerification,
 	signInWithEmailAndPassword,
 	updateProfile,
 } from "firebase/auth";
@@ -9,9 +10,15 @@ interface User {
 	email: string;
 	password: string;
 	displayName?: string;
+	redirectURL?: string; //url to redirect after verifying email
 }
 
-export const registerUserWithEmailPassword = async ({ email, password, displayName }: User) => {
+export const registerUserWithEmailPassword = async ({
+	email,
+	password,
+	displayName,
+	redirectURL,
+}: User) => {
 	try {
 		const resp = await createUserWithEmailAndPassword(FirebaseAuth, email, password);
 		const { uid, photoURL } = resp.user;
@@ -19,6 +26,8 @@ export const registerUserWithEmailPassword = async ({ email, password, displayNa
 		if (!FirebaseAuth.currentUser) throw new Error("Null current user");
 
 		await updateProfile(FirebaseAuth.currentUser, { displayName });
+
+		if (redirectURL) await sendEmailVerification(FirebaseAuth.currentUser, { url: redirectURL });
 
 		return {
 			ok: true,
@@ -80,4 +89,19 @@ export const loginUserWithEmailPassword = async ({ email, password }: User) => {
 
 export const logoutFirebase = async () => {
 	return await FirebaseAuth.signOut();
+};
+
+export const resendEmailVerification = async (redirectURL: string) => {
+	try {
+		if (!FirebaseAuth.currentUser) throw new Error("Null current user");
+		return await sendEmailVerification(FirebaseAuth.currentUser, { url: redirectURL });
+	} catch (error) {
+		if (typeof error === "string") {
+			console.log(error);
+		}
+
+		if (error instanceof Error) {
+			console.log(error.message);
+		}
+	}
 };
