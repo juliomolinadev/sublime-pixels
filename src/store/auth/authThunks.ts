@@ -10,13 +10,17 @@ import {
 import { messageAlert } from "../../helpers";
 import { switchLoadingState } from "../ui";
 
-interface User {
+interface UserInRegister {
 	email: string;
 	password: string;
-	displayName?: string;
+	displayName: string;
 }
 
-export const startCreatingUserWithEmailPassword = ({ email, password, displayName }: User) => {
+export const startCreatingUserWithEmailPassword = ({
+	email,
+	password,
+	displayName,
+}: UserInRegister) => {
 	return async (dispatch: AppDispatch) => {
 		dispatch(checkingCredentials());
 
@@ -39,7 +43,12 @@ export const startCreatingUserWithEmailPassword = ({ email, password, displayNam
 	};
 };
 
-export const startLoginWithEmailPassword = ({ email, password }: User) => {
+interface UserInLogin {
+	email: string;
+	password: string;
+}
+
+export const startLoginWithEmailPassword = ({ email, password }: UserInLogin) => {
 	return async (dispatch: AppDispatch) => {
 		dispatch(checkingCredentials());
 
@@ -58,7 +67,7 @@ export const startLogout = () => {
 	return async (dispatch: AppDispatch) => {
 		await logoutFirebase();
 
-		dispatch(logout({}));
+		dispatch(logout(null));
 	};
 };
 

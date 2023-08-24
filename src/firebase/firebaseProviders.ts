@@ -6,11 +6,11 @@ import {
 } from "firebase/auth";
 import { FirebaseAuth } from "./firebaseConfig";
 
-interface User {
+interface UserInRegister {
 	email: string;
 	password: string;
-	displayName?: string;
-	redirectURL?: string; //url to redirect after verifying email
+	displayName: string;
+	redirectURL: string; //url to redirect after verifying email
 }
 
 export const registerUserWithEmailPassword = async ({
@@ -18,10 +18,10 @@ export const registerUserWithEmailPassword = async ({
 	password,
 	displayName,
 	redirectURL,
-}: User) => {
+}: UserInRegister) => {
 	try {
 		const resp = await createUserWithEmailAndPassword(FirebaseAuth, email, password);
-		const { uid, photoURL } = resp.user;
+		const { uid, photoURL, emailVerified } = resp.user;
 
 		if (!FirebaseAuth.currentUser) throw new Error("Null current user");
 
@@ -35,12 +35,18 @@ export const registerUserWithEmailPassword = async ({
 			email,
 			photoURL,
 			uid,
-			errorMessage: "",
+			errorMessage: null,
+			emailVerified,
 		};
 	} catch (error) {
 		const resp = {
 			ok: false,
 			errorMessage: "",
+			uid: null,
+			email: null,
+			displayName: null,
+			photoURL: null,
+			emailVerified: false,
 		};
 
 		if (typeof error === "string") {
@@ -55,7 +61,12 @@ export const registerUserWithEmailPassword = async ({
 	}
 };
 
-export const loginUserWithEmailPassword = async ({ email, password }: User) => {
+interface UserInLogin {
+	email: string;
+	password: string;
+}
+
+export const loginUserWithEmailPassword = async ({ email, password }: UserInLogin) => {
 	try {
 		const resp = await signInWithEmailAndPassword(FirebaseAuth, email, password);
 		const { uid, photoURL, displayName, emailVerified } = resp.user;
@@ -67,12 +78,17 @@ export const loginUserWithEmailPassword = async ({ email, password }: User) => {
 			photoURL,
 			uid,
 			emailVerified,
-			errorMessage: "",
+			errorMessage: null,
 		};
 	} catch (error) {
 		const resp = {
 			ok: false,
 			errorMessage: "",
+			uid: null,
+			email: null,
+			displayName: null,
+			photoURL: null,
+			emailVerified: false,
 		};
 
 		if (typeof error === "string") {
