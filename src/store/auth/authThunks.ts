@@ -58,6 +58,8 @@ export const startLoginWithEmailPassword = ({ email, password }: UserInLogin) =>
 			return result;
 		}
 
+		console.log(typeof result);
+
 		dispatch(login(result));
 		return result;
 	};

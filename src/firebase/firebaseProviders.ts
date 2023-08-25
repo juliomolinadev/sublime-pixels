@@ -6,7 +6,7 @@ import {
 } from "firebase/auth";
 import { FirebaseAuth } from "./firebaseConfig";
 
-interface UserInRegister {
+interface RegisterUserParams {
 	email: string;
 	password: string;
 	displayName: string;
@@ -18,7 +18,7 @@ export const registerUserWithEmailPassword = async ({
 	password,
 	displayName,
 	redirectURL,
-}: UserInRegister) => {
+}: RegisterUserParams) => {
 	try {
 		const resp = await createUserWithEmailAndPassword(FirebaseAuth, email, password);
 		const { uid, photoURL, emailVerified } = resp.user;
@@ -61,15 +61,15 @@ export const registerUserWithEmailPassword = async ({
 	}
 };
 
-interface UserInLogin {
+interface LoginUserParams {
 	email: string;
 	password: string;
 }
 
-export const loginUserWithEmailPassword = async ({ email, password }: UserInLogin) => {
+export const loginUserWithEmailPassword = async ({ email, password }: LoginUserParams) => {
 	try {
-		const resp = await signInWithEmailAndPassword(FirebaseAuth, email, password);
-		const { uid, photoURL, displayName, emailVerified } = resp.user;
+		const result = await signInWithEmailAndPassword(FirebaseAuth, email, password);
+		const { uid, photoURL, displayName, emailVerified } = result.user;
 
 		return {
 			ok: true,

@@ -1,6 +1,6 @@
 import { AnyAction } from "@reduxjs/toolkit";
-import { authSlice, login } from "../../../src/store/auth/authSlice";
-import { demoUser, initialState } from "../../fixtures/authFixtures";
+import { authSlice, checkingCredentials, login, logout } from "../../../src/store/auth/authSlice";
+import { authenticatedState, demoUser, initialState } from "../../fixtures/authFixtures";
 
 describe("authSlice.ts tests", () => {
 	test("should return the initial state and be called auth", () => {
@@ -23,5 +23,40 @@ describe("authSlice.ts tests", () => {
 			emailVerified: false,
 			errorMessage: null,
 		});
+	});
+
+	test("should logout with null", () => {
+		const state = authSlice.reducer(authenticatedState, logout(null));
+
+		expect(state).toEqual({
+			status: "not-authenticated",
+			uid: null,
+			email: null,
+			displayName: null,
+			photoURL: null,
+			errorMessage: null,
+			emailVerified: false,
+		});
+	});
+
+	test("should logout with message", () => {
+		const testErrorMessage = "Test error";
+
+		const state = authSlice.reducer(authenticatedState, logout(testErrorMessage));
+
+		expect(state).toEqual({
+			status: "not-authenticated",
+			uid: null,
+			email: null,
+			displayName: null,
+			photoURL: null,
+			errorMessage: testErrorMessage,
+			emailVerified: false,
+		});
+	});
+
+	test("should change status to checking", () => {
+		const state = authSlice.reducer(authenticatedState, checkingCredentials());
+		expect(state.status).toBe("checking");
 	});
 });
