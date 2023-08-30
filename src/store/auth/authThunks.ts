@@ -6,6 +6,7 @@ import {
 	logoutFirebase,
 	registerUserWithEmailPassword,
 	resendEmailVerification,
+	signInWithGoogle,
 } from "../../firebase/firebaseProviders";
 import { messageAlert } from "../../helpers";
 import { switchLoadingState } from "../ui";
@@ -15,6 +16,27 @@ interface UserInRegister {
 	password: string;
 	displayName: string;
 }
+
+export const checkingAuthentication = () => {
+	return async (dispatch: AppDispatch) => {
+		dispatch(checkingCredentials());
+	};
+};
+
+export const startGoogleSignIn = () => {
+	return async (dispatch: AppDispatch) => {
+		dispatch(checkingCredentials());
+
+		const result = await signInWithGoogle();
+		if (!result.ok) {
+			dispatch(logout(null));
+			return result;
+		}
+
+		dispatch(login(result));
+		return result;
+	};
+};
 
 export const startCreatingUserWithEmailPassword = ({
 	email,
@@ -58,8 +80,6 @@ export const startLoginWithEmailPassword = ({ email, password }: UserInLogin) =>
 			return result;
 		}
 
-		console.log(typeof result);
-
 		dispatch(login(result));
 		return result;
 	};
@@ -82,6 +102,7 @@ export const startResendEmailVerification = () => {
 		await resendEmailVerification(redirectURL);
 		dispatch(switchLoadingState());
 
+		// TODO: Send this alert to the component that uses it
 		const alert: SweetAlertOptions = {
 			title: "Verification email has been resent.",
 			text: "Please check your inbox and spam folder.",

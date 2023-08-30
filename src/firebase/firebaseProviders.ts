@@ -1,10 +1,52 @@
 import {
+	GoogleAuthProvider,
 	createUserWithEmailAndPassword,
 	sendEmailVerification,
 	signInWithEmailAndPassword,
+	signInWithPopup,
 	updateProfile,
 } from "firebase/auth";
 import { FirebaseAuth } from "./firebaseConfig";
+
+const googleProvider = new GoogleAuthProvider();
+
+export const signInWithGoogle = async () => {
+	try {
+		const result = await signInWithPopup(FirebaseAuth, googleProvider);
+		// const credentials = GoogleAuthProvider.credentialFromResult(result);
+		const { displayName, email, photoURL, uid, emailVerified } = result.user;
+
+		return {
+			ok: true,
+			displayName,
+			email,
+			photoURL,
+			uid,
+			errorMessage: null,
+			emailVerified,
+		};
+	} catch (error) {
+		const resp = {
+			ok: false,
+			errorMessage: "",
+			uid: null,
+			email: null,
+			displayName: null,
+			photoURL: null,
+			emailVerified: false,
+		};
+
+		if (typeof error === "string") {
+			resp.errorMessage = error;
+		}
+
+		if (error instanceof Error) {
+			resp.errorMessage = error.message;
+		}
+
+		return resp;
+	}
+};
 
 interface RegisterUserParams {
 	email: string;
