@@ -2,7 +2,7 @@ import Modal from "react-modal";
 
 import { useTypedDispatch, useTypedSelector } from "../../hooks/storeHooks";
 import { useForm } from "../../hooks";
-import { setErrorMsg, swichAuthForm, swichLoginModal } from "../../store/ui";
+import { setErrorMsg, switchAuthForm, switchLoginModal } from "../../store/ui";
 import { isValidEmail } from "../../helpers";
 import { startLoginWithEmailPassword } from "../../store/auth";
 
@@ -51,7 +51,7 @@ export const LoginForm = () => {
 
 			if (result.ok) {
 				resetForm();
-				dispatch(swichLoginModal());
+				dispatch(switchLoginModal());
 			}
 		}
 	};
@@ -72,12 +72,12 @@ export const LoginForm = () => {
 	};
 
 	const closeModal = (): void => {
-		dispatch(swichLoginModal());
+		dispatch(switchLoginModal());
 		dispatch(setErrorMsg(null));
 	};
 
-	const handleSwichAuthForm = (): void => {
-		dispatch(swichAuthForm());
+	const handleSwitchAuthForm = (): void => {
+		dispatch(switchAuthForm());
 		dispatch(setErrorMsg(null));
 	};
 
@@ -135,7 +135,7 @@ export const LoginForm = () => {
 
 			<p className="authForm__footer text-center">
 				You have not yet registered?
-				<span className="authForm__link" onClick={handleSwichAuthForm}>
+				<span className="authForm__link" onClick={handleSwitchAuthForm}>
 					Sign up here
 				</span>
 			</p>

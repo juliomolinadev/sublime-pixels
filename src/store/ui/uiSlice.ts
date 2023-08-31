@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../store";
+// import { RootState } from "../store";
 
 interface UiSliceState {
 	errorMsg: string | null;
@@ -24,31 +24,31 @@ export const uiSlice = createSlice({
 			state.isLoading = !state.isLoading;
 		},
 
+		switchRegisterModal: (state) => {
+			state.isOpenRegisterModal = !state.isOpenRegisterModal;
+		},
+
+		switchLoginModal: (state) => {
+			state.isOpenLoginModal = !state.isOpenLoginModal;
+		},
+
+		switchAuthForm: (state) => {
+			state.isOpenLoginModal = !state.isOpenLoginModal;
+			state.isOpenRegisterModal = !state.isOpenRegisterModal;
+		},
+
 		setErrorMsg: (state, action: PayloadAction<string | null>) => {
 			state.errorMsg = action.payload;
-		},
-
-		swichRegisterModal: (state) => {
-			state.isOpenRegisterModal = !state.isOpenRegisterModal;
-		},
-
-		swichLoginModal: (state) => {
-			state.isOpenLoginModal = !state.isOpenLoginModal;
-		},
-
-		swichAuthForm: (state) => {
-			state.isOpenLoginModal = !state.isOpenLoginModal;
-			state.isOpenRegisterModal = !state.isOpenRegisterModal;
 		},
 	},
 });
 
 export const {
 	switchLoadingState,
+	switchRegisterModal,
+	switchLoginModal,
+	switchAuthForm,
 	setErrorMsg,
-	swichRegisterModal,
-	swichLoginModal,
-	swichAuthForm,
 } = uiSlice.actions;
-export const selectCount = (state: RootState) => state.ui.errorMsg;
-export default uiSlice.reducer;
+// export const selectCount = (state: RootState) => state.ui.errorMsg;
+// export default uiSlice.reducer;

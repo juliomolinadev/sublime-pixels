@@ -1,20 +1,20 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, test } from "vitest";
 
 import { AnyAction } from "@reduxjs/toolkit";
 import { authSlice, checkingCredentials, login, logout } from "../../../src/store/auth/authSlice";
-import { authenticatedState, demoUser, initialState } from "../../fixtures/authFixtures";
+import { authenticatedState, demoUser, authInitialState } from "../../fixtures/authFixtures";
 
 describe("authSlice.ts tests", () => {
-	it("should return the initial state and be called auth", () => {
+	test("should return the initial state and be called auth", () => {
 		const action: AnyAction = { type: "" };
-		const state = authSlice.reducer(initialState, action);
+		const state = authSlice.reducer(authInitialState, action);
 
 		expect(authSlice.name).toBe("auth");
-		expect(state).toEqual(initialState);
+		expect(state).toEqual(authInitialState);
 	});
 
-	it("should authenticate", () => {
-		const state = authSlice.reducer(initialState, login(demoUser));
+	test("should authenticate", () => {
+		const state = authSlice.reducer(authInitialState, login(demoUser));
 
 		expect(state).toEqual({
 			status: "authenticated",
@@ -27,7 +27,7 @@ describe("authSlice.ts tests", () => {
 		});
 	});
 
-	it("should logout with null", () => {
+	test("should logout with null", () => {
 		const state = authSlice.reducer(authenticatedState, logout(null));
 
 		expect(state).toEqual({
@@ -41,7 +41,7 @@ describe("authSlice.ts tests", () => {
 		});
 	});
 
-	it("should logout with message", () => {
+	test("should logout with message", () => {
 		const testErrorMessage = "Test error";
 
 		const state = authSlice.reducer(authenticatedState, logout(testErrorMessage));
@@ -57,7 +57,7 @@ describe("authSlice.ts tests", () => {
 		});
 	});
 
-	it("should change status to checking", () => {
+	test("should change status to checking", () => {
 		const state = authSlice.reducer(authenticatedState, checkingCredentials());
 		expect(state.status).toBe("checking");
 	});

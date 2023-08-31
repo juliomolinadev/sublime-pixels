@@ -8,7 +8,7 @@ interface AuthState {
 	emailVerified: boolean;
 }
 
-export const initialState: AuthState = {
+export const authInitialState: AuthState = {
 	status: "checking", //"not-authenticated", "authenticated",
 	uid: null,
 	email: null,

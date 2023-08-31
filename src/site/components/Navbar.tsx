@@ -1,6 +1,6 @@
 import { useTypedDispatch, useTypedSelector } from "../../hooks";
 import { startLogout, startResendEmailVerification } from "../../store/auth";
-import { swichLoginModal } from "../../store/ui";
+import { switchLoginModal } from "../../store/ui";
 import { confirmAlert } from "../../helpers";
 
 export const Navbar = () => {
@@ -9,7 +9,7 @@ export const Navbar = () => {
 	const { isLoading } = useTypedSelector((state) => state.ui);
 
 	const handleOpenLoginModal = (): void => {
-		dispatch(swichLoginModal());
+		dispatch(switchLoginModal());
 	};
 
 	const handleLogout = (): void => {

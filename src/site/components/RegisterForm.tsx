@@ -3,7 +3,7 @@ import { SweetAlertOptions } from "sweetalert2";
 
 import { useTypedDispatch, useTypedSelector } from "../../hooks/storeHooks";
 import { useForm } from "../../hooks";
-import { setErrorMsg, swichAuthForm, swichRegisterModal } from "../../store/ui";
+import { setErrorMsg, switchAuthForm, switchRegisterModal } from "../../store/ui";
 import { isValidEmail, messageAlert } from "../../helpers";
 import { startCreatingUserWithEmailPassword } from "../../store/auth";
 
@@ -49,7 +49,7 @@ export const RegisterForm = () => {
 			}
 
 			if (!result.ok && result.errorMessage === emailRegisteredMessage) {
-				dispatch(swichRegisterModal());
+				dispatch(switchRegisterModal());
 
 				const alert: SweetAlertOptions = {
 					title: "The email is already registered",
@@ -61,7 +61,7 @@ export const RegisterForm = () => {
 
 			if (result.ok) {
 				resetForm();
-				dispatch(swichRegisterModal());
+				dispatch(switchRegisterModal());
 
 				const alert: SweetAlertOptions = {
 					title: "Please verify your email address",
@@ -94,12 +94,12 @@ export const RegisterForm = () => {
 	};
 
 	const closeModal = (): void => {
-		dispatch(swichRegisterModal());
+		dispatch(switchRegisterModal());
 		dispatch(setErrorMsg(null));
 	};
 
-	const handleSwichAuthForm = (): void => {
-		dispatch(swichAuthForm());
+	const handleSwitchAuthForm = (): void => {
+		dispatch(switchAuthForm());
 		dispatch(setErrorMsg(null));
 	};
 
@@ -186,7 +186,7 @@ export const RegisterForm = () => {
 
 			<p className="authForm__footer text-center">
 				Already have an account?{" "}
-				<span className="authForm__link" onClick={handleSwichAuthForm}>
+				<span className="authForm__link" onClick={handleSwitchAuthForm}>
 					Login here
 				</span>
 			</p>
