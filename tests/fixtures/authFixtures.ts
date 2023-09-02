@@ -4,7 +4,7 @@ interface AuthState {
 	email: string | null;
 	displayName: string | null;
 	photoURL: string | null;
-	errorMessage: string | null;
+	authErrorMessage: string | null;
 	emailVerified: boolean;
 }
 
@@ -14,7 +14,7 @@ export const authInitialState: AuthState = {
 	email: null,
 	displayName: null,
 	photoURL: null,
-	errorMessage: null,
+	authErrorMessage: null,
 	emailVerified: false,
 };
 
@@ -24,7 +24,7 @@ export const authenticatedState: AuthState = {
 	email: "demoUser@email.com",
 	displayName: "Demo User",
 	photoURL: "https://img.jpg",
-	errorMessage: null,
+	authErrorMessage: null,
 	emailVerified: false,
 };
 
@@ -34,7 +34,7 @@ export const notAuthenticatedState: AuthState = {
 	email: null,
 	displayName: null,
 	photoURL: null,
-	errorMessage: null,
+	authErrorMessage: null,
 	emailVerified: false,
 };
 

@@ -9,13 +9,7 @@ import {
 	signInWithGoogle,
 } from "../../firebase/firebaseProviders";
 import { messageAlert } from "../../helpers";
-import { switchLoadingState } from "../ui";
-
-interface UserInRegister {
-	email: string;
-	password: string;
-	displayName: string;
-}
+import { setUiErrorMessage, switchLoadingState } from "../ui";
 
 export const checkingAuthentication = () => {
 	return async (dispatch: AppDispatch) => {
@@ -38,6 +32,12 @@ export const startGoogleSignIn = () => {
 	};
 };
 
+interface UserInRegister {
+	email: string;
+	password: string;
+	displayName: string;
+}
+
 export const startCreatingUserWithEmailPassword = ({
 	email,
 	password,
@@ -56,7 +56,7 @@ export const startCreatingUserWithEmailPassword = ({
 		});
 
 		if (!result.ok) {
-			dispatch(logout(result.errorMessage));
+			dispatch(logout(result.authErrorMessage));
 			return result;
 		}
 
@@ -76,7 +76,29 @@ export const startLoginWithEmailPassword = ({ email, password }: UserInLogin) =>
 
 		const result = await loginUserWithEmailPassword({ email, password });
 		if (!result.ok) {
-			dispatch(logout(result.errorMessage));
+			const emailErrorMessage = "Firebase: Error (auth/user-not-found).";
+			const passwordErrorMessage = "Firebase: Error (auth/wrong-password).";
+			const networkErrorMessage = "Firebase: Error (auth/network-request-failed).";
+
+			const isCredentialsError =
+				result.authErrorMessage === emailErrorMessage ||
+				result.authErrorMessage === passwordErrorMessage;
+
+			const isNetworkError = result.authErrorMessage === networkErrorMessage;
+
+			if (!result.ok && isNetworkError) {
+				dispatch(
+					setUiErrorMessage(
+						"There is a network error, please check your connection or try again later.",
+					),
+				);
+			}
+
+			if (!result.ok && isCredentialsError) {
+				dispatch(setUiErrorMessage("There is an error in your email or password"));
+			}
+
+			dispatch(logout(result.authErrorMessage));
 			return result;
 		}
 

@@ -3,7 +3,7 @@ import { SweetAlertOptions } from "sweetalert2";
 
 import { useTypedDispatch, useTypedSelector } from "../../hooks/storeHooks";
 import { useForm } from "../../hooks";
-import { setErrorMsg, switchAuthForm, switchRegisterModal } from "../../store/ui";
+import { setUiErrorMessage, switchAuthForm, switchRegisterModal } from "../../store/ui";
 import { isValidEmail, messageAlert } from "../../helpers";
 import { startCreatingUserWithEmailPassword } from "../../store/auth";
 
@@ -17,7 +17,7 @@ interface FormData {
 }
 
 export const RegisterForm = () => {
-	const { errorMsg, isOpenRegisterModal } = useTypedSelector((state) => state.ui);
+	const { uiErrorMessage, isOpenRegisterModal } = useTypedSelector((state) => state.ui);
 	const { status } = useTypedSelector((state) => state.auth);
 
 	const dispatch = useTypedDispatch();
@@ -40,15 +40,17 @@ export const RegisterForm = () => {
 			const emailRegisteredMessage = "Firebase: Error (auth/email-already-in-use).";
 			const networkErrorMessage = "Firebase: Error (auth/network-request-failed).";
 
-			const isNetworkError = result.errorMessage === networkErrorMessage;
+			const isNetworkError = result.authErrorMessage === networkErrorMessage;
 
 			if (!result.ok && isNetworkError) {
 				dispatch(
-					setErrorMsg("There is a network error, please check your connection or try again later."),
+					setUiErrorMessage(
+						"There is a network error, please check your connection or try again later.",
+					),
 				);
 			}
 
-			if (!result.ok && result.errorMessage === emailRegisteredMessage) {
+			if (!result.ok && result.authErrorMessage === emailRegisteredMessage) {
 				dispatch(switchRegisterModal());
 
 				const alert: SweetAlertOptions = {
@@ -76,31 +78,31 @@ export const RegisterForm = () => {
 
 	const isFormValid = () => {
 		if (name.trim().length === 0) {
-			dispatch(setErrorMsg("Enter username"));
+			dispatch(setUiErrorMessage("Enter username"));
 			return false;
 		} else if (!isValidEmail(email)) {
-			dispatch(setErrorMsg("Invalid email"));
+			dispatch(setUiErrorMessage("Invalid email"));
 			return false;
 		} else if (password.length < 8) {
-			dispatch(setErrorMsg("The password must contain at least 8 characters"));
+			dispatch(setUiErrorMessage("The password must contain at least 8 characters"));
 			return false;
 		} else if (password !== password2) {
-			dispatch(setErrorMsg("Both passwords must be the same"));
+			dispatch(setUiErrorMessage("Both passwords must be the same"));
 			return false;
 		}
 
-		dispatch(setErrorMsg(""));
+		dispatch(setUiErrorMessage(""));
 		return true;
 	};
 
 	const closeModal = (): void => {
 		dispatch(switchRegisterModal());
-		dispatch(setErrorMsg(null));
+		dispatch(setUiErrorMessage(null));
 	};
 
 	const handleSwitchAuthForm = (): void => {
 		dispatch(switchAuthForm());
-		dispatch(setErrorMsg(null));
+		dispatch(setUiErrorMessage(null));
 	};
 
 	return (
@@ -175,8 +177,8 @@ export const RegisterForm = () => {
 					/>
 				</div>
 
-				{errorMsg && (
-					<div className="form__error animate__animated animate__fadeInDown">{errorMsg}</div>
+				{uiErrorMessage && (
+					<div className="form__error animate__animated animate__fadeInDown">{uiErrorMessage}</div>
 				)}
 
 				{status === "checking" && <div className="form__spinner"></div>}

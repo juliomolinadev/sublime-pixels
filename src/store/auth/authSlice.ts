@@ -7,7 +7,7 @@ const initialState: AuthState = {
 	email: null,
 	displayName: null,
 	photoURL: null,
-	errorMessage: null,
+	authErrorMessage: null,
 	emailVerified: false,
 };
 
@@ -17,7 +17,7 @@ interface AuthState {
 	email: string | null;
 	displayName: string | null;
 	photoURL: string | null;
-	errorMessage: string | null;
+	authErrorMessage: string | null;
 	emailVerified: boolean;
 }
 
@@ -40,7 +40,7 @@ export const authSlice = createSlice({
 			state.displayName = action.payload.displayName;
 			state.photoURL = action.payload.photoURL;
 			state.emailVerified = action.payload.emailVerified;
-			state.errorMessage = null;
+			state.authErrorMessage = null;
 		},
 
 		logout: (state, action: PayloadAction<string | null>) => {
@@ -50,7 +50,7 @@ export const authSlice = createSlice({
 			state.displayName = null;
 			state.photoURL = null;
 			state.emailVerified = false;
-			state.errorMessage = action.payload;
+			state.authErrorMessage = action.payload;
 		},
 
 		checkingCredentials: (state) => {

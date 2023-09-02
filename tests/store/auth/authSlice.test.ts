@@ -23,7 +23,7 @@ describe("authSlice.ts tests", () => {
 			displayName: demoUser.displayName,
 			photoURL: demoUser.photoURL,
 			emailVerified: false,
-			errorMessage: null,
+			authErrorMessage: null,
 		});
 	});
 
@@ -36,7 +36,7 @@ describe("authSlice.ts tests", () => {
 			email: null,
 			displayName: null,
 			photoURL: null,
-			errorMessage: null,
+			authErrorMessage: null,
 			emailVerified: false,
 		});
 	});
@@ -52,7 +52,7 @@ describe("authSlice.ts tests", () => {
 			email: null,
 			displayName: null,
 			photoURL: null,
-			errorMessage: testErrorMessage,
+			authErrorMessage: testErrorMessage,
 			emailVerified: false,
 		});
 	});

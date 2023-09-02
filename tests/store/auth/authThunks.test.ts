@@ -34,7 +34,7 @@ describe("authThunks.ts tests", () => {
 	});
 
 	it("should call checkingCredentials and login (startGoogleSignIn success)", async () => {
-		const loginResponse = { ok: true, ...demoUser, errorMessage: null };
+		const loginResponse = { ok: true, ...demoUser, authErrorMessage: null };
 
 		await signInWithGoogle.mockResolvedValue(loginResponse);
 		await startGoogleSignIn()(dispatch);
@@ -54,7 +54,7 @@ describe("authThunks.ts tests", () => {
 	});
 
 	it("should call checkingCredentials and login (startLoginWithEmailPassword success)", async () => {
-		const loginResponse = { ok: true, ...demoUser, errorMessage: null };
+		const loginResponse = { ok: true, ...demoUser, authErrorMessage: null };
 		const formData = { email: demoUser.email, password: "12345678" };
 
 		await loginUserWithEmailPassword.mockResolvedValue(loginResponse);
@@ -65,18 +65,18 @@ describe("authThunks.ts tests", () => {
 	});
 
 	it("should call checkingCredentials and logout (startLoginWithEmailPassword fail)", async () => {
-		const loginResponse = { ok: false, errorMessage: "Auth error" };
+		const loginResponse = { ok: false, authErrorMessage: "Auth error" };
 		const formData = { email: demoUser.email, password: "12345678" };
 
 		await loginUserWithEmailPassword.mockResolvedValue(loginResponse);
 		await startLoginWithEmailPassword(formData)(dispatch);
 
 		expect(dispatch).toHaveBeenCalledWith(checkingCredentials());
-		expect(dispatch).toHaveBeenCalledWith(logout(loginResponse.errorMessage));
+		expect(dispatch).toHaveBeenCalledWith(logout(loginResponse.authErrorMessage));
 	});
 
 	it("should call checkingCredentials and login (startCreatingUserWithEmailPassword success)", async () => {
-		const loginResponse = { ok: true, ...demoUser, errorMessage: null };
+		const loginResponse = { ok: true, ...demoUser, authErrorMessage: null };
 		const formData = { email: demoUser.email, password: "12345678", displayName: "New User" };
 
 		await registerUserWithEmailPassword.mockResolvedValue(loginResponse);
@@ -87,14 +87,14 @@ describe("authThunks.ts tests", () => {
 	});
 
 	it("should call checkingCredentials and logout (startCreatingUserWithEmailPassword fail)", async () => {
-		const loginResponse = { ok: false, errorMessage: "Auth error" };
+		const loginResponse = { ok: false, authErrorMessage: "Auth error" };
 		const formData = { email: demoUser.email, password: "12345678", displayName: "New User" };
 
 		await registerUserWithEmailPassword.mockResolvedValue(loginResponse);
 		await startCreatingUserWithEmailPassword(formData)(dispatch);
 
 		expect(dispatch).toHaveBeenCalledWith(checkingCredentials());
-		expect(dispatch).toHaveBeenCalledWith(logout(loginResponse.errorMessage));
+		expect(dispatch).toHaveBeenCalledWith(logout(loginResponse.authErrorMessage));
 	});
 
 	it("should call logoutFirebase and logout (startLogout)", async () => {

@@ -2,7 +2,7 @@ import { describe, expect, test } from "vitest";
 import { AnyAction } from "@reduxjs/toolkit";
 
 import {
-	setErrorMsg,
+	setUiErrorMessage,
 	switchAuthForm,
 	switchLoadingState,
 	switchLoginModal,
@@ -51,8 +51,8 @@ describe("uiSlice.ts tests", () => {
 
 	test("should set error message", () => {
 		const testError = "Test error";
-		const state = uiSlice.reducer(uiInitialState, setErrorMsg(testError));
+		const state = uiSlice.reducer(uiInitialState, setUiErrorMessage(testError));
 
-		expect(state).toEqual({ ...uiInitialState, errorMsg: testError });
+		expect(state).toEqual({ ...uiInitialState, uiErrorMessage: testError });
 	});
 });

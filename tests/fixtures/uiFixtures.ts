@@ -1,33 +1,33 @@
 interface UiState {
-	errorMsg: string | null;
+	uiErrorMessage: string | null;
 	isLoading: boolean;
 	isOpenRegisterModal: boolean;
 	isOpenLoginModal: boolean;
 }
 
 export const uiInitialState: UiState = {
-	errorMsg: null,
+	uiErrorMessage: null,
 	isLoading: false,
 	isOpenRegisterModal: false,
 	isOpenLoginModal: false,
 };
 
 export const uiLoadingState: UiState = {
-	errorMsg: null,
+	uiErrorMessage: null,
 	isLoading: true,
 	isOpenRegisterModal: false,
 	isOpenLoginModal: false,
 };
 
 export const openRegisterModalState: UiState = {
-	errorMsg: null,
+	uiErrorMessage: null,
 	isLoading: false,
 	isOpenRegisterModal: true,
 	isOpenLoginModal: false,
 };
 
 export const openLoginModalState: UiState = {
-	errorMsg: null,
+	uiErrorMessage: null,
 	isLoading: false,
 	isOpenRegisterModal: false,
 	isOpenLoginModal: true,

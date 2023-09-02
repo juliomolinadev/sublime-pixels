@@ -22,13 +22,13 @@ export const signInWithGoogle = async () => {
 			email,
 			photoURL,
 			uid,
-			errorMessage: null,
+			authErrorMessage: null,
 			emailVerified,
 		};
 	} catch (error) {
 		const resp = {
 			ok: false,
-			errorMessage: "",
+			authErrorMessage: "",
 			uid: null,
 			email: null,
 			displayName: null,
@@ -37,11 +37,11 @@ export const signInWithGoogle = async () => {
 		};
 
 		if (typeof error === "string") {
-			resp.errorMessage = error;
+			resp.authErrorMessage = error;
 		}
 
 		if (error instanceof Error) {
-			resp.errorMessage = error.message;
+			resp.authErrorMessage = error.message;
 		}
 
 		return resp;
@@ -77,13 +77,13 @@ export const registerUserWithEmailPassword = async ({
 			email,
 			photoURL,
 			uid,
-			errorMessage: null,
+			authErrorMessage: null,
 			emailVerified,
 		};
 	} catch (error) {
 		const resp = {
 			ok: false,
-			errorMessage: "",
+			authErrorMessage: "",
 			uid: null,
 			email: null,
 			displayName: null,
@@ -92,11 +92,11 @@ export const registerUserWithEmailPassword = async ({
 		};
 
 		if (typeof error === "string") {
-			resp.errorMessage = error;
+			resp.authErrorMessage = error;
 		}
 
 		if (error instanceof Error) {
-			resp.errorMessage = error.message;
+			resp.authErrorMessage = error.message;
 		}
 
 		return resp;
@@ -120,12 +120,12 @@ export const loginUserWithEmailPassword = async ({ email, password }: LoginUserP
 			photoURL,
 			uid,
 			emailVerified,
-			errorMessage: null,
+			authErrorMessage: null,
 		};
 	} catch (error) {
 		const resp = {
 			ok: false,
-			errorMessage: "",
+			authErrorMessage: "",
 			uid: null,
 			email: null,
 			displayName: null,
@@ -134,11 +134,11 @@ export const loginUserWithEmailPassword = async ({ email, password }: LoginUserP
 		};
 
 		if (typeof error === "string") {
-			resp.errorMessage = error;
+			resp.authErrorMessage = error;
 		}
 
 		if (error instanceof Error) {
-			resp.errorMessage = error.message;
+			resp.authErrorMessage = error.message;
 		}
 
 		return resp;

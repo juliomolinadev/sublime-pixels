@@ -2,11 +2,12 @@ import Modal from "react-modal";
 
 import { useTypedDispatch, useTypedSelector } from "../../hooks/storeHooks";
 import { useForm } from "../../hooks";
-import { setErrorMsg, switchAuthForm, switchLoginModal } from "../../store/ui";
+import { setUiErrorMessage, switchAuthForm, switchLoginModal } from "../../store/ui";
 import { isValidEmail } from "../../helpers";
 import { startLoginWithEmailPassword } from "../../store/auth";
 
-Modal.setAppElement("#root");
+// Modal.setAppElement("#root");
+if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
 interface FormData {
 	email: string;
@@ -14,7 +15,7 @@ interface FormData {
 }
 
 export const LoginForm = () => {
-	const { errorMsg, isOpenLoginModal } = useTypedSelector((state) => state.ui);
+	const { uiErrorMessage, isOpenLoginModal } = useTypedSelector((state) => state.ui);
 	const { status } = useTypedSelector((state) => state.auth);
 
 	const dispatch = useTypedDispatch();
@@ -28,28 +29,9 @@ export const LoginForm = () => {
 		e.preventDefault();
 
 		if (isFormValid()) {
-			const result = await dispatch(startLoginWithEmailPassword({ email, password }));
+			await dispatch(startLoginWithEmailPassword({ email, password }));
 
-			const emaiErrorMessage = "Firebase: Error (auth/user-not-found).";
-			const passwordErrorMessage = "Firebase: Error (auth/wrong-password).";
-			const networkErrorMessage = "Firebase: Error (auth/network-request-failed).";
-
-			const isCredentialsError =
-				result.errorMessage === emaiErrorMessage || result.errorMessage === passwordErrorMessage;
-
-			const isNetworkError = result.errorMessage === networkErrorMessage;
-
-			if (!result.ok && isNetworkError) {
-				dispatch(
-					setErrorMsg("There is a network error, please check your connection or try again later."),
-				);
-			}
-
-			if (!result.ok && isCredentialsError) {
-				dispatch(setErrorMsg("There is an error in your email or password"));
-			}
-
-			if (result.ok) {
+			if (status === "authenticated") {
 				resetForm();
 				dispatch(switchLoginModal());
 			}
@@ -58,27 +40,27 @@ export const LoginForm = () => {
 
 	const isFormValid = () => {
 		if (!isValidEmail(email)) {
-			dispatch(setErrorMsg("Invalid email"));
+			dispatch(setUiErrorMessage("Invalid email"));
 			return false;
 		}
 
 		if (password.length === 0) {
-			dispatch(setErrorMsg("Enter your password"));
+			dispatch(setUiErrorMessage("Enter your password"));
 			return false;
 		}
 
-		dispatch(setErrorMsg(null));
+		dispatch(setUiErrorMessage(null));
 		return true;
 	};
 
 	const closeModal = (): void => {
 		dispatch(switchLoginModal());
-		dispatch(setErrorMsg(null));
+		dispatch(setUiErrorMessage(null));
 	};
 
 	const handleSwitchAuthForm = (): void => {
 		dispatch(switchAuthForm());
-		dispatch(setErrorMsg(null));
+		dispatch(setUiErrorMessage(null));
 	};
 
 	return (
@@ -88,6 +70,7 @@ export const LoginForm = () => {
 			contentLabel="Example Modal"
 			className="authForm animate__animated animate__fadeIn"
 			overlayClassName="authForm__overlay animate__animated animate__fadeIn"
+			ariaHideApp={process.env.NODE_ENV !== "test"}
 		>
 			<h2 className="authForm__heading text-center">Login</h2>
 
@@ -114,6 +97,7 @@ export const LoginForm = () => {
 					</label>
 					<input
 						id="password"
+						aria-label="passwordInput"
 						type="password"
 						className="form__input"
 						placeholder="Your password"
@@ -124,18 +108,18 @@ export const LoginForm = () => {
 					/>
 				</div>
 
-				{errorMsg && (
-					<div className="form__error animate__animated animate__fadeInDown">{errorMsg}</div>
+				{uiErrorMessage && (
+					<div className="form__error animate__animated animate__fadeInDown">{uiErrorMessage}</div>
 				)}
 
 				{status === "checking" && <div className="form__spinner"></div>}
 
-				<input type="submit" className="form__button" value="Submit" />
+				<input type="submit" className="form__button" value="Submit" aria-label="loginButton" />
 			</form>
 
 			<p className="authForm__footer text-center">
 				You have not yet registered?
-				<span className="authForm__link" onClick={handleSwitchAuthForm}>
+				<span className="authForm__link" onClick={handleSwitchAuthForm} aria-label="signUpLink">
 					Sign up here
 				</span>
 			</p>

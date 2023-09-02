@@ -3,14 +3,14 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 // import { RootState } from "../store";
 
 interface UiSliceState {
-	errorMsg: string | null;
+	uiErrorMessage: string | null;
 	isLoading: boolean;
 	isOpenRegisterModal: boolean;
 	isOpenLoginModal: boolean;
 }
 
 const initialState: UiSliceState = {
-	errorMsg: null,
+	uiErrorMessage: null,
 	isLoading: false,
 	isOpenRegisterModal: false,
 	isOpenLoginModal: false,
@@ -37,8 +37,8 @@ export const uiSlice = createSlice({
 			state.isOpenRegisterModal = !state.isOpenRegisterModal;
 		},
 
-		setErrorMsg: (state, action: PayloadAction<string | null>) => {
-			state.errorMsg = action.payload;
+		setUiErrorMessage: (state, action: PayloadAction<string | null>) => {
+			state.uiErrorMessage = action.payload;
 		},
 	},
 });
@@ -48,7 +48,7 @@ export const {
 	switchRegisterModal,
 	switchLoginModal,
 	switchAuthForm,
-	setErrorMsg,
+	setUiErrorMessage,
 } = uiSlice.actions;
 // export const selectCount = (state: RootState) => state.ui.errorMsg;
 // export default uiSlice.reducer;
