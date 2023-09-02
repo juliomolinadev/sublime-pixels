@@ -7,7 +7,7 @@ import { LoginForm } from "../../../src/site/components/LoginForm";
 import { openLoginModalState } from "../../fixtures/uiFixtures";
 
 const mockStartLoginWithEmailPassword = vi.fn();
-vi.mock("../../../src/store/auth/authThunks", () => ({
+vi.mock("../../../src/store/auth/thunks/startLoginWithEmailPassword", () => ({
 	startLoginWithEmailPassword: () => mockStartLoginWithEmailPassword,
 }));
 
