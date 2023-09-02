@@ -33,7 +33,7 @@ export const startLoginWithEmailPassword = ({ email, password }: UserInLogin) =>
 			}
 
 			if (!result.ok && isCredentialsError) {
-				dispatch(setUiErrorMessage("There is an error in your email or password"));
+				dispatch(setUiErrorMessage("There is an error in your email or password."));
 			}
 
 			dispatch(logout(result.authErrorMessage));
