@@ -5,6 +5,7 @@ import { useForm } from "../../hooks";
 import { setUiErrorMessage, switchAuthForm, switchLoginModal } from "../../store/ui";
 import { isValidEmail } from "../../helpers";
 import { startLoginWithEmailPassword } from "../../store/auth";
+import { formErrorMessages } from "../../assets/errorMessages";
 
 // Modal.setAppElement("#root");
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
@@ -40,12 +41,12 @@ export const LoginForm = () => {
 
 	const isFormValid = () => {
 		if (!isValidEmail(email)) {
-			dispatch(setUiErrorMessage("Invalid email"));
+			dispatch(setUiErrorMessage(formErrorMessages.emailError));
 			return false;
 		}
 
 		if (password.length === 0) {
-			dispatch(setUiErrorMessage("Enter your password"));
+			dispatch(setUiErrorMessage(formErrorMessages.passwordError));
 			return false;
 		}
 

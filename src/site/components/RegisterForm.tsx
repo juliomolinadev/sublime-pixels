@@ -6,6 +6,7 @@ import { useForm } from "../../hooks";
 import { setUiErrorMessage, switchAuthForm, switchRegisterModal } from "../../store/ui";
 import { isValidEmail, messageAlert } from "../../helpers";
 import { startCreatingUserWithEmailPassword } from "../../store/auth";
+import { formErrorMessages } from "../../assets/errorMessages";
 
 Modal.setAppElement("#root");
 
@@ -78,16 +79,16 @@ export const RegisterForm = () => {
 
 	const isFormValid = () => {
 		if (name.trim().length === 0) {
-			dispatch(setUiErrorMessage("Enter username"));
+			dispatch(setUiErrorMessage(formErrorMessages.userNameError));
 			return false;
 		} else if (!isValidEmail(email)) {
-			dispatch(setUiErrorMessage("Invalid email"));
+			dispatch(setUiErrorMessage(formErrorMessages.emailError));
 			return false;
 		} else if (password.length < 8) {
-			dispatch(setUiErrorMessage("The password must contain at least 8 characters"));
+			dispatch(setUiErrorMessage(formErrorMessages.shortPasswordError));
 			return false;
 		} else if (password !== password2) {
-			dispatch(setUiErrorMessage("Both passwords must be the same"));
+			dispatch(setUiErrorMessage(formErrorMessages.confirmPasswordError));
 			return false;
 		}
 

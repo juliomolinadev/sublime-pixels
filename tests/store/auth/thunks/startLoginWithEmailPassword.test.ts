@@ -8,6 +8,7 @@ import {
 	startLoginWithEmailPassword,
 } from "../../../../src/store/auth";
 import { setUiErrorMessage } from "../../../../src/store/ui";
+import { authResponsesMessages, uiErrorMessages } from "../../../../src/assets/errorMessages";
 
 vi.mock("../../../../src/firebase/firebaseProviders");
 
@@ -39,49 +40,42 @@ describe("startLoginWithEmailPassword thunk tests", () => {
 		expect(dispatch).toHaveBeenCalledWith(logout(loginResponse.authErrorMessage));
 	});
 
-	test("should dispatch network error message", async () => {
-		const loginResponse = {
-			ok: false,
-			authErrorMessage: "Firebase: Error (auth/network-request-failed).",
-		};
-		const formData = { email: demoUser.email, password: "12345678" };
-
-		const uiErrorMessage =
-			"There is a network error, please check your connection or try again later.";
-
-		await loginUserWithEmailPassword.mockResolvedValue(loginResponse);
-		await startLoginWithEmailPassword(formData)(dispatch);
-
-		expect(dispatch).toHaveBeenCalledWith(setUiErrorMessage(uiErrorMessage));
-	});
-
 	test("should dispatch credentials error message (wrong email case)", async () => {
 		const loginResponse = {
 			ok: false,
-			authErrorMessage: "Firebase: Error (auth/user-not-found).",
+			authErrorMessage: authResponsesMessages.emailError,
 		};
 		const formData = { email: demoUser.email, password: "12345678" };
-
-		const uiErrorMessage = "There is an error in your email or password.";
 
 		await loginUserWithEmailPassword.mockResolvedValue(loginResponse);
 		await startLoginWithEmailPassword(formData)(dispatch);
 
-		expect(dispatch).toHaveBeenCalledWith(setUiErrorMessage(uiErrorMessage));
+		expect(dispatch).toHaveBeenCalledWith(setUiErrorMessage(uiErrorMessages.credentialError));
 	});
 
 	test("should dispatch credentials error message (wrong password case)", async () => {
 		const loginResponse = {
 			ok: false,
-			authErrorMessage: "Firebase: Error (auth/wrong-password).",
+			authErrorMessage: authResponsesMessages.passwordError,
 		};
 		const formData = { email: demoUser.email, password: "12345678" };
-
-		const uiErrorMessage = "There is an error in your email or password.";
 
 		await loginUserWithEmailPassword.mockResolvedValue(loginResponse);
 		await startLoginWithEmailPassword(formData)(dispatch);
 
-		expect(dispatch).toHaveBeenCalledWith(setUiErrorMessage(uiErrorMessage));
+		expect(dispatch).toHaveBeenCalledWith(setUiErrorMessage(uiErrorMessages.credentialError));
+	});
+
+	test("should dispatch network error message", async () => {
+		const loginResponse = {
+			ok: false,
+			authErrorMessage: authResponsesMessages.networkError,
+		};
+		const formData = { email: demoUser.email, password: "12345678" };
+
+		await loginUserWithEmailPassword.mockResolvedValue(loginResponse);
+		await startLoginWithEmailPassword(formData)(dispatch);
+
+		expect(dispatch).toHaveBeenCalledWith(setUiErrorMessage(uiErrorMessages.networkError));
 	});
 });

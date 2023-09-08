@@ -1,3 +1,4 @@
+import { authResponsesMessages, uiErrorMessages } from "../../../assets/errorMessages";
 import { loginUserWithEmailPassword } from "../../../firebase/firebaseProviders";
 import { AppDispatch } from "../../store";
 import { setUiErrorMessage } from "../../ui";
@@ -14,26 +15,19 @@ export const startLoginWithEmailPassword = ({ email, password }: UserInLogin) =>
 
 		const result = await loginUserWithEmailPassword({ email, password });
 		if (!result.ok) {
-			const emailErrorMessage = "Firebase: Error (auth/user-not-found).";
-			const passwordErrorMessage = "Firebase: Error (auth/wrong-password).";
-			const networkErrorMessage = "Firebase: Error (auth/network-request-failed).";
+			const { emailError, passwordError, networkError } = authResponsesMessages;
 
 			const isCredentialsError =
-				result.authErrorMessage === emailErrorMessage ||
-				result.authErrorMessage === passwordErrorMessage;
+				result.authErrorMessage === emailError || result.authErrorMessage === passwordError;
 
-			const isNetworkError = result.authErrorMessage === networkErrorMessage;
+			const isNetworkError = result.authErrorMessage === networkError;
 
 			if (!result.ok && isNetworkError) {
-				dispatch(
-					setUiErrorMessage(
-						"There is a network error, please check your connection or try again later.",
-					),
-				);
+				dispatch(setUiErrorMessage(uiErrorMessages.networkError));
 			}
 
 			if (!result.ok && isCredentialsError) {
-				dispatch(setUiErrorMessage("There is an error in your email or password."));
+				dispatch(setUiErrorMessage(uiErrorMessages.credentialError));
 			}
 
 			dispatch(logout(result.authErrorMessage));
