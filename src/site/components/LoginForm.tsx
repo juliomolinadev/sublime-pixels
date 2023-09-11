@@ -32,10 +32,7 @@ export const LoginForm = () => {
 		if (isFormValid()) {
 			await dispatch(startLoginWithEmailPassword({ email, password }));
 
-			if (status === "authenticated") {
-				resetForm();
-				dispatch(switchLoginModal());
-			}
+			resetForm();
 		}
 	};
 
@@ -73,6 +70,10 @@ export const LoginForm = () => {
 			overlayClassName="authForm__overlay animate__animated animate__fadeIn"
 			ariaHideApp={process.env.NODE_ENV !== "test"}
 		>
+			<button className="authForm__closeButton" aria-label="closeButton" onClick={closeModal}>
+				x
+			</button>
+
 			<h2 className="authForm__heading text-center">Login</h2>
 
 			<form className="form" onSubmit={handleRegister}>

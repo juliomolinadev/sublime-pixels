@@ -1,7 +1,7 @@
 import { authResponsesMessages, uiErrorMessages } from "../../../assets/errorMessages";
 import { loginUserWithEmailPassword } from "../../../firebase/firebaseProviders";
 import { AppDispatch } from "../../store";
-import { setUiErrorMessage } from "../../ui";
+import { setUiErrorMessage, switchLoginModal } from "../../ui";
 import { checkingCredentials, login, logout } from "../authSlice";
 
 interface UserInLogin {
@@ -35,6 +35,7 @@ export const startLoginWithEmailPassword = ({ email, password }: UserInLogin) =>
 		}
 
 		dispatch(login(result));
+		dispatch(switchLoginModal());
 		return result;
 	};
 };

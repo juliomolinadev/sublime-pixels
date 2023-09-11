@@ -1,6 +1,6 @@
 import React from "react";
-import { describe, expect, test, vi } from "vitest";
-import { fireEvent, screen } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi, test } from "vitest";
+import { act, fireEvent, screen, waitFor } from "@testing-library/react";
 
 import { renderWithProviders } from "../../utils/test-utils";
 import { LoginForm } from "../../../src/site/components/LoginForm";
@@ -16,30 +16,34 @@ const preloadedState = {
 };
 
 describe("<LoginForm /> tests", () => {
-	test("should render component", () => {
+	beforeEach(async () => {
+		vi.clearAllMocks();
+	});
+
+	it("should render component", () => {
 		renderWithProviders(<LoginForm />, { preloadedState });
 
 		expect(screen.getAllByText("Login").length).toBeGreaterThanOrEqual(1);
 	});
 
-	test("should call startLoginWithEmailPassword", () => {
+	it("should call startLoginWithEmailPassword", async () => {
 		renderWithProviders(<LoginForm />, { preloadedState });
 
-		const userEmail = "user@mail.com";
 		const emailField = screen.getByRole("textbox", { name: "Email:" });
-		fireEvent.change(emailField, { target: { name: "email", value: userEmail } });
+		fireEvent.change(emailField, { target: { name: "email", value: "user@mail.com" } });
 
-		const userPassword = "123456789";
 		const passwordField = screen.getByLabelText("passwordInput");
-		fireEvent.change(passwordField, { target: { name: "password", value: userPassword } });
+		fireEvent.change(passwordField, { target: { name: "password", value: "123456789" } });
 
 		const loginButton = screen.getByLabelText("loginButton");
-		fireEvent.click(loginButton);
+		act(() => fireEvent.click(loginButton));
 
-		expect(mockStartLoginWithEmailPassword).toHaveBeenCalled();
+		await waitFor(() => {
+			expect(mockStartLoginWithEmailPassword).toHaveBeenCalled();
+		});
 	});
 
-	test("should switch to <RegisterForm />", () => {
+	it("should switch to <RegisterForm />", () => {
 		const { store } = renderWithProviders(<LoginForm />, { preloadedState });
 
 		const signUpLink = screen.getByLabelText("signUpLink");
@@ -49,7 +53,7 @@ describe("<LoginForm /> tests", () => {
 		expect(store.getState().ui.isOpenRegisterModal).toBeTruthy();
 	});
 
-	test("should show invalid email message", () => {
+	it("should show invalid email message", () => {
 		const emailErrorMessage = "Invalid email";
 		renderWithProviders(<LoginForm />, { preloadedState });
 
@@ -59,7 +63,7 @@ describe("<LoginForm /> tests", () => {
 		expect(screen.getAllByText(emailErrorMessage).length).toBeGreaterThanOrEqual(1);
 	});
 
-	test("should show pasword error message", () => {
+	it("should show pasword error message", () => {
 		const passwordErrorMessage = "Enter your password";
 		renderWithProviders(<LoginForm />, { preloadedState });
 
@@ -71,5 +75,14 @@ describe("<LoginForm /> tests", () => {
 		fireEvent.click(loginButton);
 
 		expect(screen.getAllByText(passwordErrorMessage).length).toBeGreaterThanOrEqual(1);
+	});
+
+	it("should close modal", () => {
+		const { store } = renderWithProviders(<LoginForm />, { preloadedState });
+
+		const closeButton = screen.getByLabelText("closeButton");
+		fireEvent.click(closeButton);
+
+		expect(store.getState().ui.isOpenLoginModal).toBeFalsy();
 	});
 });
