@@ -29,7 +29,7 @@ export const LoginForm = () => {
 
 	const [errorMessage, setErrorMessage] = useState<null | string>(null);
 
-	const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		if (isFormValid()) {
@@ -79,7 +79,7 @@ export const LoginForm = () => {
 
 			<h2 className="authForm__heading text-center">Login</h2>
 
-			<form className="form" onSubmit={handleRegister}>
+			<form className="form" onSubmit={handleLogin}>
 				<div className="form__inputGroup">
 					<label htmlFor="email" className="form__label">
 						Email:

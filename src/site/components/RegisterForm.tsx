@@ -1,14 +1,14 @@
 import Modal from "react-modal";
-import { SweetAlertOptions } from "sweetalert2";
 
 import { useTypedDispatch, useTypedSelector } from "../../hooks/storeHooks";
 import { useForm } from "../../hooks";
 import { setUiErrorMessage, switchAuthForm, switchRegisterModal } from "../../store/ui";
-import { isValidEmail, messageAlert } from "../../helpers";
+import { isValidEmail } from "../../helpers";
 import { startCreatingUserWithEmailPassword } from "../../store/auth";
 import { formErrorMessages } from "../../assets/errorMessages";
 
-Modal.setAppElement("#root");
+// Modal.setAppElement("#root");
+if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
 interface FormData {
 	name: string;
@@ -34,46 +34,9 @@ export const RegisterForm = () => {
 		e.preventDefault();
 
 		if (isFormValid()) {
-			const result = await dispatch(
-				startCreatingUserWithEmailPassword({ email, password, displayName: name }),
-			);
+			await dispatch(startCreatingUserWithEmailPassword({ email, password, displayName: name }));
 
-			const emailRegisteredMessage = "Firebase: Error (auth/email-already-in-use).";
-			const networkErrorMessage = "Firebase: Error (auth/network-request-failed).";
-
-			const isNetworkError = result.authErrorMessage === networkErrorMessage;
-
-			if (!result.ok && isNetworkError) {
-				dispatch(
-					setUiErrorMessage(
-						"There is a network error, please check your connection or try again later.",
-					),
-				);
-			}
-
-			if (!result.ok && result.authErrorMessage === emailRegisteredMessage) {
-				dispatch(switchRegisterModal());
-
-				const alert: SweetAlertOptions = {
-					title: "The email is already registered",
-					icon: "error",
-				};
-
-				messageAlert(alert);
-			}
-
-			if (result.ok) {
-				resetForm();
-				dispatch(switchRegisterModal());
-
-				const alert: SweetAlertOptions = {
-					title: "Please verify your email address",
-					text: "Check your inbox and follow the link.",
-					icon: "warning",
-				};
-
-				messageAlert(alert);
-			}
+			resetForm();
 		}
 	};
 
@@ -81,13 +44,19 @@ export const RegisterForm = () => {
 		if (name.trim().length === 0) {
 			dispatch(setUiErrorMessage(formErrorMessages.userNameError));
 			return false;
-		} else if (!isValidEmail(email)) {
+		}
+
+		if (!isValidEmail(email)) {
 			dispatch(setUiErrorMessage(formErrorMessages.emailError));
 			return false;
-		} else if (password.length < 8) {
+		}
+
+		if (password.length < 8) {
 			dispatch(setUiErrorMessage(formErrorMessages.shortPasswordError));
 			return false;
-		} else if (password !== password2) {
+		}
+
+		if (password !== password2) {
 			dispatch(setUiErrorMessage(formErrorMessages.confirmPasswordError));
 			return false;
 		}
@@ -113,7 +82,12 @@ export const RegisterForm = () => {
 			contentLabel="Example Modal"
 			className="authForm animate__animated animate__fadeIn"
 			overlayClassName="authForm__overlay animate__animated animate__fadeIn"
+			ariaHideApp={process.env.NODE_ENV !== "test"}
 		>
+			<button className="authForm__closeButton" aria-label="closeButton" onClick={closeModal}>
+				x
+			</button>
+
 			<h2 className="authForm__heading text-center">Signup</h2>
 
 			<form className="form" onSubmit={handleRegister}>
@@ -153,6 +127,7 @@ export const RegisterForm = () => {
 					</label>
 					<input
 						id="password"
+						aria-label="passwordInput"
 						type="password"
 						className="form__input"
 						placeholder="Set password"
@@ -168,6 +143,7 @@ export const RegisterForm = () => {
 					</label>
 					<input
 						id="password2"
+						aria-label="passwordInput2"
 						type="password"
 						className="form__input"
 						placeholder="Confirm password"
@@ -184,12 +160,12 @@ export const RegisterForm = () => {
 
 				{status === "checking" && <div className="form__spinner"></div>}
 
-				<input type="submit" className="form__button" value="Submit" />
+				<input type="submit" className="form__button" value="Submit" aria-label="registerButton" />
 			</form>
 
 			<p className="authForm__footer text-center">
 				Already have an account?{" "}
-				<span className="authForm__link" onClick={handleSwitchAuthForm}>
+				<span className="authForm__link" onClick={handleSwitchAuthForm} aria-label="loginLink">
 					Login here
 				</span>
 			</p>

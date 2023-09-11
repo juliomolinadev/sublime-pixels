@@ -1,4 +1,5 @@
 export const authResponsesMessages = {
+	emailRegistered: "Firebase: Error (auth/email-already-in-use).",
 	emailError: "Firebase: Error (auth/user-not-found).",
 	passwordError: "Firebase: Error (auth/wrong-password).",
 	networkError: "Firebase: Error (auth/network-request-failed).",
