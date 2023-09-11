@@ -6,6 +6,7 @@ import { setUiErrorMessage, switchAuthForm, switchLoginModal } from "../../store
 import { isValidEmail } from "../../helpers";
 import { startLoginWithEmailPassword } from "../../store/auth";
 import { formErrorMessages } from "../../assets/errorMessages";
+import { useState } from "react";
 
 // Modal.setAppElement("#root");
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
@@ -16,7 +17,7 @@ interface FormData {
 }
 
 export const LoginForm = () => {
-	const { uiErrorMessage, isOpenLoginModal } = useTypedSelector((state) => state.ui);
+	const { isOpenLoginModal } = useTypedSelector((state) => state.ui);
 	const { status } = useTypedSelector((state) => state.auth);
 
 	const dispatch = useTypedDispatch();
@@ -25,6 +26,8 @@ export const LoginForm = () => {
 		email: "",
 		password: "",
 	});
+
+	const [errorMessage, setErrorMessage] = useState<null | string>(null);
 
 	const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -38,22 +41,22 @@ export const LoginForm = () => {
 
 	const isFormValid = () => {
 		if (!isValidEmail(email)) {
-			dispatch(setUiErrorMessage(formErrorMessages.emailError));
+			setErrorMessage(formErrorMessages.emailError);
 			return false;
 		}
 
 		if (password.length === 0) {
-			dispatch(setUiErrorMessage(formErrorMessages.passwordError));
+			setErrorMessage(formErrorMessages.passwordError);
 			return false;
 		}
 
-		dispatch(setUiErrorMessage(null));
+		setErrorMessage(null);
 		return true;
 	};
 
 	const closeModal = (): void => {
 		dispatch(switchLoginModal());
-		dispatch(setUiErrorMessage(null));
+		setErrorMessage(null);
 	};
 
 	const handleSwitchAuthForm = (): void => {
@@ -110,8 +113,8 @@ export const LoginForm = () => {
 					/>
 				</div>
 
-				{uiErrorMessage && (
-					<div className="form__error animate__animated animate__fadeInDown">{uiErrorMessage}</div>
+				{errorMessage && (
+					<div className="form__error animate__animated animate__fadeInDown">{errorMessage}</div>
 				)}
 
 				{status === "checking" && <div className="form__spinner"></div>}
