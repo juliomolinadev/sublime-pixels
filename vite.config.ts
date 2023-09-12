@@ -3,6 +3,7 @@
 
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vitest/config";
+
 // import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
@@ -18,7 +19,8 @@ export default defineConfig({
 	test: {
 		globals: true,
 		environment: "jsdom",
-		setupFiles: "./tests/setupTests.ts",
+		css: true,
+		setupFiles: "./tests/setup.ts",
 		coverage: {
 			all: true,
 			exclude: [
