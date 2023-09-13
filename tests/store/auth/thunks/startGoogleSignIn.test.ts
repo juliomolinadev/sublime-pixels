@@ -15,7 +15,7 @@ describe("startGoogleSignIn thunk tests", () => {
 	test("should call checkingCredentials and login (success)", async () => {
 		const loginResponse = { ok: true, ...demoUser, authErrorMessage: null };
 
-		await signInWithGoogle.mockResolvedValue(loginResponse);
+		vi.mocked(signInWithGoogle).mockResolvedValue(loginResponse);
 		await startGoogleSignIn()(dispatch);
 
 		expect(dispatch).toHaveBeenCalledWith(checkingCredentials());
@@ -23,9 +23,9 @@ describe("startGoogleSignIn thunk tests", () => {
 	});
 
 	test("should call checkingCredentials and logout (fail)", async () => {
-		const loginResponse = { ok: false };
+		const loginResponse = { ok: false, ...demoUser, authErrorMessage: null };
 
-		await signInWithGoogle.mockResolvedValue(loginResponse);
+		vi.mocked(signInWithGoogle).mockResolvedValue(loginResponse);
 		await startGoogleSignIn()(dispatch);
 
 		expect(dispatch).toHaveBeenCalledWith(checkingCredentials());

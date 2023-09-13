@@ -22,7 +22,7 @@ describe("startLoginWithEmailPassword thunk tests", () => {
 		const loginResponse = { ok: true, ...demoUser, authErrorMessage: null };
 		const formData = { email: demoUser.email, password: "12345678" };
 
-		await loginUserWithEmailPassword.mockResolvedValue(loginResponse);
+		vi.mocked(loginUserWithEmailPassword).mockResolvedValue(loginResponse);
 		await startLoginWithEmailPassword(formData)(dispatch);
 
 		expect(dispatch).toHaveBeenCalledWith(checkingCredentials());
@@ -30,10 +30,10 @@ describe("startLoginWithEmailPassword thunk tests", () => {
 	});
 
 	test("should call checkingCredentials and logout (fail)", async () => {
-		const loginResponse = { ok: false, authErrorMessage: "Auth error" };
+		const loginResponse = { ok: false, ...demoUser, authErrorMessage: null };
 		const formData = { email: demoUser.email, password: "12345678" };
 
-		await loginUserWithEmailPassword.mockResolvedValue(loginResponse);
+		vi.mocked(loginUserWithEmailPassword).mockResolvedValue(loginResponse);
 		await startLoginWithEmailPassword(formData)(dispatch);
 
 		expect(dispatch).toHaveBeenCalledWith(checkingCredentials());
@@ -43,11 +43,16 @@ describe("startLoginWithEmailPassword thunk tests", () => {
 	test("should dispatch credentials error message (wrong email case)", async () => {
 		const loginResponse = {
 			ok: false,
+			uid: null,
+			email: null,
+			displayName: null,
+			photoURL: null,
+			emailVerified: false,
 			authErrorMessage: authResponsesMessages.emailError,
 		};
 		const formData = { email: demoUser.email, password: "12345678" };
 
-		await loginUserWithEmailPassword.mockResolvedValue(loginResponse);
+		vi.mocked(loginUserWithEmailPassword).mockResolvedValue(loginResponse);
 		await startLoginWithEmailPassword(formData)(dispatch);
 
 		expect(dispatch).toHaveBeenCalledWith(setUiErrorMessage(uiErrorMessages.credentialError));
@@ -56,11 +61,16 @@ describe("startLoginWithEmailPassword thunk tests", () => {
 	test("should dispatch credentials error message (wrong password case)", async () => {
 		const loginResponse = {
 			ok: false,
+			uid: null,
+			email: null,
+			displayName: null,
+			photoURL: null,
+			emailVerified: false,
 			authErrorMessage: authResponsesMessages.passwordError,
 		};
 		const formData = { email: demoUser.email, password: "12345678" };
 
-		await loginUserWithEmailPassword.mockResolvedValue(loginResponse);
+		vi.mocked(loginUserWithEmailPassword).mockResolvedValue(loginResponse);
 		await startLoginWithEmailPassword(formData)(dispatch);
 
 		expect(dispatch).toHaveBeenCalledWith(setUiErrorMessage(uiErrorMessages.credentialError));
@@ -69,11 +79,16 @@ describe("startLoginWithEmailPassword thunk tests", () => {
 	test("should dispatch network error message", async () => {
 		const loginResponse = {
 			ok: false,
+			uid: null,
+			email: null,
+			displayName: null,
+			photoURL: null,
+			emailVerified: false,
 			authErrorMessage: authResponsesMessages.networkError,
 		};
 		const formData = { email: demoUser.email, password: "12345678" };
 
-		await loginUserWithEmailPassword.mockResolvedValue(loginResponse);
+		vi.mocked(loginUserWithEmailPassword).mockResolvedValue(loginResponse);
 		await startLoginWithEmailPassword(formData)(dispatch);
 
 		expect(dispatch).toHaveBeenCalledWith(setUiErrorMessage(uiErrorMessages.networkError));

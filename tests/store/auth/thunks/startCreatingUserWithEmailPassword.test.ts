@@ -20,7 +20,7 @@ describe("startCreatingUserWithEmailPassword thunk tests", () => {
 		const loginResponse = { ok: true, ...demoUser, authErrorMessage: null };
 		const formData = { email: demoUser.email, password: "12345678", displayName: "New User" };
 
-		await registerUserWithEmailPassword.mockResolvedValue(loginResponse);
+		vi.mocked(registerUserWithEmailPassword).mockResolvedValue(loginResponse);
 		await startCreatingUserWithEmailPassword(formData)(dispatch);
 
 		expect(dispatch).toHaveBeenCalledWith(checkingCredentials());
@@ -28,10 +28,10 @@ describe("startCreatingUserWithEmailPassword thunk tests", () => {
 	});
 
 	test("should call checkingCredentials and logout (fail)", async () => {
-		const loginResponse = { ok: false, authErrorMessage: "Auth error" };
+		const loginResponse = { ok: false, ...demoUser, authErrorMessage: null };
 		const formData = { email: demoUser.email, password: "12345678", displayName: "New User" };
 
-		await registerUserWithEmailPassword.mockResolvedValue(loginResponse);
+		vi.mocked(registerUserWithEmailPassword).mockResolvedValue(loginResponse);
 		await startCreatingUserWithEmailPassword(formData)(dispatch);
 
 		expect(dispatch).toHaveBeenCalledWith(checkingCredentials());
