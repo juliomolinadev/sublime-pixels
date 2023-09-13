@@ -73,7 +73,7 @@ export const LoginForm = () => {
 			overlayClassName="authForm__overlay animate__animated animate__fadeIn"
 			ariaHideApp={process.env.NODE_ENV !== "test"}
 		>
-			<button className="authForm__closeButton" aria-label="closeButton" onClick={closeModal}>
+			<button className="authForm__closeButton" onClick={closeModal}>
 				x
 			</button>
 
@@ -102,7 +102,6 @@ export const LoginForm = () => {
 					</label>
 					<input
 						id="password"
-						aria-label="passwordInput"
 						type="password"
 						className="form__input"
 						placeholder="Your password"
@@ -119,12 +118,12 @@ export const LoginForm = () => {
 
 				{status === "checking" && <div className="form__spinner"></div>}
 
-				<input type="submit" className="form__button" value="Submit" aria-label="loginButton" />
+				<input type="submit" className="form__button" value="Submit" name="submit" />
 			</form>
 
 			<p className="authForm__footer text-center">
 				You have not yet registered?
-				<span className="authForm__link" onClick={handleSwitchAuthForm} aria-label="signUpLink">
+				<span className="authForm__link" onClick={handleSwitchAuthForm}>
 					Sign up here
 				</span>
 			</p>

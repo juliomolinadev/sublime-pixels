@@ -7,6 +7,7 @@ vi.mock("../../../../src/firebase/firebaseProviders");
 
 describe("startGoogleSignIn thunk tests", () => {
 	const dispatch = vi.fn();
+
 	beforeEach(async () => {
 		vi.clearAllMocks();
 	});

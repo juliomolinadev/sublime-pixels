@@ -25,6 +25,16 @@ export const authenticatedState: AuthState = {
 	displayName: "Demo User",
 	photoURL: "https://img.jpg",
 	authErrorMessage: null,
+	emailVerified: true,
+};
+
+export const notVerifiedState: AuthState = {
+	status: "authenticated", //"not-authenticated", "authenticated",
+	uid: "12345678",
+	email: "demoUser@email.com",
+	displayName: "Demo User",
+	photoURL: "https://img.jpg",
+	authErrorMessage: null,
 	emailVerified: false,
 };
 
