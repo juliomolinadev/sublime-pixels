@@ -33,7 +33,7 @@ export const Batch = () => {
 	return (
 		<div className="batch">
 			{items.map((item) => (
-				<Item key={item.id}>{JSON.stringify(item)}</Item>
+				<Item key={item.id} />
 			))}
 		</div>
 	);

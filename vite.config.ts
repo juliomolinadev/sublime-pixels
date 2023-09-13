@@ -44,6 +44,8 @@ export default defineConfig({
 				"**/validateEmail.ts",
 				"**/firebaseProviders.ts",
 				"**/store.ts",
+				"**/App.tsx",
+				"**/main.tsx",
 			],
 		},
 	},

@@ -1,7 +1,7 @@
 import { FiHeart, FiThumbsDown, FiDownload, FiArrowRight } from "react-icons/fi";
 
 export const Item = () => {
-	const hasDownloadables = true;
+	const hasDownloadables = false;
 
 	return (
 		<div className="item">
@@ -15,6 +15,10 @@ export const Item = () => {
 
 			<div className="item__footer">
 				{hasDownloadables ? (
+					<div className="item__downloadButton">
+						Download <FiDownload className="item__icon" />
+					</div>
+				) : (
 					<>
 						<div className="item__loveButton">
 							<FiHeart />
@@ -28,10 +32,6 @@ export const Item = () => {
 							<FiThumbsDown />
 						</div>
 					</>
-				) : (
-					<div className="item__downloadButton">
-						Download <FiDownload className="item__icon" />
-					</div>
 				)}
 			</div>
 		</div>
