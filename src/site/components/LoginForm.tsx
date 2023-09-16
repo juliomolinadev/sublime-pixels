@@ -28,8 +28,8 @@ export const LoginForm = () => {
 	});
 
 	useEffect(() => {
-		if (status === "authenticated") resetForm();
-	}, [status, resetForm]);
+		if (status === "authenticated" && email.length > 0) resetForm();
+	}, [status, resetForm, email]);
 
 	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
