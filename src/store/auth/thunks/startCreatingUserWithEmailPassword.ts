@@ -1,5 +1,5 @@
 import { SweetAlertOptions } from "sweetalert2";
-import { authResponsesMessages } from "../../../assets/errorMessages";
+import { authResponsesMessages, uiErrorMessages } from "../../../assets/errorMessages";
 import { registerUserWithEmailPassword } from "../../../firebase/firebaseProviders";
 import { messageAlert } from "../../../helpers";
 import { AppDispatch } from "../../store";
@@ -35,15 +35,11 @@ export const startCreatingUserWithEmailPassword = ({
 			const isNetworkError = result.authErrorMessage === networkError;
 
 			if (!result.ok && isNetworkError) {
-				dispatch(
-					setUiErrorMessage(
-						"There is a network error, please check your connection or try again later.",
-					),
-				);
+				dispatch(setUiErrorMessage(uiErrorMessages.networkError));
 			}
 
 			if (!result.ok && result.authErrorMessage === emailRegistered) {
-				dispatch(setUiErrorMessage("The email is already registered"));
+				dispatch(setUiErrorMessage(uiErrorMessages.notAvailableEmailError));
 			}
 
 			dispatch(logout(result.authErrorMessage));

@@ -46,6 +46,7 @@ export default defineConfig({
 				"**/store.ts",
 				"**/App.tsx",
 				"**/main.tsx",
+				"**/useCheckAuth.ts",
 			],
 		},
 	},

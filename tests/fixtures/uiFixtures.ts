@@ -1,3 +1,4 @@
+import { uiErrorMessages } from "../../src/assets/errorMessages";
 interface UiState {
 	uiErrorMessage: string | null;
 	isLoading: boolean;
@@ -31,4 +32,25 @@ export const openLoginModalState: UiState = {
 	isLoading: false,
 	isOpenRegisterModal: false,
 	isOpenLoginModal: true,
+};
+
+export const credentialsErrorLoginModalState: UiState = {
+	uiErrorMessage: uiErrorMessages.credentialsError,
+	isLoading: false,
+	isOpenRegisterModal: false,
+	isOpenLoginModal: true,
+};
+
+export const networkErrorLoginModalState: UiState = {
+	uiErrorMessage: uiErrorMessages.networkError,
+	isLoading: false,
+	isOpenRegisterModal: false,
+	isOpenLoginModal: true,
+};
+
+export const networkErrorRegisterModalState: UiState = {
+	uiErrorMessage: uiErrorMessages.networkError,
+	isLoading: false,
+	isOpenRegisterModal: true,
+	isOpenLoginModal: false,
 };

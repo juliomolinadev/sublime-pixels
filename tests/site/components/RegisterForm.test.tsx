@@ -5,8 +5,8 @@ import userEvent from "@testing-library/user-event";
 
 import { renderWithProviders } from "../../utils/test-utils";
 import { RegisterForm } from "../../../src/site/components/RegisterForm";
-import { openRegisterModalState } from "../../fixtures/uiFixtures";
-import { formErrorMessages } from "../../../src/assets/errorMessages";
+import { networkErrorRegisterModalState, openRegisterModalState } from "../../fixtures/uiFixtures";
+import { uiErrorMessages } from "../../../src/assets/errorMessages";
 
 import "@testing-library/jest-dom";
 import { LoginForm } from "../../../src/site/components/LoginForm";
@@ -81,7 +81,7 @@ describe("<RegisterForm /> tests", () => {
 		const loginButton = screen.getByRole("button", { name: /submit/i });
 		await user.click(loginButton);
 
-		expect(screen.getByText(formErrorMessages.userNameError)).toBeInTheDocument();
+		expect(screen.getByText(uiErrorMessages.userNameError)).toBeInTheDocument();
 	});
 
 	it("should show invalid email message", async () => {
@@ -95,7 +95,7 @@ describe("<RegisterForm /> tests", () => {
 		const loginButton = screen.getByRole("button", { name: /submit/i });
 		await user.click(loginButton);
 
-		expect(screen.getByText(formErrorMessages.emailError)).toBeInTheDocument();
+		expect(screen.getByText(uiErrorMessages.emailError)).toBeInTheDocument();
 	});
 
 	it("should show invalid password message", async () => {
@@ -112,7 +112,7 @@ describe("<RegisterForm /> tests", () => {
 		const loginButton = screen.getByRole("button", { name: /submit/i });
 		await user.click(loginButton);
 
-		expect(screen.getByText(formErrorMessages.shortPasswordError)).toBeInTheDocument();
+		expect(screen.getByText(uiErrorMessages.shortPasswordError)).toBeInTheDocument();
 	});
 
 	it("should show confirm password error message", async () => {
@@ -132,7 +132,7 @@ describe("<RegisterForm /> tests", () => {
 		const loginButton = screen.getByRole("button", { name: /submit/i });
 		await user.click(loginButton);
 
-		expect(screen.getByText(formErrorMessages.confirmPasswordError)).toBeInTheDocument();
+		expect(screen.getByText(uiErrorMessages.confirmPasswordError)).toBeInTheDocument();
 	});
 
 	it("should close modal", async () => {
@@ -144,5 +144,17 @@ describe("<RegisterForm /> tests", () => {
 		await user.click(closeButton);
 
 		expect(screen.queryByRole("heading", { name: /Signup/i })).not.toBeInTheDocument();
+	});
+
+	it("should show wrong network error message", async () => {
+		const user = userEvent.setup();
+
+		const preloadedState = {
+			ui: networkErrorRegisterModalState,
+		};
+
+		renderWithProviders(<RegisterForm />, { preloadedState });
+
+		expect(screen.getByText(uiErrorMessages.networkError)).toBeInTheDocument();
 	});
 });

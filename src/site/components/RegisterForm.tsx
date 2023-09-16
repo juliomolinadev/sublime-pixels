@@ -5,7 +5,7 @@ import { useForm } from "../../hooks";
 import { setUiErrorMessage, switchAuthForm, switchRegisterModal } from "../../store/ui";
 import { isValidEmail } from "../../helpers";
 import { startCreatingUserWithEmailPassword } from "../../store/auth";
-import { formErrorMessages } from "../../assets/errorMessages";
+import { uiErrorMessages } from "../../assets/errorMessages";
 
 // Modal.setAppElement("#root");
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
@@ -42,22 +42,22 @@ export const RegisterForm = () => {
 
 	const isFormValid = () => {
 		if (name.trim().length === 0) {
-			dispatch(setUiErrorMessage(formErrorMessages.userNameError));
+			dispatch(setUiErrorMessage(uiErrorMessages.userNameError));
 			return false;
 		}
 
 		if (!isValidEmail(email)) {
-			dispatch(setUiErrorMessage(formErrorMessages.emailError));
+			dispatch(setUiErrorMessage(uiErrorMessages.emailError));
 			return false;
 		}
 
 		if (password.length < 8) {
-			dispatch(setUiErrorMessage(formErrorMessages.shortPasswordError));
+			dispatch(setUiErrorMessage(uiErrorMessages.shortPasswordError));
 			return false;
 		}
 
 		if (password !== password2) {
-			dispatch(setUiErrorMessage(formErrorMessages.confirmPasswordError));
+			dispatch(setUiErrorMessage(uiErrorMessages.confirmPasswordError));
 			return false;
 		}
 

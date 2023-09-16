@@ -5,8 +5,7 @@ import { useForm } from "../../hooks";
 import { setUiErrorMessage, switchAuthForm, switchLoginModal } from "../../store/ui";
 import { isValidEmail } from "../../helpers";
 import { startLoginWithEmailPassword } from "../../store/auth";
-import { formErrorMessages } from "../../assets/errorMessages";
-import { useState } from "react";
+import { uiErrorMessages } from "../../assets/errorMessages";
 
 // Modal.setAppElement("#root");
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
@@ -17,7 +16,7 @@ interface FormData {
 }
 
 export const LoginForm = () => {
-	const { isOpenLoginModal } = useTypedSelector((state) => state.ui);
+	const { isOpenLoginModal, uiErrorMessage } = useTypedSelector((state) => state.ui);
 	const { status } = useTypedSelector((state) => state.auth);
 
 	const dispatch = useTypedDispatch();
@@ -26,8 +25,6 @@ export const LoginForm = () => {
 		email: "",
 		password: "",
 	});
-
-	const [errorMessage, setErrorMessage] = useState<null | string>(null);
 
 	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -41,22 +38,22 @@ export const LoginForm = () => {
 
 	const isFormValid = () => {
 		if (!isValidEmail(email)) {
-			setErrorMessage(formErrorMessages.emailError);
+			dispatch(setUiErrorMessage(uiErrorMessages.emailError));
 			return false;
 		}
 
 		if (password.length === 0) {
-			setErrorMessage(formErrorMessages.passwordError);
+			dispatch(setUiErrorMessage(uiErrorMessages.passwordError));
 			return false;
 		}
 
-		setErrorMessage(null);
+		dispatch(setUiErrorMessage(null));
 		return true;
 	};
 
 	const closeModal = (): void => {
 		dispatch(switchLoginModal());
-		setErrorMessage(null);
+		dispatch(setUiErrorMessage(null));
 	};
 
 	const handleSwitchAuthForm = (): void => {
@@ -112,8 +109,8 @@ export const LoginForm = () => {
 					/>
 				</div>
 
-				{errorMessage && (
-					<div className="form__error animate__animated animate__fadeInDown">{errorMessage}</div>
+				{uiErrorMessage && (
+					<div className="form__error animate__animated animate__fadeInDown">{uiErrorMessage}</div>
 				)}
 
 				{status === "checking" && <div className="form__spinner"></div>}

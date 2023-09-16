@@ -7,13 +7,11 @@ export const authResponsesMessages = {
 
 export const uiErrorMessages = {
 	networkError: "There is a network error, please check your connection or try again later.",
-	credentialError: "There is an error in your email or password.",
-};
-
-export const formErrorMessages = {
+	credentialsError: "There is an error in your email or password.",
 	userNameError: "Enter username",
 	emailError: "Invalid email",
 	passwordError: "Enter your password",
 	shortPasswordError: "The password must contain at least 8 characters",
 	confirmPasswordError: "Both passwords must be the same",
+	notAvailableEmailError: "The email is already registered",
 };

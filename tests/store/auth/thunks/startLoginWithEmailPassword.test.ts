@@ -55,7 +55,7 @@ describe("startLoginWithEmailPassword thunk tests", () => {
 		vi.mocked(loginUserWithEmailPassword).mockResolvedValue(loginResponse);
 		await startLoginWithEmailPassword(formData)(dispatch);
 
-		expect(dispatch).toHaveBeenCalledWith(setUiErrorMessage(uiErrorMessages.credentialError));
+		expect(dispatch).toHaveBeenCalledWith(setUiErrorMessage(uiErrorMessages.credentialsError));
 	});
 
 	test("should dispatch credentials error message (wrong password case)", async () => {
@@ -73,7 +73,7 @@ describe("startLoginWithEmailPassword thunk tests", () => {
 		vi.mocked(loginUserWithEmailPassword).mockResolvedValue(loginResponse);
 		await startLoginWithEmailPassword(formData)(dispatch);
 
-		expect(dispatch).toHaveBeenCalledWith(setUiErrorMessage(uiErrorMessages.credentialError));
+		expect(dispatch).toHaveBeenCalledWith(setUiErrorMessage(uiErrorMessages.credentialsError));
 	});
 
 	test("should dispatch network error message", async () => {
