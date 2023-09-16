@@ -6,6 +6,7 @@ import { setUiErrorMessage, switchAuthForm, switchRegisterModal } from "../../st
 import { isValidEmail } from "../../helpers";
 import { startCreatingUserWithEmailPassword } from "../../store/auth";
 import { uiErrorMessages } from "../../assets/errorMessages";
+import { useEffect } from "react";
 
 // Modal.setAppElement("#root");
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
@@ -30,13 +31,15 @@ export const RegisterForm = () => {
 		password2: "",
 	});
 
+	useEffect(() => {
+		if (status === "authenticated") resetForm();
+	}, [status, resetForm]);
+
 	const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		if (isFormValid()) {
 			await dispatch(startCreatingUserWithEmailPassword({ email, password, displayName: name }));
-
-			resetForm();
 		}
 	};
 

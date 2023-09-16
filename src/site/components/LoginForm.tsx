@@ -6,6 +6,7 @@ import { setUiErrorMessage, switchAuthForm, switchLoginModal } from "../../store
 import { isValidEmail } from "../../helpers";
 import { startLoginWithEmailPassword } from "../../store/auth";
 import { uiErrorMessages } from "../../assets/errorMessages";
+import { useEffect } from "react";
 
 // Modal.setAppElement("#root");
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
@@ -26,13 +27,15 @@ export const LoginForm = () => {
 		password: "",
 	});
 
+	useEffect(() => {
+		if (status === "authenticated") resetForm();
+	}, [status, resetForm]);
+
 	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		if (isFormValid()) {
 			await dispatch(startLoginWithEmailPassword({ email, password }));
-
-			resetForm();
 		}
 	};
 
