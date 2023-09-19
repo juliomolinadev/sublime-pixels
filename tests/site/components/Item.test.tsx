@@ -19,7 +19,12 @@ describe("<Item /> tests", () => {
 	});
 
 	it("should render component with download button", () => {
-		const props = { ...testItems[0], title: "Test Product Title", hasDownloadables: true };
+		const props = {
+			...testItems[0],
+			title: "Test Product Title",
+			hasDownloadables: true,
+			isDownloaded: false,
+		};
 
 		const { container } = renderWithProviders(<Item {...props} />);
 

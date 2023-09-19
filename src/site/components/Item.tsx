@@ -1,7 +1,17 @@
 import { FiHeart, FiThumbsDown, FiDownload, FiArrowRight } from "react-icons/fi";
-import { ItemProps } from "./interfaces";
+import { ItemProps } from "../../store";
 
-export const Item = ({ img, title, hasDownloadables, link, isLoved, isDisliked }: ItemProps) => {
+// TODO: hasDownloadables should be in the state
+
+export const Item = ({
+	img,
+	title,
+	isDownloaded,
+	hasDownloadables,
+	link,
+	isLoved,
+	isDisliked,
+}: ItemProps) => {
 	return (
 		<div className="item">
 			<img className="item__img" src={img} alt="post item" />
@@ -9,7 +19,7 @@ export const Item = ({ img, title, hasDownloadables, link, isLoved, isDisliked }
 			<p className="item__title">{title} </p>
 
 			<div className="item__footer">
-				{hasDownloadables ? (
+				{hasDownloadables && !isDownloaded ? (
 					// TODO:  define onItemDownload
 					<button className="item__downloadButton">
 						Download <FiDownload className="item__icon" />

@@ -21,7 +21,7 @@ interface AuthState {
 	emailVerified: boolean;
 }
 
-interface AuthUser {
+interface UserAuth {
 	uid: string | null;
 	email: string | null;
 	displayName: string | null;
@@ -33,7 +33,7 @@ export const authSlice = createSlice({
 	name: "auth",
 	initialState,
 	reducers: {
-		login: (state, action: PayloadAction<AuthUser>) => {
+		login: (state, action: PayloadAction<UserAuth>) => {
 			state.status = "authenticated";
 			state.uid = action.payload.uid;
 			state.email = action.payload.email;
