@@ -39,13 +39,21 @@
 	}
 
 	&__loveButton {
-		@include m.iconButton(v.$crimson, v.$gray);
+		@include m.iconButton(v.$crimson);
 		font-size: 2rem;
+
+		&--active {
+			@include m.activeIconButton(v.$crimson);
+		}
 	}
 
 	&__dislikeButton {
-		@include m.iconButton(v.$skyBlue, v.$gray);
+		@include m.iconButton(v.$skyBlue);
 		font-size: 2rem;
+
+		&--active {
+			@include m.activeIconButton(v.$skyBlue);
+		}
 	}
 
 	&__downloadButton {

@@ -1,34 +1,30 @@
 import { FiHeart, FiThumbsDown, FiDownload, FiArrowRight } from "react-icons/fi";
+import { ItemProps } from "./interfaces";
 
-export const Item = () => {
-	const hasDownloadables = false;
-
+export const Item = ({ img, title, hasDownloadables, link, isLoved, isDisliked }: ItemProps) => {
 	return (
 		<div className="item">
-			<img
-				className="item__img"
-				src="https://i.etsystatic.com/44663047/r/il/e6a1ea/5066928204/il_1140xN.5066928204_6l7x.jpg"
-				alt="post item"
-			/>
+			<img className="item__img" src={img} alt="post item" />
 
-			<p className="item__title">Product title </p>
+			<p className="item__title">{title} </p>
 
 			<div className="item__footer">
 				{hasDownloadables ? (
-					<div className="item__downloadButton">
+					// TODO:  define onItemDownload
+					<button className="item__downloadButton">
 						Download <FiDownload className="item__icon" />
-					</div>
+					</button>
 				) : (
 					<>
-						<div className="item__loveButton">
+						<div className={isLoved ? "item__loveButton--active" : "item__loveButton"}>
 							<FiHeart />
 						</div>
 
-						<div className="item__downloadButton">
+						<a className="item__downloadButton" href={link} target="_blank">
 							Buy on Etsy <FiArrowRight className="item__icon" />
-						</div>
+						</a>
 
-						<div className="item__dislikeButton">
+						<div className={isDisliked ? "item__dislikeButton--active" : "item__dislikeButton"}>
 							<FiThumbsDown />
 						</div>
 					</>

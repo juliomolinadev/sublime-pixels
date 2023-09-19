@@ -25,9 +25,9 @@
 	}
 }
 
-@mixin iconButton($color, $text) {
-	color: $text;
-	border: 1px solid $text;
+@mixin iconButton($color) {
+	color: v.$gray;
+	border: 1px solid v.$gray;
 	display: flex;
 	padding: 1rem;
 	cursor: pointer;
@@ -38,6 +38,23 @@
 		border: 1px solid $color;
 		background-color: $color;
 		color: v.$white;
+	}
+}
+
+@mixin activeIconButton($color) {
+	color: v.$white;
+	border: 1px solid $color;
+	background-color: $color;
+	display: flex;
+	padding: 1rem;
+	cursor: pointer;
+	border-radius: 50px;
+	transition: 0.3s ease-in-out;
+
+	&:hover {
+		border: 1px solid v.$gray;
+		background-color: v.$white;
+		color: v.$gray;
 	}
 }
 
