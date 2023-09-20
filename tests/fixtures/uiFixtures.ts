@@ -4,6 +4,7 @@ interface UiState {
 	isLoading: boolean;
 	isOpenRegisterModal: boolean;
 	isOpenLoginModal: boolean;
+	batches: string[];
 }
 
 export const uiInitialState: UiState = {
@@ -11,6 +12,7 @@ export const uiInitialState: UiState = {
 	isLoading: false,
 	isOpenRegisterModal: false,
 	isOpenLoginModal: false,
+	batches: [],
 };
 
 export const uiLoadingState: UiState = {
@@ -18,6 +20,7 @@ export const uiLoadingState: UiState = {
 	isLoading: true,
 	isOpenRegisterModal: false,
 	isOpenLoginModal: false,
+	batches: [],
 };
 
 export const openRegisterModalState: UiState = {
@@ -25,6 +28,7 @@ export const openRegisterModalState: UiState = {
 	isLoading: false,
 	isOpenRegisterModal: true,
 	isOpenLoginModal: false,
+	batches: [],
 };
 
 export const openLoginModalState: UiState = {
@@ -32,6 +36,7 @@ export const openLoginModalState: UiState = {
 	isLoading: false,
 	isOpenRegisterModal: false,
 	isOpenLoginModal: true,
+	batches: [],
 };
 
 export const credentialsErrorLoginModalState: UiState = {
@@ -39,6 +44,7 @@ export const credentialsErrorLoginModalState: UiState = {
 	isLoading: false,
 	isOpenRegisterModal: false,
 	isOpenLoginModal: true,
+	batches: [],
 };
 
 export const networkErrorLoginModalState: UiState = {
@@ -46,6 +52,7 @@ export const networkErrorLoginModalState: UiState = {
 	isLoading: false,
 	isOpenRegisterModal: false,
 	isOpenLoginModal: true,
+	batches: [],
 };
 
 export const networkErrorRegisterModalState: UiState = {
@@ -53,4 +60,5 @@ export const networkErrorRegisterModalState: UiState = {
 	isLoading: false,
 	isOpenRegisterModal: true,
 	isOpenLoginModal: false,
+	batches: [],
 };

@@ -7,6 +7,7 @@ interface UiSliceState {
 	isLoading: boolean;
 	isOpenRegisterModal: boolean;
 	isOpenLoginModal: boolean;
+	batches: string[];
 }
 
 const initialState: UiSliceState = {
@@ -14,6 +15,7 @@ const initialState: UiSliceState = {
 	isLoading: false,
 	isOpenRegisterModal: false,
 	isOpenLoginModal: false,
+	batches: [],
 };
 
 export const uiSlice = createSlice({
@@ -40,6 +42,10 @@ export const uiSlice = createSlice({
 		setUiErrorMessage: (state, action: PayloadAction<string | null>) => {
 			state.uiErrorMessage = action.payload;
 		},
+
+		addBatches: (state, action: PayloadAction<string[]>) => {
+			state.batches = action.payload;
+		},
 	},
 });
 
@@ -49,6 +55,7 @@ export const {
 	switchLoginModal,
 	switchAuthForm,
 	setUiErrorMessage,
+	addBatches,
 } = uiSlice.actions;
 // export const selectCount = (state: RootState) => state.ui.errorMsg;
 // export default uiSlice.reducer;

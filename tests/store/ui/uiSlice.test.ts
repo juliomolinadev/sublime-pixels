@@ -2,6 +2,7 @@ import { describe, expect, test } from "vitest";
 import { AnyAction } from "@reduxjs/toolkit";
 
 import {
+	addBatches,
 	setUiErrorMessage,
 	switchAuthForm,
 	switchLoadingState,
@@ -54,5 +55,12 @@ describe("uiSlice.ts tests", () => {
 		const state = uiSlice.reducer(uiInitialState, setUiErrorMessage(testError));
 
 		expect(state).toEqual({ ...uiInitialState, uiErrorMessage: testError });
+	});
+
+	test("should add batches", () => {
+		const testBatches = ["batch1", "batch2"];
+		const state = uiSlice.reducer(uiInitialState, addBatches(testBatches));
+
+		expect(state).toEqual({ ...uiInitialState, batches: testBatches });
 	});
 });
