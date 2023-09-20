@@ -3,6 +3,7 @@
 
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vitest/config";
+import "dotenv/config";
 
 // import { defineConfig } from "vite";
 
@@ -47,6 +48,7 @@ export default defineConfig({
 				"**/App.tsx",
 				"**/main.tsx",
 				"**/useCheckAuth.ts",
+				"**/interfaces.ts",
 			],
 		},
 	},
