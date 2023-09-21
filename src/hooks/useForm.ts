@@ -5,10 +5,18 @@ export const useForm = <T>(initState: T) => {
 
 	const handleInputChange = ({ target }: ChangeEvent<HTMLInputElement>): void => {
 		const { name, value } = target;
-		setFormValues({
-			...formValues,
-			[name]: value,
-		});
+
+		if (target.files) {
+			setFormValues({
+				...formValues,
+				[name]: target.files,
+			});
+		} else {
+			setFormValues({
+				...formValues,
+				[name]: value,
+			});
+		}
 	};
 
 	const resetForm = (): void => {

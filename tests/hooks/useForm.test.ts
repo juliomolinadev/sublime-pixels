@@ -7,6 +7,7 @@ describe("useForm tests", () => {
 	const initialForm = {
 		name: "julz",
 		email: "julz@dev.com",
+		files: [],
 	};
 
 	it("should return default values", () => {
@@ -15,6 +16,7 @@ describe("useForm tests", () => {
 		expect(result.current).toEqual({
 			name: initialForm.name,
 			email: initialForm.email,
+			files: [],
 			formValues: initialForm,
 			resetForm: expect.any(Function),
 			handleInputChange: expect.any(Function),
@@ -34,6 +36,20 @@ describe("useForm tests", () => {
 
 		expect(result.current.formValues.name).toBe(newName);
 		expect(result.current.name).toBe(newName);
+	});
+
+	it("should handle file input change", () => {
+		const { result } = renderHook(() => useForm(initialForm));
+		const { handleInputChange } = result.current;
+
+		const file = new File(["avatar.jpg"], "avatar.jpg", { type: "image/jpeg" });
+		const event = { target: { name: "files", files: [file] } };
+
+		act(() => {
+			handleInputChange(event as unknown as ChangeEvent<HTMLInputElement>);
+		});
+
+		expect(result.current.files[0]).toEqual(file);
 	});
 
 	it("should reset form", () => {
