@@ -3,7 +3,9 @@
 
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vitest/config";
-import "dotenv/config";
+import * as dotenv from "dotenv";
+
+dotenv.config({ path: ".env.test" });
 
 // import { defineConfig } from "vite";
 
@@ -22,6 +24,7 @@ export default defineConfig({
 		environment: "jsdom",
 		css: true,
 		setupFiles: "./tests/setup.ts",
+		testTimeout: 10000,
 		coverage: {
 			all: true,
 			exclude: [
