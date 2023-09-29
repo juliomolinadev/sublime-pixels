@@ -10,18 +10,18 @@ describe("createDocOnFirestore() tests", () => {
 		const document = { id: "1233", name: "test" };
 		const query = { collectionPath: "tests/createDoc/createSubcollection", docId: "123", document };
 
-		const success = await createDocOnFirestore(query);
+		const createResp = await createDocOnFirestore(query);
 
-		expect(success).toBeTruthy();
+		expect(createResp).toBeTruthy();
 	});
 
 	it("should create a document with random id on firestore", async () => {
 		const document = { id: "random", name: "test" };
 		const query = { collectionPath: "tests/createDoc/createSubcollection", document };
 
-		const success = await createDocOnFirestore(query);
+		const createResp = await createDocOnFirestore(query);
 
-		expect(success).toBeTruthy();
+		expect(createResp).toBeTruthy();
 
 		const collectionRef = collection(FirebaseDB, "tests/createDoc/createSubcollection");
 		const docs = await getDocs(collectionRef);

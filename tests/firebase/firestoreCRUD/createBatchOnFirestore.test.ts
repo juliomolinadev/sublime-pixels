@@ -15,9 +15,9 @@ describe("createBatchOnFirestore() tests", () => {
 
 		const query = { collectionPath: "tests/createDoc/createSubcollection", data };
 
-		const success = await createBatchOnFirestore(query);
+		const createResp = await createBatchOnFirestore(query);
 
-		expect(success).toBeTruthy();
+		expect(createResp).toBeTruthy();
 
 		const collectionRef = collection(FirebaseDB, "tests/createDoc/createSubcollection");
 		const docs = await getDocs(collectionRef);

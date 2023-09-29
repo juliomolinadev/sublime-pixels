@@ -7,12 +7,12 @@ describe("readDocFromFirestore() tests", () => {
 	it("should read a documents from firestore", async () => {
 		const query = { collectionPath: "tests/readDoc/readSubcollection", docId: "123" };
 
-		const resp = await readDocFromFirestore(query);
+		const readResp = await readDocFromFirestore(query);
 
 		let isReadable = false;
-		if (resp) isReadable = resp.data().isReadable;
+		if (readResp) isReadable = readResp.data().isReadable;
 
-		expect(resp).toBeTruthy();
+		expect(readResp).toBeTruthy();
 		expect(isReadable).toBeTruthy();
 	});
 });

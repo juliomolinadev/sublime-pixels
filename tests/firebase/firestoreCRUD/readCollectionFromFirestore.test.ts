@@ -7,14 +7,14 @@ import { DocumentData } from "firebase/firestore";
 describe("readCollectionFromFirestore() tests", () => {
 	it("should read two documents from firestore", async () => {
 		const documents: DocumentData[] = [];
-		const resp = await readCollectionFromFirestore("/tests/readDoc/readSubcollection");
+		const readResp = await readCollectionFromFirestore("/tests/readDoc/readSubcollection");
 
-		if (resp)
-			resp.forEach((doc: DocumentData) => {
+		if (readResp)
+			readResp.forEach((doc: DocumentData) => {
 				documents.push(doc.data());
 			});
 
-		expect(resp).toBeTruthy();
+		expect(readResp).toBeTruthy();
 		expect(documents.length).toBe(2);
 	});
 });

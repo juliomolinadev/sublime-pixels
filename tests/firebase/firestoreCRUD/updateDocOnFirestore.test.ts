@@ -8,13 +8,13 @@ import { readDocFromFirestore } from "../../../src/firebase/firestoreCRUD/readDo
 describe("updateDocOnFirestore() tests", () => {
 	it("should create and update a document on firestore", async () => {
 		const document = { id: "updatable", name: "test" };
-		const query = {
+		const createQuery = {
 			collectionPath: "tests/createDoc/createSubcollection",
 			docId: "updatable",
 			document,
 		};
 
-		const success = await createDocOnFirestore(query);
+		const createResp = await createDocOnFirestore(createQuery);
 
 		const updates = { name: "test updated" };
 		const updateQuery = {
@@ -22,16 +22,16 @@ describe("updateDocOnFirestore() tests", () => {
 			docId: "updatable",
 			updates,
 		};
-		const updateSuccess = await updateDocInFirestore(updateQuery);
+		const updateResp = await updateDocInFirestore(updateQuery);
 
 		const readQuery = { collectionPath: "tests/createDoc/createSubcollection", docId: "updatable" };
-		const resp = await readDocFromFirestore(readQuery);
+		const readResp = await readDocFromFirestore(readQuery);
 
 		let name = "";
-		if (resp) name = resp.data().name;
+		if (readResp) name = readResp.data().name;
 
-		expect(success).toBeTruthy();
-		expect(updateSuccess).toBeTruthy();
+		expect(createResp).toBeTruthy();
+		expect(updateResp).toBeTruthy();
 		expect(name).toBe("test updated");
 	});
 });

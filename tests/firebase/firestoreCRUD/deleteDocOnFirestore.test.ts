@@ -14,29 +14,19 @@ describe("deleteDocOnFirestore() tests", () => {
 			document,
 		};
 
-		const success = await createDocOnFirestore(query);
+		const createResp = await createDocOnFirestore(query);
 
 		const deleteQuery = {
 			collectionPath: "tests/createDoc/createSubcollection",
 			docId: "deletable",
 		};
-		const updateSuccess = await deleteDocOnFirestore(deleteQuery);
+		const deleteResp = await deleteDocOnFirestore(deleteQuery);
 
 		const readQuery = { collectionPath: "tests/createDoc/createSubcollection", docId: "deletable" };
 		const readResp = await readDocFromFirestore(readQuery);
 
-		expect(success).toBeTruthy();
-		expect(updateSuccess).toBeTruthy();
+		expect(createResp).toBeTruthy();
+		expect(deleteResp).toBeTruthy();
 		expect(readResp).toBeFalsy();
 	});
-
-	// it("should return false if the document does not exist", async () => {
-	// 	const deleteQuery = {
-	// 		collectionPath: "tests/createDoc/createSubcollection",
-	// 		docId: "x",
-	// 	};
-	// 	const deleteSuccess = await deleteDocOnFirestore(deleteQuery);
-
-	// 	expect(deleteSuccess).toBeFalsy();
-	// });
 });

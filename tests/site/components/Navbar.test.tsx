@@ -1,11 +1,12 @@
 import React from "react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import userEvent from "@testing-library/user-event";
+import { screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
 
 import { renderWithProviders } from "../../utils/test-utils";
 import { uiInitialState } from "../../fixtures/uiFixtures";
 import { Navbar } from "../../../src/site/components/Navbar";
-import { screen, waitFor } from "@testing-library/react";
 import { LoginForm } from "../../../src/site/components/LoginForm";
 import { authenticatedState, notVerifiedState } from "../../fixtures/authFixtures";
 
