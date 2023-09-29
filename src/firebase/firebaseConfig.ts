@@ -14,6 +14,9 @@ const {
 	VITE_MEASUREMENTID,
 } = getEnvironments();
 
+// console.log(VITE_PROJECTID);
+// console.log(`.env.${process.env.NODE_ENV}`);
+
 const firebaseConfig = {
 	apiKey: VITE_APIKEY,
 	authDomain: VITE_AUTHDOMAIN,

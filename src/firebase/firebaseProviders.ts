@@ -10,6 +10,8 @@ import { FirebaseAuth } from "./firebaseConfig";
 
 const googleProvider = new GoogleAuthProvider();
 
+// TODO: create firebase auth module with this functions
+
 export const signInWithGoogle = async () => {
 	try {
 		const result = await signInWithPopup(FirebaseAuth, googleProvider);
