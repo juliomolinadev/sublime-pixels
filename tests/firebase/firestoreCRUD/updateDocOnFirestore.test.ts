@@ -1,63 +1,45 @@
 // @vitest-environment node
 
 import { describe, expect, it } from "vitest";
-import { createDocOnFirestore } from "../../../src/firebase/firestoreCRUD/createDocOnFirestore";
 import { updateDocInFirestore } from "../../../src/firebase/firestoreCRUD/updateDocOnFirestore";
 import { readDocFromFirestore } from "../../../src/firebase/firestoreCRUD/readDocFromFirestore";
 
 describe("updateDocOnFirestore() tests", () => {
 	it("should create and update a document on firestore", async () => {
-		const document = { id: "updatable1", name: "test", testArray: ["testString1"] };
-		const createQuery = {
-			collectionPath: "tests/createDoc/createSubcollection",
-			docId: "updatable1",
-			document,
-		};
+		const randomNumber = new Date().getTime();
 
-		const createResp = await createDocOnFirestore(createQuery);
-
-		const updates = { name: "test updated" };
+		const updates = { testNumber: randomNumber };
 		const updateQuery = {
-			collectionPath: "tests/createDoc/createSubcollection",
+			collectionPath: "tests/updateDoc/updateSubcollection",
 			docId: "updatable1",
 			updates,
 		};
 		const updateResp = await updateDocInFirestore(updateQuery);
 
 		const readQuery = {
-			collectionPath: "tests/createDoc/createSubcollection",
+			collectionPath: "tests/updateDoc/updateSubcollection",
 			docId: "updatable1",
 		};
 		const readResp = await readDocFromFirestore(readQuery);
 
-		let name = "";
-		if (readResp) name = readResp.data().name;
+		let testNumber = "";
+		if (readResp) testNumber = readResp.data().testNumber;
 
-		expect(createResp).toBeTruthy();
 		expect(updateResp).toBeTruthy();
-		expect(name).toBe("test updated");
+		expect(testNumber).toBe(randomNumber);
 	});
 
 	it("should update an array on a document on firestore with arrayUnion", async () => {
-		const document = { id: "updatable2", name: "test", testArray: ["testString1"] };
-		const createQuery = {
-			collectionPath: "tests/createDoc/createSubcollection",
-			docId: "updatable2",
-			document,
-		};
-
-		const createResp = await createDocOnFirestore(createQuery);
-
 		const updateQuery = {
-			collectionPath: "tests/createDoc/createSubcollection",
+			collectionPath: "tests/updateDoc/updateSubcollection",
 			docId: "updatable2",
 			updates: {},
-			arrayUnionUpdate: { fieldName: "testArray", value: "testString2" },
+			arrayUnionUpdate: { fieldName: "testArray", value: "newString" },
 		};
 		const updateResp = await updateDocInFirestore(updateQuery);
 
 		const readQuery = {
-			collectionPath: "tests/createDoc/createSubcollection",
+			collectionPath: "tests/updateDoc/updateSubcollection",
 			docId: "updatable2",
 		};
 		const readResp = await readDocFromFirestore(readQuery);
@@ -65,42 +47,31 @@ describe("updateDocOnFirestore() tests", () => {
 		let testArray: string[] = [];
 		if (readResp) testArray = readResp.data().testArray;
 
-		expect(createResp).toBeTruthy();
 		expect(updateResp).toBeTruthy();
 		expect(readResp).toBeTruthy();
-		expect(testArray).toContain("testString2");
+		expect(testArray).toContain("newString");
 	});
 
 	it("should update an array on a document on firestore with arrayRemove", async () => {
-		const document = { id: "updatable3", name: "test", testArray: ["testString1", "testString2"] };
-		const createQuery = {
-			collectionPath: "tests/createDoc/createSubcollection",
-			docId: "updatable3",
-			document,
-		};
-
-		const createResp = await createDocOnFirestore(createQuery);
-
 		const updateQuery = {
-			collectionPath: "tests/createDoc/createSubcollection",
-			docId: "updatable3",
+			collectionPath: "tests/updateDoc/updateSubcollection",
+			docId: "updatable2",
 			updates: {},
-			arrayRemoveUpdate: { fieldName: "testArray", value: "testString2" },
+			arrayRemoveUpdate: { fieldName: "testArray", value: "newString" },
 		};
 		const updateResp = await updateDocInFirestore(updateQuery);
 
 		const readQuery = {
-			collectionPath: "tests/createDoc/createSubcollection",
-			docId: "updatable3",
+			collectionPath: "tests/updateDoc/updateSubcollection",
+			docId: "updatable2",
 		};
 		const readResp = await readDocFromFirestore(readQuery);
 
 		let testArray: string[] = [];
 		if (readResp) testArray = readResp.data().testArray;
 
-		expect(createResp).toBeTruthy();
 		expect(updateResp).toBeTruthy();
 		expect(readResp).toBeTruthy();
-		expect(testArray).not.toContain("testString2");
+		expect(testArray).not.toContain("newString");
 	});
 });
