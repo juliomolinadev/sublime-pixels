@@ -2,16 +2,34 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { BatchesProps } from "../interfaces";
 
-const initialState: { [key: string]: BatchesProps } = {};
+interface BatchesState {
+	batches: { [key: string]: BatchesProps };
+	batchesArray: string[];
+	activeBatch: string;
+}
 
-export const batchSlice = createSlice({
-	name: "batch",
+const initialState: BatchesState = {
+	batches: {},
+	activeBatch: "10",
+	batchesArray: ["10", "9", "8", "7", "6", "5", "4", "3", "2"],
+};
+
+export const batchesSlice = createSlice({
+	name: "batches",
 	initialState,
 	reducers: {
 		addBatch: (state, action: PayloadAction<BatchesProps>) => {
-			state[action.payload.id] = action.payload;
+			state.batches[action.payload.id] = action.payload;
+		},
+
+		setActiveBatch: (state, action: PayloadAction<string>) => {
+			state.activeBatch = action.payload;
+		},
+
+		setBatchesArray: (state, action: PayloadAction<string[]>) => {
+			state.batchesArray = action.payload;
 		},
 	},
 });
 
-export const { addBatch } = batchSlice.actions;
+export const { addBatch, setActiveBatch, setBatchesArray } = batchesSlice.actions;
