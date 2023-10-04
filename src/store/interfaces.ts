@@ -2,7 +2,6 @@ export interface BatchesProps {
 	id: string;
 	downloadables: number;
 	name: string;
-	items: { [key: string]: ItemProps };
 }
 
 export interface ItemProps {

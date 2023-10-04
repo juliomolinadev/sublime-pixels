@@ -2,7 +2,7 @@ import { readJSON } from "../../helpers";
 import { useForm } from "../../hooks";
 import { validateBatchJSON } from "../helpers";
 import { saveBatch } from "../helpers/saveBatch";
-import { Batch } from "../interfaces/siteInterfaces";
+import { Batch } from "../interfaces/interfaces";
 
 export const BatchUploader = () => {
 	const { filesInput, handleInputChange } = useForm({ filesInput: "" });

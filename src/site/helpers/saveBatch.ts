@@ -3,7 +3,7 @@ import {
 	createDocOnFirestore,
 	updateDocInFirestore,
 } from "../../firebase/firestoreCRUD";
-import { Batch, BatchInfo } from "../interfaces/siteInterfaces";
+import { Batch, BatchInfo } from "../interfaces/interfaces";
 
 export const saveBatch = async (batch: Batch) => {
 	saveItems(batch);
