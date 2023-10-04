@@ -5,10 +5,15 @@ import "@testing-library/jest-dom";
 
 import { renderWithProviders } from "../../utils/test-utils";
 import { Header } from "../../../src/site/components/Header";
+import { batchesNewBatchesArray } from "../../fixtures";
+
+const preloadedState = {
+	batches: batchesNewBatchesArray,
+};
 
 describe("<Batch /> tests", () => {
 	it("should render component", () => {
-		renderWithProviders(<Header />);
+		renderWithProviders(<Header />, { preloadedState });
 
 		expect(screen.getAllByRole("button").length).toBeGreaterThan(0);
 	});

@@ -5,9 +5,18 @@ import { Header } from "./site/components/Header";
 import { LoginForm } from "./site/components/LoginForm";
 import { Navbar } from "./site/components/Navbar";
 import { RegisterForm } from "./site/components/RegisterForm";
+import { useTypedDispatch } from "./hooks/storeHooks";
+import { startSetBatchesArray } from "./store/batches/thunks/starSetBatchesArray";
+import { useEffect } from "react";
 
 export const App = () => {
 	const status = useCheckAuth();
+
+	const dispatch = useTypedDispatch();
+
+	useEffect(() => {
+		status !== "checking" && dispatch(startSetBatchesArray());
+	}, [dispatch, status]);
 
 	return (
 		<div className="App">

@@ -10,8 +10,8 @@ interface BatchesState {
 
 const initialState: BatchesState = {
 	batches: {},
-	activeBatch: "10",
-	batchesArray: ["10", "9", "8", "7", "6", "5", "4", "3", "2"],
+	activeBatch: "",
+	batchesArray: [],
 };
 
 export const batchesSlice = createSlice({
