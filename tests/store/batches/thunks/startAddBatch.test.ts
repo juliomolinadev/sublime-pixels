@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { readDocFromFirestore } from "../../../../src/firebase/firestoreCRUD/readDocFromFirestore";
 import { startSetBatchesArray } from "../../../../src/store/batches/thunks/starSetBatchesArray";
-import { setActiveBatch, setBatchesArray } from "../../../../src/store/batches";
+import { addBatch } from "../../../../src/store/batches";
+import { startAddBatch } from "../../../../src/store/batches/thunks/startAddBatch";
 import {
 	DocumentData,
 	DocumentReference,
@@ -11,40 +12,41 @@ import {
 
 vi.mock("../../../../src/firebase/firestoreCRUD/readDocFromFirestore");
 
-const batchesArray = ["3", "4", "5"];
+const newBatch = {
+	downloadables: 2,
+	id: "2",
+	name: "Hello World",
+};
 
-const batchArrayResponse: QueryDocumentSnapshot<DocumentData, DocumentData> = {
+const batchResponse: QueryDocumentSnapshot<DocumentData, DocumentData> = {
 	metadata: <SnapshotMetadata>{},
 	exists: () => {},
 	get: () => {},
 	id: "1",
 	ref: <DocumentReference<DocumentData, DocumentData>>{},
-	data: (): DocumentData => ({
-		batches: batchesArray,
-	}),
+	data: (): DocumentData => newBatch,
 };
 
-describe("startSetBatchesArray thunk tests", () => {
+describe("startAddBatch thunk tests", () => {
 	const dispatch = vi.fn();
 	beforeEach(async () => {
 		vi.clearAllMocks();
 	});
 
-	it("should call setBatchesArray and setActiveBatch (success)", async () => {
-		vi.mocked(readDocFromFirestore).mockResolvedValue(batchArrayResponse);
+	it("should call, addBatch (success)", async () => {
+		vi.mocked(readDocFromFirestore).mockResolvedValue(batchResponse);
 
-		const response = await startSetBatchesArray()(dispatch);
+		const response = await startAddBatch("2")(dispatch);
 
-		expect(dispatch).toHaveBeenNthCalledWith(1, setBatchesArray(batchesArray));
-		expect(dispatch).toHaveBeenNthCalledWith(2, setActiveBatch(batchesArray[0]));
+		expect(dispatch).toHaveBeenCalledWith(addBatch(newBatch));
 		expect(response).toBeTruthy();
 	});
 
 	it("should call switchLoadingState (fail)", async () => {
 		vi.mocked(readDocFromFirestore).mockResolvedValue(false);
 
-		const success = await startSetBatchesArray()(dispatch);
+		const response = await startSetBatchesArray()(dispatch);
 
-		expect(success).toBeFalsy();
+		expect(response).toBeFalsy();
 	});
 });
