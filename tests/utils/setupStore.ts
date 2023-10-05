@@ -5,6 +5,7 @@ import type { PreloadedState } from "@reduxjs/toolkit";
 import { authSlice } from "../../src/store/auth";
 import { uiSlice } from "../../src/store/ui";
 import { batchesSlice } from "../../src/store/batches";
+import { itemsSlice } from "../../src/store/items";
 
 // Create the root reducer separately so we can extract the RootState type
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
 	auth: authSlice.reducer,
 	ui: uiSlice.reducer,
 	batches: batchesSlice.reducer,
+	items: itemsSlice.reducer,
 });
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
