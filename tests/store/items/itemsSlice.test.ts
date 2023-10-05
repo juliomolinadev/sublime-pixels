@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { AnyAction } from "@reduxjs/toolkit";
 import {
-	newTestCurrentItems,
 	newTestItems,
 	testItemsInitialState,
 	testNewCurrentItemsSettedState,
