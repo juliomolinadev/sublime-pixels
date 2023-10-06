@@ -19,8 +19,12 @@ vi.mock("firebase/firestore", async () => {
 const consoleMock = vi.spyOn(console, "log").mockImplementation(() => undefined);
 
 describe("readCollectionFromFirestore() fail tests", () => {
+	const query = {
+		collectionPath: "tests/readDoc/readSubcollection",
+	};
+
 	it("should return false when an error is thrown", async () => {
-		const readResp = await readCollectionFromFirestore("/tests/readDoc/readSubcollection");
+		const readResp = await readCollectionFromFirestore(query);
 
 		expect(getDocs).toHaveBeenCalled();
 		expect(readResp).toBeFalsy();
