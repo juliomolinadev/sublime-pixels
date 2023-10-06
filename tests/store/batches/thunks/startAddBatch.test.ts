@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { readDocFromFirestore } from "../../../../src/firebase/firestoreCRUD/readDocFromFirestore";
-import { startSetBatchesArray } from "../../../../src/store/batches/thunks/starSetBatchesArray";
 import { addBatch } from "../../../../src/store/batches";
 import { startAddBatch } from "../../../../src/store/batches/thunks/startAddBatch";
 import {
@@ -42,10 +41,10 @@ describe("startAddBatch thunk tests", () => {
 		expect(response).toBeTruthy();
 	});
 
-	it("should call switchLoadingState (fail)", async () => {
+	it("should return false (fail)", async () => {
 		vi.mocked(readDocFromFirestore).mockResolvedValue(false);
 
-		const response = await startSetBatchesArray()(dispatch);
+		const response = await startAddBatch("2")(dispatch);
 
 		expect(response).toBeFalsy();
 	});
