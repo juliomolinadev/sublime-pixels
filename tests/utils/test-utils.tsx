@@ -29,3 +29,10 @@ export function renderWithProviders(
 	}
 	return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
 }
+
+export function getStoreWrapper(preloadedState = {}) {
+	const store = setupStore(preloadedState);
+	const wrapper = ({ children }) => <Provider store={store}>{children}</Provider>;
+
+	return { wrapper, store };
+}
