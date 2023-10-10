@@ -1,11 +1,18 @@
 import { Item } from "./Item";
-import { testItems } from "../../../tests/fixtures/componentsFixtures";
+import { useTypedSelector } from "../../hooks";
+import { shuffle } from "../../helpers/shuffle";
 
 export const Batch = () => {
+	const { currentItems } = useTypedSelector((state) => state.items);
+
+	const keys = Object.keys(currentItems);
+
+	shuffle(keys);
+
 	return (
 		<div className="batch">
-			{testItems.map((item) => (
-				<Item key={item.id} {...item} />
+			{keys.map((key) => (
+				<Item key={key} {...currentItems[key]} />
 			))}
 		</div>
 	);
