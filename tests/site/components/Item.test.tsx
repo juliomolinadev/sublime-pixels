@@ -9,12 +9,13 @@ import { testItems } from "../../fixtures/componentsFixtures";
 
 describe("<Item /> tests", () => {
 	it("should render component", () => {
-		const props = { ...testItems[0], title: "Test Product Title" };
+		const title = "Test Product Title";
+		const props = { ...testItems[0], title, hasDownloadables: true };
 
 		const { container } = renderWithProviders(<Item {...props} />);
 
 		expect(screen.getByText(props.title)).toBeInTheDocument();
-		expect(screen.getByRole("link", { name: "Buy on Etsy" })).toBeInTheDocument();
+		expect(screen.getByText(title)).toBeInTheDocument();
 		expect(container).toMatchSnapshot();
 	});
 

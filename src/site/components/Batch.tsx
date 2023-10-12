@@ -2,17 +2,24 @@ import { Item } from "./Item";
 import { useTypedSelector } from "../../hooks";
 import { shuffle } from "../../helpers/shuffle";
 
+const downloads = ["1"];
+
 export const Batch = () => {
 	const { currentItems } = useTypedSelector((state) => state.items);
+	const { batches, activeBatch } = useTypedSelector((state) => state.batches);
 
-	const keys = Object.keys(currentItems);
+	const itemIds = Object.keys(currentItems);
 
-	shuffle(keys);
+	shuffle(itemIds);
+
+	const downloadables = batches[activeBatch] && batches[activeBatch].downloadables;
+	const batchDownloads = itemIds.filter((itemId) => downloads.includes(itemId));
+	const hasDownloadables = batchDownloads.length < downloadables;
 
 	return (
 		<div className="batch">
-			{keys.map((key) => (
-				<Item key={key} {...currentItems[key]} />
+			{itemIds.map((itemId) => (
+				<Item key={itemId} hasDownloadables={hasDownloadables} {...currentItems[itemId]} />
 			))}
 		</div>
 	);
