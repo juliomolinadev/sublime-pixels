@@ -3,6 +3,7 @@ import { authSlice } from "./auth";
 import { uiSlice } from "./ui";
 import { batchesSlice } from "./batches";
 import { itemsSlice } from "./items";
+import { userSlice } from "./user";
 
 export const store = configureStore({
 	reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
 		ui: uiSlice.reducer,
 		batches: batchesSlice.reducer,
 		items: itemsSlice.reducer,
+		user: userSlice.reducer,
 	},
 });
 

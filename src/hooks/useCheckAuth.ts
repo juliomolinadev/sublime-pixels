@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { FirebaseAuth } from "../firebase/firebaseConfig";
 import { login, logout } from "../store/auth";
 import { useTypedDispatch, useTypedSelector } from ".";
+import { startSetUser } from "../store/user/thunks";
 
 export const useCheckAuth = () => {
 	const { status } = useTypedSelector((state) => state.auth);
@@ -14,6 +15,7 @@ export const useCheckAuth = () => {
 
 			const { uid, email, displayName, photoURL, emailVerified } = user;
 			dispatch(login({ uid, email, displayName, photoURL, emailVerified }));
+			dispatch(startSetUser(uid));
 		});
 	}, [dispatch]);
 
