@@ -68,4 +68,26 @@ describe("<Item /> tests", () => {
 			expect(likeButton).toHaveClass("item__likeButton--active");
 		});
 	});
+
+	it("should dislike item", async () => {
+		vi.mocked(updateDocInFirestore).mockResolvedValue(true);
+
+		const props = {
+			...testItems[0],
+			title: "Test Product Title",
+			hasDownloadables: true,
+			isDownloaded: false,
+		};
+
+		const user = userEvent.setup();
+
+		renderWithProviders(<Item {...props} />, { preloadedState });
+
+		const dislikeButton = screen.getByLabelText("dislikeButton");
+		await user.click(dislikeButton);
+
+		await waitFor(() => {
+			expect(dislikeButton).toHaveClass("item__dislikeButton--active");
+		});
+	});
 });

@@ -1,7 +1,7 @@
 import { FiHeart, FiThumbsDown, FiDownload, FiArrowRight } from "react-icons/fi";
 import { ItemProps } from "../../store";
 import { useTypedDispatch, useTypedSelector } from "../../hooks";
-import { startSwitchLike } from "../../store/user/thunks";
+import { startSwitchDislike, startSwitchLike } from "../../store/user/thunks";
 
 // TODO: hasDownloadables should be in the state
 
@@ -18,6 +18,10 @@ export const Item = ({ id, img, title, buyLink, hasDownloadables }: Props) => {
 
 	const onSwitchLike = (): void => {
 		dispatch(startSwitchLike(id));
+	};
+
+	const onSwitchDislike = (): void => {
+		dispatch(startSwitchDislike(id));
 	};
 
 	return (
@@ -45,7 +49,11 @@ export const Item = ({ id, img, title, buyLink, hasDownloadables }: Props) => {
 					</a>
 				)}
 
-				<div className={isDisliked ? "item__dislikeButton--active" : "item__dislikeButton"}>
+				<div
+					aria-label="dislikeButton"
+					className={isDisliked ? "item__dislikeButton--active" : "item__dislikeButton"}
+					onClick={onSwitchDislike}
+				>
 					<FiThumbsDown />
 				</div>
 			</div>
