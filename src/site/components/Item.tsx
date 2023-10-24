@@ -1,19 +1,24 @@
 import { FiHeart, FiThumbsDown, FiDownload, FiArrowRight } from "react-icons/fi";
 import { ItemProps } from "../../store";
+import { useTypedDispatch, useTypedSelector } from "../../hooks";
+import { startSwitchLike } from "../../store/user/thunks";
 
 // TODO: hasDownloadables should be in the state
-
-const downloads = ["1"];
-const likes = ["3", "7", "15"];
-const dislikes = ["17", "6", "8"];
 
 interface Props extends ItemProps {
 	hasDownloadables: boolean;
 }
 export const Item = ({ id, img, title, buyLink, hasDownloadables }: Props) => {
+	const { likes, dislikes, downloads } = useTypedSelector((state) => state.user);
+	const dispatch = useTypedDispatch();
+
 	const isDownloaded = downloads.includes(id);
 	const isLoved = likes.includes(id);
 	const isDisliked = dislikes.includes(id);
+
+	const onSwitchLike = (): void => {
+		dispatch(startSwitchLike(id));
+	};
 
 	return (
 		<div className={`item ${isDownloaded && "item__downloaded"}`}>
@@ -22,9 +27,13 @@ export const Item = ({ id, img, title, buyLink, hasDownloadables }: Props) => {
 			<p className="item__title">{title} </p>
 
 			<div className="item__footer">
-				<div className={isLoved ? "item__loveButton--active" : "item__loveButton"}>
+				<button
+					aria-label="likeButton"
+					className={isLoved ? "item__likeButton--active" : "item__likeButton"}
+					onClick={onSwitchLike}
+				>
 					<FiHeart />
-				</div>
+				</button>
 
 				{hasDownloadables || isDownloaded ? (
 					<button className="item__downloadButton">

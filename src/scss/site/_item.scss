@@ -42,7 +42,7 @@
 		border-top: 1px solid v.$lightGray;
 	}
 
-	&__loveButton {
+	&__likeButton {
 		@include m.iconButton(v.$crimson);
 
 		&--active {
