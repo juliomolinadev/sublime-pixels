@@ -1,13 +1,38 @@
 import { updateDocInFirestore } from "../../../firebase/firestoreCRUD";
 import { AppDispatch, RootState } from "../../store";
-import { addDislike, removeDislike } from "../userSlice";
+import { addDislike, removeDislike, removeLike } from "../userSlice";
 
 export const startSwitchDislike = (itemId: string) => {
 	return async (dispatch: AppDispatch, getState: () => RootState) => {
 		const state = getState();
-		const { uid, dislikes } = state.user;
+		const { uid, likes, dislikes } = state.user;
 
 		if (!uid) return false;
+
+		// If the user has already liked the item, remove the like and add the dislike
+		if (likes.includes(itemId)) {
+			const removeLikeQuery = {
+				collectionPath: "users",
+				docId: uid,
+				updates: {},
+				arrayRemoveUpdate: { fieldName: "likes", value: itemId },
+			};
+
+			const wasLikeRemoved = await updateDocInFirestore(removeLikeQuery);
+			if (wasLikeRemoved) dispatch(removeLike(itemId));
+
+			const addDislikeQuery = {
+				collectionPath: "users",
+				docId: uid,
+				updates: {},
+				arrayUnionUpdate: { fieldName: "dislikes", value: itemId },
+			};
+
+			const wasDislikeAdded = await updateDocInFirestore(addDislikeQuery);
+			if (wasDislikeAdded) dispatch(addDislike(itemId));
+
+			if (wasLikeRemoved && wasDislikeAdded) return true;
+		}
 
 		if (dislikes.includes(itemId)) {
 			const removeQuery = {
@@ -21,7 +46,9 @@ export const startSwitchDislike = (itemId: string) => {
 
 			if (wasRemoved) dispatch(removeDislike(itemId));
 			return wasRemoved;
-		} else {
+		}
+
+		if (!dislikes.includes(itemId)) {
 			const addQuery = {
 				collectionPath: "users",
 				docId: uid,
