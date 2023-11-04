@@ -24,7 +24,11 @@ export const startSetItems = (batchId: string) => {
 				return false;
 			}
 
-			const items = itemsResponse.map((item: DocumentData) => item.data());
+			const items = itemsResponse.map((item: DocumentData) => {
+				const newItem = item.data();
+				return { ...newItem, isDownloading: false };
+			});
+
 			dispatch(addItems(items));
 
 			return true;
