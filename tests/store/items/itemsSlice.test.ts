@@ -7,7 +7,12 @@ import {
 	testNewItemsAddedState,
 } from "../../fixtures";
 
-import { addItems, itemsSlice, setCurrentItems } from "../../../src/store/items/itemsSlice";
+import {
+	addItems,
+	itemsSlice,
+	setCurrentItems,
+	switchDownloadingItem,
+} from "../../../src/store/items/itemsSlice";
 
 describe("itemsSlice.ts tests", () => {
 	it("should return the initial state and be called items", () => {
@@ -28,5 +33,11 @@ describe("itemsSlice.ts tests", () => {
 		const state = itemsSlice.reducer(testNewItemsAddedState, setCurrentItems("1"));
 
 		expect(state).toEqual(testNewCurrentItemsSettedState);
+	});
+
+	it("should change the downloading state of an item", () => {
+		const state = itemsSlice.reducer(testNewCurrentItemsSettedState, switchDownloadingItem("1"));
+
+		expect(state.currentItems["1"].isDownloading).toBeTruthy();
 	});
 });

@@ -41,7 +41,12 @@ export const itemsSlice = createSlice({
 
 			state.currentItems = { ...newItems };
 		},
+
+		switchDownloadingItem: (state, action: PayloadAction<string>) => {
+			state.currentItems[action.payload].isDownloading =
+				!state.currentItems[action.payload].isDownloading;
+		},
 	},
 });
 
-export const { addItems, setCurrentItems } = itemsSlice.actions;
+export const { addItems, setCurrentItems, switchDownloadingItem } = itemsSlice.actions;
