@@ -1,15 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { ItemProps } from "../interfaces";
+import { shuffle } from "../../helpers/shuffle";
 
 interface ItemsState {
 	items: ItemProps[];
 	currentItems: { [key: string]: ItemProps };
+	currentItemIds: string[];
 }
 
 const initialState: ItemsState = {
 	items: [],
 	currentItems: {},
+	currentItemIds: [],
 };
 
 export const itemsSlice = createSlice({
@@ -24,6 +27,7 @@ export const itemsSlice = createSlice({
 			});
 
 			state.currentItems = { ...newItems };
+			state.currentItemIds = shuffle(Object.keys(newItems));
 
 			action.payload.forEach((item) => {
 				state.items.push(item);
@@ -40,6 +44,7 @@ export const itemsSlice = createSlice({
 			});
 
 			state.currentItems = { ...newItems };
+			state.currentItemIds = shuffle(Object.keys(newItems));
 		},
 
 		switchDownloadingItem: (state, action: PayloadAction<string>) => {

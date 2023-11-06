@@ -76,4 +76,9 @@
 		margin-left: 1rem;
 		font-size: 2rem;
 	}
+
+	&__spinner {
+		@include m.spinner(0.2rem, 2.4rem, v.$white);
+		margin-left: 1rem;
+	}
 }

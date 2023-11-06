@@ -26,13 +26,18 @@ describe("itemsSlice.ts tests", () => {
 	it("should add items", () => {
 		const state = itemsSlice.reducer(testItemsInitialState, addItems(newTestItems));
 
-		expect(state).toEqual(testNewItemsAddedState);
+		expect(state.items).toEqual(testNewItemsAddedState.items);
+		expect(state.currentItems).toEqual(testNewItemsAddedState.currentItems);
+		expect(state.currentItemIds.length).toBe(testNewItemsAddedState.currentItemIds.length);
 	});
 
 	it("should set the current items", () => {
 		const state = itemsSlice.reducer(testNewItemsAddedState, setCurrentItems("1"));
 
-		expect(state).toEqual(testNewCurrentItemsSettedState);
+		expect(state.currentItems).toEqual(testNewCurrentItemsSettedState.currentItems);
+		expect(state.currentItemIds.length).toEqual(
+			testNewCurrentItemsSettedState.currentItemIds.length,
+		);
 	});
 
 	it("should change the downloading state of an item", () => {

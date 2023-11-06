@@ -55,6 +55,7 @@ export const testItemsInitialState = {
 			isDownloading: false,
 		},
 	},
+	currentItemIds: ["1", "2"],
 };
 
 export const newTestItems: ItemProps[] = [
@@ -194,6 +195,7 @@ export const testNewItemsAddedState = {
 			isDownloading: false,
 		},
 	},
+	currentItemIds: ["1", "2"],
 };
 
 export const testNewCurrentItemsSettedState = {
@@ -277,4 +279,5 @@ export const testNewCurrentItemsSettedState = {
 			isDownloading: false,
 		},
 	},
+	currentItemIds: ["1", "2"],
 };
