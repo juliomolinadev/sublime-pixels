@@ -1,0 +1,29 @@
+@use "../base/variables" as v;
+@use "../base/mixins" as m;
+
+.downloadsCounter {
+	display: flex;
+	align-items: center;
+	margin: auto;
+
+	background-color: v.$gray;
+	border-radius: 50px;
+	font-size: 1.6rem;
+	padding: 1rem 2rem;
+	color: v.$white;
+
+	&--available {
+		background-color: v.$success;
+	}
+
+	&__icon {
+		margin-right: 1rem;
+		font-size: 2rem;
+		font-weight: 700;
+	}
+
+	&__counter {
+		margin-left: 1rem;
+		font-weight: 700;
+	}
+}

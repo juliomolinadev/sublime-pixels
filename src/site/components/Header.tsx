@@ -1,12 +1,14 @@
 // Batch gifts counter
 // Navigation
 
+import { DownloadsCounter } from "./DownloadsCounter";
 import { PaginationControls } from "./PaginationControls";
 
 export const Header = () => {
 	return (
-		<div>
+		<div className="header">
 			<PaginationControls />
+			<DownloadsCounter />
 		</div>
 	);
 };
