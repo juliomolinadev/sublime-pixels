@@ -2,13 +2,14 @@ import { FiHeart, FiThumbsDown, FiDownload, FiArrowRight } from "react-icons/fi"
 import { ItemProps } from "../../store";
 import { useTypedDispatch, useTypedSelector } from "../../hooks";
 import { startSwitchDislike, startSwitchLike } from "../../store/user/thunks";
-
-// TODO: hasDownloadables should be in the state
+import { downloadImage } from "../helpers";
+import { switchDownloadingItem } from "../../store/items";
 
 interface Props extends ItemProps {
 	hasDownloadables: boolean;
 }
-export const Item = ({ id, img, title, buyLink, hasDownloadables }: Props) => {
+
+export const Item = ({ id, img, title, buyLink, hasDownloadables, isDownloading }: Props) => {
 	const { likes, dislikes, downloads } = useTypedSelector((state) => state.user);
 	const dispatch = useTypedDispatch();
 
@@ -24,11 +25,17 @@ export const Item = ({ id, img, title, buyLink, hasDownloadables }: Props) => {
 		dispatch(startSwitchDislike(id));
 	};
 
+	const onDownloadImage = async () => {
+		dispatch(switchDownloadingItem(id));
+		await downloadImage({ batch: "B2", file: "3D-Embroidered-Ocean-Sunset-Straight.png" });
+		dispatch(switchDownloadingItem(id));
+	};
+
 	return (
 		<div className={`item ${isDownloaded && "item__downloaded"}`}>
 			<img className="item__img" src={img} alt="post item" />
 
-			<p className="item__title">{title} </p>
+			<p className="item__title">{title}</p>
 
 			<div className="item__footer">
 				<button
@@ -40,8 +47,9 @@ export const Item = ({ id, img, title, buyLink, hasDownloadables }: Props) => {
 				</button>
 
 				{hasDownloadables || isDownloaded ? (
-					<button className="item__downloadButton">
+					<button className="item__downloadButton" onClick={onDownloadImage}>
 						Download <FiDownload className="item__icon" />
+						{isDownloading && <div className="item__spinner"></div>}
 					</button>
 				) : (
 					<a className="item__buyButton" href={buyLink} target="_blank">

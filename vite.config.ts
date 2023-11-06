@@ -22,6 +22,7 @@ export default defineConfig({
 	test: {
 		globals: true,
 		environment: "jsdom",
+		// environment: "happy-dom",
 		css: true,
 		setupFiles: "./tests/setup.ts",
 		testTimeout: 10000,
@@ -46,7 +47,9 @@ export default defineConfig({
 				"**/commitlint.config.cts",
 				"**/index.ts",
 				"**/validateEmail.ts",
+				"**/getBlobFromStorage.ts",
 				"**/firebaseProviders.ts",
+				"**/downloadImage.ts",
 				"**/store.ts",
 				"**/App.tsx",
 				"**/main.tsx",
