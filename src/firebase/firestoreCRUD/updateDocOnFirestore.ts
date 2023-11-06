@@ -5,6 +5,7 @@ import {
 	DocumentData,
 	arrayUnion,
 	arrayRemove,
+	increment,
 } from "firebase/firestore";
 import { FirebaseDB } from "../firebaseConfig";
 
@@ -13,12 +14,18 @@ interface ArrayUpdate {
 	value: string | number | boolean;
 }
 
+interface NumericUpdate {
+	fieldName: string;
+	amount: number;
+}
+
 interface Params {
 	collectionPath: string;
 	updates: WithFieldValue<DocumentData>;
 	docId: string;
 	arrayUnionUpdate?: ArrayUpdate;
 	arrayRemoveUpdate?: ArrayUpdate;
+	incrementUpdate?: NumericUpdate;
 }
 
 export const updateDocInFirestore = async ({
@@ -27,6 +34,7 @@ export const updateDocInFirestore = async ({
 	updates,
 	arrayUnionUpdate,
 	arrayRemoveUpdate,
+	incrementUpdate,
 }: Params) => {
 	try {
 		const docRef = doc(FirebaseDB, collectionPath, docId);
@@ -39,6 +47,13 @@ export const updateDocInFirestore = async ({
 		if (arrayRemoveUpdate) {
 			await updateDoc(docRef, {
 				[arrayRemoveUpdate.fieldName]: arrayRemove(arrayRemoveUpdate.value),
+			});
+			return true;
+		}
+
+		if (incrementUpdate) {
+			await updateDoc(docRef, {
+				[incrementUpdate.fieldName]: increment(incrementUpdate.amount),
 			});
 			return true;
 		}

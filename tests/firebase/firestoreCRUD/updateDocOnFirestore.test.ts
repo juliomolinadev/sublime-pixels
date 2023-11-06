@@ -36,6 +36,7 @@ describe("updateDocOnFirestore() tests", () => {
 			updates: {},
 			arrayUnionUpdate: { fieldName: "testArray", value: "newString" },
 		};
+
 		const updateResp = await updateDocInFirestore(updateQuery);
 
 		const readQuery = {
@@ -59,6 +60,7 @@ describe("updateDocOnFirestore() tests", () => {
 			updates: {},
 			arrayRemoveUpdate: { fieldName: "testArray", value: "newString" },
 		};
+
 		const updateResp = await updateDocInFirestore(updateQuery);
 
 		const readQuery = {
@@ -73,5 +75,53 @@ describe("updateDocOnFirestore() tests", () => {
 		expect(updateResp).toBeTruthy();
 		expect(readResp).toBeTruthy();
 		expect(testArray).not.toContain("newString");
+	});
+
+	it("should increment a number on firestore with incrementUpdate", async () => {
+		const updateQuery = {
+			collectionPath: "tests/updateDoc/updateSubcollection",
+			docId: "updatable2",
+			updates: {},
+			incrementUpdate: { fieldName: "testNumber", amount: 1 },
+		};
+
+		const updateResp = await updateDocInFirestore(updateQuery);
+
+		const readQuery = {
+			collectionPath: "tests/updateDoc/updateSubcollection",
+			docId: "updatable2",
+		};
+		const readResp = await readDocFromFirestore(readQuery);
+
+		let testNumber = 0;
+		if (readResp) testNumber = readResp.data().testNumber;
+
+		expect(updateResp).toBeTruthy();
+		expect(readResp).toBeTruthy();
+		expect(testNumber).toBe(1);
+	});
+
+	it("should decrement a number on firestore with incrementUpdate", async () => {
+		const updateQuery = {
+			collectionPath: "tests/updateDoc/updateSubcollection",
+			docId: "updatable2",
+			updates: {},
+			incrementUpdate: { fieldName: "testNumber", amount: -1 },
+		};
+
+		const updateResp = await updateDocInFirestore(updateQuery);
+
+		const readQuery = {
+			collectionPath: "tests/updateDoc/updateSubcollection",
+			docId: "updatable2",
+		};
+		const readResp = await readDocFromFirestore(readQuery);
+
+		let testNumber = 0;
+		if (readResp) testNumber = readResp.data().testNumber;
+
+		expect(updateResp).toBeTruthy();
+		expect(readResp).toBeTruthy();
+		expect(testNumber).toBe(0);
 	});
 });
