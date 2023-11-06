@@ -43,7 +43,8 @@ describe("<Item /> tests", () => {
 		const { container } = renderWithProviders(<Item {...props} />, { preloadedState });
 
 		expect(screen.getByText(props.title)).toBeInTheDocument();
-		expect(screen.getByRole("button", { name: "Download" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "Download straight" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "Download tapered" })).toBeInTheDocument();
 		expect(container).toMatchSnapshot();
 	});
 

@@ -10,8 +10,9 @@ export interface ItemProps {
 	img: string;
 	title: string;
 	buyLink: string;
-	downloadFiles: string[];
+	fileNames: string[];
 	likes: number;
 	disLikes: number;
 	downloads: number;
+	isDownloading: boolean;
 }

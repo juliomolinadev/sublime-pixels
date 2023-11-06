@@ -9,7 +9,16 @@ interface Props extends ItemProps {
 	hasDownloadables: boolean;
 }
 
-export const Item = ({ id, img, title, buyLink, hasDownloadables, isDownloading }: Props) => {
+export const Item = ({
+	id,
+	img,
+	title,
+	batch,
+	buyLink,
+	hasDownloadables,
+	isDownloading,
+	fileNames,
+}: Props) => {
 	const { likes, dislikes, downloads } = useTypedSelector((state) => state.user);
 	const dispatch = useTypedDispatch();
 
@@ -25,9 +34,9 @@ export const Item = ({ id, img, title, buyLink, hasDownloadables, isDownloading 
 		dispatch(startSwitchDislike(id));
 	};
 
-	const onDownloadImage = async () => {
+	const onDownloadImage = async (file: string) => {
 		dispatch(switchDownloadingItem(id));
-		await downloadImage({ batch: "B2", file: "3D-Embroidered-Ocean-Sunset-Straight.png" });
+		await downloadImage({ batch: `B${batch}`, file });
 		dispatch(switchDownloadingItem(id));
 	};
 
@@ -46,24 +55,41 @@ export const Item = ({ id, img, title, buyLink, hasDownloadables, isDownloading 
 					<FiHeart />
 				</button>
 
-				{hasDownloadables || isDownloaded ? (
-					<button className="item__downloadButton" onClick={onDownloadImage}>
-						Download <FiDownload className="item__icon" />
-						{isDownloading && <div className="item__spinner"></div>}
-					</button>
-				) : (
-					<a className="item__buyButton" href={buyLink} target="_blank">
-						Buy on Etsy <FiArrowRight className="item__icon" />
-					</a>
-				)}
-
-				<div
+				<button
 					aria-label="dislikeButton"
 					className={isDisliked ? "item__dislikeButton--active" : "item__dislikeButton"}
 					onClick={onSwitchDislike}
 				>
 					<FiThumbsDown />
-				</div>
+				</button>
+
+				{hasDownloadables || isDownloaded ? (
+					<div className="item__downloadSection">
+						<div className="item__downloadButtons">
+							<button
+								className="item__downloadButton"
+								onClick={() => onDownloadImage(fileNames[0])}
+							>
+								<FiDownload className="item__icon" /> Download straight
+							</button>
+
+							<button
+								className="item__downloadButton"
+								onClick={() => onDownloadImage(fileNames[1])}
+							>
+								<FiDownload className="item__icon" /> Download tapered
+							</button>
+						</div>
+
+						<div className="item__downloadSpinner">
+							{isDownloading && <div className="item__spinner"></div>}
+						</div>
+					</div>
+				) : (
+					<a className="item__buyButton" href={buyLink} target="_blank">
+						Buy on Etsy <FiArrowRight className="item__icon" />
+					</a>
+				)}
 			</div>
 		</div>
 	);
