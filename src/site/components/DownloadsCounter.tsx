@@ -6,8 +6,10 @@ export const DownloadsCounter = () => {
 	const { currentItemIds } = useTypedSelector((state) => state.items);
 	const { downloads } = useTypedSelector((state) => state.user);
 
-	const downloadedItems = downloads.map((id) => {
-		return currentItemIds.find((itemId) => itemId === id);
+	const downloadedItems: string[] = [];
+
+	currentItemIds.forEach((id) => {
+		if (downloads.includes(id)) downloadedItems.push(id);
 	});
 
 	return (
