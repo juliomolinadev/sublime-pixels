@@ -5,6 +5,7 @@ import { startSwitchDislike, startSwitchLike } from "../../store/user/thunks";
 import { downloadImage } from "../helpers";
 import { switchDownloadingItem } from "../../store/items";
 import { startAddDownload } from "../../store/user/thunks/startAddDownload";
+import { switchRegisterModal } from "../../store/ui";
 
 interface Props extends ItemProps {
 	hasDownloadables: boolean;
@@ -20,7 +21,7 @@ export const Item = ({
 	isDownloading,
 	fileNames,
 }: Props) => {
-	const { likes, dislikes, downloads } = useTypedSelector((state) => state.user);
+	const { uid, likes, dislikes, downloads } = useTypedSelector((state) => state.user);
 	const dispatch = useTypedDispatch();
 
 	const isDownloaded = downloads.includes(id);
@@ -36,12 +37,16 @@ export const Item = ({
 	};
 
 	const onDownloadImage = async (file: string) => {
-		dispatch(switchDownloadingItem(id));
+		if (uid) {
+			dispatch(switchDownloadingItem(id));
 
-		const isDownloaded = await downloadImage({ batch: `B${batch}`, file });
-		if (isDownloaded) dispatch(startAddDownload(id));
+			const isDownloaded = await downloadImage({ batch: `B${batch}`, file });
+			if (isDownloaded) dispatch(startAddDownload(id));
 
-		dispatch(switchDownloadingItem(id));
+			dispatch(switchDownloadingItem(id));
+		} else {
+			dispatch(switchRegisterModal());
+		}
 	};
 
 	return (

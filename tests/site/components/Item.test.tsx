@@ -8,6 +8,7 @@ import { Item } from "../../../src/site/components/Item";
 import { testItems } from "../../fixtures/componentsFixtures";
 import userEvent from "@testing-library/user-event";
 import { updateDocInFirestore } from "../../../src/firebase/firestoreCRUD";
+import { RegisterForm } from "../../../src/site/components/RegisterForm";
 
 vi.mock("../../../src/firebase/firestoreCRUD/updateDocOnFirestore");
 
@@ -96,6 +97,42 @@ describe("<Item /> tests", () => {
 
 		await waitFor(() => {
 			expect(dislikeButton).toHaveClass("item__dislikeButton--active");
+		});
+	});
+
+	it("should open register modal", async () => {
+		const preloadedState = {
+			user: {
+				uid: null,
+				likes: [],
+				dislikes: [],
+				downloads: [],
+			},
+		};
+
+		const props = {
+			...testItems[0],
+			title: "Test Product Title",
+			hasDownloadables: true,
+			isDownloaded: false,
+		};
+
+		const user = userEvent.setup();
+
+		renderWithProviders(
+			<>
+				<RegisterForm />
+				<Item {...props} />
+			</>,
+
+			{ preloadedState },
+		);
+
+		const downloadButton = screen.getByRole("button", { name: "Download straight" });
+		await user.click(downloadButton);
+
+		await waitFor(() => {
+			expect(screen.getByText("Signup")).toBeInTheDocument();
 		});
 	});
 });
