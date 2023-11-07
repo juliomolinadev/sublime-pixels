@@ -55,6 +55,7 @@
 		@include m.iconButton(v.$gray);
 
 		&--active {
+			margin-left: 1rem;
 			@include m.activeIconButton(v.$gray);
 		}
 	}

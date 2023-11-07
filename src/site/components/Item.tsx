@@ -4,6 +4,7 @@ import { useTypedDispatch, useTypedSelector } from "../../hooks";
 import { startSwitchDislike, startSwitchLike } from "../../store/user/thunks";
 import { downloadImage } from "../helpers";
 import { switchDownloadingItem } from "../../store/items";
+import { startAddDownload } from "../../store/user/thunks/startAddDownload";
 
 interface Props extends ItemProps {
 	hasDownloadables: boolean;
@@ -36,7 +37,10 @@ export const Item = ({
 
 	const onDownloadImage = async (file: string) => {
 		dispatch(switchDownloadingItem(id));
-		await downloadImage({ batch: `B${batch}`, file });
+
+		const isDownloaded = await downloadImage({ batch: `B${batch}`, file });
+		if (isDownloaded) dispatch(startAddDownload(id));
+
 		dispatch(switchDownloadingItem(id));
 	};
 

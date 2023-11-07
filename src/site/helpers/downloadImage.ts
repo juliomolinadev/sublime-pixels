@@ -6,13 +6,21 @@ interface Props {
 }
 
 export const downloadImage = async ({ batch, file }: Props) => {
-	const blob = await getBlobFromStorage(`gs://sublime-pixels-dev.appspot.com/${batch}/${file}`);
+	try {
+		const blob = await getBlobFromStorage(`gs://sublime-pixels-dev.appspot.com/${batch}/${file}`);
 
-	if (!blob) return;
+		if (!blob) return false;
 
-	const fileUrl = window.URL.createObjectURL(blob);
-	const a = document.createElement("a");
-	a.href = fileUrl;
-	a.download = file;
-	a.click();
+		const fileUrl = window.URL.createObjectURL(blob);
+		const a = document.createElement("a");
+		a.href = fileUrl;
+		a.download = file;
+		a.click();
+
+		return true;
+	} catch (error) {
+		console.log(error);
+
+		return false;
+	}
 };

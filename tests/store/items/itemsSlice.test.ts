@@ -8,6 +8,7 @@ import {
 } from "../../fixtures";
 
 import {
+	addDownload,
 	addItems,
 	itemsSlice,
 	setCurrentItems,
@@ -44,5 +45,13 @@ describe("itemsSlice.ts tests", () => {
 		const state = itemsSlice.reducer(testNewCurrentItemsSettedState, switchDownloadingItem("1"));
 
 		expect(state.currentItems["1"].isDownloading).toBeTruthy();
+	});
+
+	it("should increment the download counter in an item", () => {
+		const itemId = "1";
+		const state = itemsSlice.reducer(testNewCurrentItemsSettedState, addDownload(itemId));
+
+		expect(state.currentItems[itemId].downloads).toBe(1);
+		expect(state.items.find((item) => item.id === itemId)!.downloads).toBe(1);
 	});
 });
