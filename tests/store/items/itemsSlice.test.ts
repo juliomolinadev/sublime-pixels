@@ -10,6 +10,10 @@ import {
 import {
 	addDownload,
 	addItems,
+	decrementDislikes,
+	decrementLikes,
+	incrementDislikes,
+	incrementLikes,
 	itemsSlice,
 	setCurrentItems,
 	switchDownloadingItem,
@@ -53,5 +57,37 @@ describe("itemsSlice.ts tests", () => {
 
 		expect(state.currentItems[itemId].downloads).toBe(1);
 		expect(state.items.find((item) => item.id === itemId)!.downloads).toBe(1);
+	});
+
+	it("should increment the likes counter in an item", () => {
+		const itemId = "1";
+		const state = itemsSlice.reducer(testNewCurrentItemsSettedState, incrementLikes(itemId));
+
+		expect(state.currentItems[itemId].likes).toBe(1);
+		expect(state.items.find((item) => item.id === itemId)!.likes).toBe(1);
+	});
+
+	it("should decrement the likes counter in an item", () => {
+		const itemId = "1";
+		const state = itemsSlice.reducer(testNewCurrentItemsSettedState, decrementLikes(itemId));
+
+		expect(state.currentItems[itemId].likes).toBe(-1);
+		expect(state.items.find((item) => item.id === itemId)!.likes).toBe(-1);
+	});
+
+	it("should increment the dislikes counter in an item", () => {
+		const itemId = "1";
+		const state = itemsSlice.reducer(testNewCurrentItemsSettedState, incrementDislikes(itemId));
+
+		expect(state.currentItems[itemId].disLikes).toBe(1);
+		expect(state.items.find((item) => item.id === itemId)!.disLikes).toBe(1);
+	});
+
+	it("should decrement the dislikes counter in an item", () => {
+		const itemId = "1";
+		const state = itemsSlice.reducer(testNewCurrentItemsSettedState, decrementDislikes(itemId));
+
+		expect(state.currentItems[itemId].disLikes).toBe(-1);
+		expect(state.items.find((item) => item.id === itemId)!.disLikes).toBe(-1);
 	});
 });

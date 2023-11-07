@@ -18,6 +18,13 @@ const preloadedState = {
 		dislikes: [],
 		downloads: [],
 	},
+	items: {
+		items: [{ ...testItems[0] }],
+		currentItems: {
+			1: { ...testItems[0] },
+		},
+		currentItemIds: ["1"],
+	},
 };
 
 describe("<Item /> tests", () => {

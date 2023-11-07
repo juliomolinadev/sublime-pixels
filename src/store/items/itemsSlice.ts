@@ -56,7 +56,36 @@ export const itemsSlice = createSlice({
 			state.currentItems[action.payload].downloads += 1;
 			state.items.find((item) => item.id === action.payload)!.downloads += 1;
 		},
+
+		incrementLikes: (state, action: PayloadAction<string>) => {
+			state.currentItems[action.payload].likes += 1;
+			state.items.find((item) => item.id === action.payload)!.likes += 1;
+		},
+
+		decrementLikes: (state, action: PayloadAction<string>) => {
+			state.currentItems[action.payload].likes -= 1;
+			state.items.find((item) => item.id === action.payload)!.likes -= 1;
+		},
+
+		incrementDislikes: (state, action: PayloadAction<string>) => {
+			state.currentItems[action.payload].disLikes += 1;
+			state.items.find((item) => item.id === action.payload)!.disLikes += 1;
+		},
+
+		decrementDislikes: (state, action: PayloadAction<string>) => {
+			state.currentItems[action.payload].disLikes -= 1;
+			state.items.find((item) => item.id === action.payload)!.disLikes -= 1;
+		},
 	},
 });
 
-export const { addItems, setCurrentItems, switchDownloadingItem, addDownload } = itemsSlice.actions;
+export const {
+	addItems,
+	setCurrentItems,
+	switchDownloadingItem,
+	addDownload,
+	incrementLikes,
+	decrementLikes,
+	incrementDislikes,
+	decrementDislikes,
+} = itemsSlice.actions;

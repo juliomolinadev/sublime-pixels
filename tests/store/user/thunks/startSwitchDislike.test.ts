@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { startSwitchDislike } from "../../../../src/store/user/thunks/startSwitchDislike";
 import { addDislike, removeDislike, removeLike } from "../../../../src/store/user";
 import { updateDocInFirestore } from "../../../../src/firebase/firestoreCRUD";
+import { decrementDislikes, decrementLikes, incrementDislikes } from "../../../../src/store/items";
 
 vi.mock("../../../../src/firebase/firestoreCRUD/updateDocOnFirestore");
 
@@ -26,7 +27,7 @@ describe("startSwitchDislike thunk tests", () => {
 		expect(response).toBeFalsy();
 	});
 
-	it("should call dispatch with removeLike and addDislike", async () => {
+	it("should call dispatch with removeLike, decrementLikes, addDislike and incrementDislikes", async () => {
 		const getState = vi.fn().mockImplementation(() => ({
 			user: {
 				uid: "1",
@@ -40,11 +41,13 @@ describe("startSwitchDislike thunk tests", () => {
 		const response = await startSwitchDislike(itemId)(dispatch, getState);
 
 		expect(dispatch).toHaveBeenNthCalledWith(1, removeLike(itemId));
-		expect(dispatch).toHaveBeenNthCalledWith(2, addDislike(itemId));
+		expect(dispatch).toHaveBeenNthCalledWith(2, decrementLikes(itemId));
+		expect(dispatch).toHaveBeenNthCalledWith(3, addDislike(itemId));
+		expect(dispatch).toHaveBeenNthCalledWith(4, incrementDislikes(itemId));
 		expect(response).toBeTruthy();
 	});
 
-	it("should call dispatch with removeDislike", async () => {
+	it("should call dispatch with removeDislike and decrementDislikes", async () => {
 		const getState = vi.fn().mockImplementation(() => ({
 			user: {
 				uid: "1",
@@ -57,11 +60,12 @@ describe("startSwitchDislike thunk tests", () => {
 
 		const response = await startSwitchDislike(itemId)(dispatch, getState);
 
-		expect(dispatch).toHaveBeenCalledWith(removeDislike(itemId));
+		expect(dispatch).toHaveBeenNthCalledWith(1, removeDislike(itemId));
+		expect(dispatch).toHaveBeenNthCalledWith(2, decrementDislikes(itemId));
 		expect(response).toBeTruthy();
 	});
 
-	it("should call dispatch with addDislike", async () => {
+	it("should call dispatch with addDislike and incrementDislikes", async () => {
 		const getState = vi.fn().mockImplementation(() => ({
 			user: {
 				uid: "1",
@@ -74,7 +78,8 @@ describe("startSwitchDislike thunk tests", () => {
 
 		const response = await startSwitchDislike(itemId)(dispatch, getState);
 
-		expect(dispatch).toHaveBeenCalledWith(addDislike(itemId));
+		expect(dispatch).toHaveBeenNthCalledWith(1, addDislike(itemId));
+		expect(dispatch).toHaveBeenNthCalledWith(2, incrementDislikes(itemId));
 		expect(response).toBeTruthy();
 	});
 });
