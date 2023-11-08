@@ -24,6 +24,11 @@ export const userSlice = createSlice({
 			return state;
 		},
 
+		resetUser: (state) => {
+			state = initialState;
+			return state;
+		},
+
 		addDownload: (state, action: PayloadAction<string>) => {
 			state.downloads.push(action.payload);
 		},
@@ -46,5 +51,5 @@ export const userSlice = createSlice({
 	},
 });
 
-export const { setUser, addDownload, addLike, removeLike, addDislike, removeDislike } =
+export const { setUser, resetUser, addDownload, addLike, removeLike, addDislike, removeDislike } =
 	userSlice.actions;
