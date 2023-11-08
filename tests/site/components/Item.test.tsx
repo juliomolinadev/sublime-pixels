@@ -135,4 +135,36 @@ describe("<Item /> tests", () => {
 			expect(screen.getByText("Signup")).toBeInTheDocument();
 		});
 	});
+
+	it("should show confirmation email alert", async () => {
+		const preloadedState = {
+			auth: {
+				status: "authenticated",
+				uid: "123",
+				email: "julz3@dev.com",
+				displayName: "julz",
+				photoURL: null,
+				authErrorMessage: null,
+				emailVerified: false,
+			},
+		};
+
+		const props = {
+			...testItems[0],
+			title: "Test Product Title",
+			hasDownloadables: true,
+			isDownloaded: false,
+		};
+
+		const user = userEvent.setup();
+
+		renderWithProviders(<Item {...props} />, { preloadedState });
+
+		const downloadButton = screen.getByRole("button", { name: "Download straight" });
+		await user.click(downloadButton);
+
+		await waitFor(() => {
+			expect(screen.getByText("Please verify your email first")).toBeInTheDocument();
+		});
+	});
 });

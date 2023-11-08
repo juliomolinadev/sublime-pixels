@@ -6,6 +6,8 @@ import { downloadImage } from "../helpers";
 import { switchDownloadingItem } from "../../store/items";
 import { startAddDownload } from "../../store/user/thunks/startAddDownload";
 import { switchRegisterModal } from "../../store/ui";
+import { messageAlert } from "../../helpers";
+import { SweetAlertOptions } from "sweetalert2";
 
 interface Props extends ItemProps {
 	hasDownloadables: boolean;
@@ -21,7 +23,8 @@ export const Item = ({
 	isDownloading,
 	fileNames,
 }: Props) => {
-	const { uid, likes, dislikes, downloads } = useTypedSelector((state) => state.user);
+	const { likes, dislikes, downloads } = useTypedSelector((state) => state.user);
+	const { uid, emailVerified } = useTypedSelector((state) => state.auth);
 	const dispatch = useTypedDispatch();
 
 	const isDownloaded = downloads.includes(id);
@@ -37,16 +40,27 @@ export const Item = ({
 	};
 
 	const onDownloadImage = async (file: string) => {
-		if (uid) {
-			dispatch(switchDownloadingItem(id));
-
-			const isDownloaded = await downloadImage({ batch: `B${batch}`, file });
-			if (isDownloaded) dispatch(startAddDownload(id));
-
-			dispatch(switchDownloadingItem(id));
-		} else {
+		if (!uid) {
 			dispatch(switchRegisterModal());
+			return;
 		}
+
+		if (!emailVerified) {
+			const alert: SweetAlertOptions = {
+				title: "Please verify your email first",
+				text: "We'll use your email to notify you when we publish new free images.",
+				icon: "warning",
+			};
+			messageAlert(alert);
+			return;
+		}
+
+		dispatch(switchDownloadingItem(id));
+
+		const isDownloaded = await downloadImage({ batch: `B${batch}`, file });
+		if (isDownloaded) dispatch(startAddDownload(id));
+
+		dispatch(switchDownloadingItem(id));
 	};
 
 	return (
