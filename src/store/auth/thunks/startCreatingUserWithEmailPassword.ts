@@ -5,6 +5,8 @@ import { messageAlert } from "../../../helpers";
 import { AppDispatch } from "../../store";
 import { setUiErrorMessage, switchRegisterModal } from "../../ui";
 import { checkingCredentials, login, logout } from "../authSlice";
+import { createDocOnFirestore } from "../../../firebase/firestoreCRUD";
+import { setUser } from "../../user";
 
 interface UserInRegister {
 	email: string;
@@ -46,15 +48,40 @@ export const startCreatingUserWithEmailPassword = ({
 			return;
 		}
 
+		if (result.uid === null) return;
+
+		const { uid } = result;
+		const userInitialState = {
+			uid,
+			downloads: [],
+			likes: [],
+			dislikes: [],
+		};
+
+		const createUserQuery = {
+			collectionPath: "users",
+			docId: uid,
+			document: {
+				...userInitialState,
+				displayName,
+				email,
+			},
+		};
+
+		const isUserCreated = await createDocOnFirestore(createUserQuery);
+
 		const alert: SweetAlertOptions = {
 			title: "Please verify your email address",
 			text: "Check your inbox and follow the link.",
 			icon: "warning",
 		};
 
-		messageAlert(alert);
+		if (isUserCreated) {
+			messageAlert(alert);
 
-		dispatch(login(result));
-		dispatch(switchRegisterModal());
+			dispatch(setUser(userInitialState));
+			dispatch(login(result));
+			dispatch(switchRegisterModal());
+		}
 	};
 };
