@@ -4,42 +4,74 @@
 .item {
 	display: flex;
 	flex-direction: column;
-	padding: 1rem;
-	background: v.$white;
 	position: relative;
-	overflow: visible;
-	box-shadow:
-		0 1px 3px rgba(0, 0, 0, 0.12),
-		0 1px 2px rgba(0, 0, 0, 0.24);
+	height: calc(((100vw / 4) * 3) + 9rem);
 
-	&__downloaded {
-		border: solid 2px v.$success;
+	@include m.tablet {
+		height: 100%;
 	}
 
 	&__img {
-		border-radius: 0.5rem;
-		transition: 0.3s ease;
+		position: absolute;
+		top: 4rem;
+
+		@include m.tablet {
+			position: relative;
+			top: unset;
+		}
 	}
 
-	&__img:hover {
-		transform: translateY(-0.6rem);
-		cursor: pointer;
-		box-shadow: v.$crimson 0px 8px 10px -4px;
+	&__controls {
+		display: flex;
+		height: 100%;
+		width: 100%;
+		flex-direction: column;
+		justify-content: space-between;
+
+		@include m.tablet {
+			background-color: rgba(0, 0, 0, 0.3);
+			position: absolute;
+			top: 0;
+			opacity: 0;
+			transition: opacity 0.4s ease-in-out;
+
+			&:hover {
+				opacity: 1;
+			}
+		}
 	}
 
 	&__title {
-		font-weight: 900;
-		font-size: 1.2rem;
-		line-height: 1.5;
+		color: v.$black;
+		font-weight: 400;
+		font-size: 1.4rem;
+		margin-left: 1rem;
+
+		@include m.tablet {
+			color: v.$white;
+			position: absolute;
+			top: 0;
+			z-index: 99;
+		}
 	}
 
 	&__footer {
-		width: 100%;
+		width: 100vw;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 2rem 1rem 1rem 1rem;
-		border-top: 1px solid v.$lightGray;
+		padding: 0 1rem;
+
+		@include m.tablet {
+			position: absolute;
+			bottom: 1rem;
+			width: 100%;
+		}
+	}
+
+	&__iconButtons {
+		display: flex;
+		gap: 1rem;
 	}
 
 	&__likeButton {
@@ -51,63 +83,48 @@
 	}
 
 	&__dislikeButton {
-		margin-left: 1rem;
 		@include m.iconButton(v.$gray);
 
 		&--active {
-			margin-left: 1rem;
 			@include m.activeIconButton(v.$gray);
 		}
 	}
 
-	&__downloadSection {
-		width: 80%;
+	&__downloader {
 		display: flex;
-	}
-
-	&__downloadButtons {
-		width: 80%;
-		display: flex;
-		flex-direction: column;
-	}
-
-	&__downloadButton {
-		background: v.$white;
-		padding: 0;
-		border-style: none;
-		color: v.$purple;
-		font-weight: 700;
-		margin: 0 auto;
+		color: v.$gray;
+		font-weight: 400;
+		font-size: 1.4rem;
 		align-items: center;
-		transition: 0.3s ease-in-out;
-
-		&:hover {
-			transform: translateY(-0.6rem);
-			cursor: pointer;
-			box-shadow: v.$purple 0px 8px 8px -4px;
-		}
 	}
 
-	&__downloadSpinner {
-		width: 20%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+	&__downloaderLabel {
+		max-height: 3.2rem;
+		border-radius: 4px;
+		background-color: v.$white;
+		border-top: 1px solid v.$lightGray;
+		border-left: 1px solid v.$lightGray;
+		border-bottom: 1px solid v.$lightGray;
+
+		border-radius: 5px 0 0 5px;
+		padding: 0.8rem 1rem;
 	}
 
-	&__spinner {
-		@include m.spinner(0.2rem, 2.4rem, v.$purple);
+	&__downloaderButton {
+		@include m.iconButton(v.$gray);
+		border-radius: 0 5px 5px 0;
 	}
 
 	&__buyButton {
-		@include m.button(v.$purple);
-		margin: 0 auto;
-		padding: 1rem 2rem;
-		align-items: center;
+		@include m.button(v.$black);
+
+		@include m.tablet {
+			background-color: v.$white;
+			color: v.$gray;
+		}
 	}
 
 	&__icon {
-		// margin-left: 1rem;
-		font-size: 2rem;
+		font-size: 1.8rem;
 	}
 }

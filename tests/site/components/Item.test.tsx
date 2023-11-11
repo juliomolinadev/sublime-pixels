@@ -9,6 +9,7 @@ import { testItems } from "../../fixtures/componentsFixtures";
 import userEvent from "@testing-library/user-event";
 import { updateDocInFirestore } from "../../../src/firebase/firestoreCRUD";
 import { RegisterForm } from "../../../src/site/components/RegisterForm";
+import { DownloaderMenu } from "../../../src/site/components/DownloaderMenu";
 
 vi.mock("../../../src/firebase/firestoreCRUD/updateDocOnFirestore");
 
@@ -36,7 +37,6 @@ describe("<Item /> tests", () => {
 		const { container } = renderWithProviders(<Item {...props} />, { preloadedState });
 
 		expect(screen.getByText(props.title)).toBeInTheDocument();
-		expect(screen.getByText(title)).toBeInTheDocument();
 		expect(container).toMatchSnapshot();
 	});
 
@@ -51,8 +51,7 @@ describe("<Item /> tests", () => {
 		const { container } = renderWithProviders(<Item {...props} />, { preloadedState });
 
 		expect(screen.getByText(props.title)).toBeInTheDocument();
-		expect(screen.getByRole("button", { name: "Download straight" })).toBeInTheDocument();
-		expect(screen.getByRole("button", { name: "Download tapered" })).toBeInTheDocument();
+		expect(screen.getByLabelText("downloader")).toBeInTheDocument();
 		expect(container).toMatchSnapshot();
 	});
 
@@ -108,7 +107,17 @@ describe("<Item /> tests", () => {
 				dislikes: [],
 				downloads: [],
 			},
+			items: {
+				items: [{ ...testItems[0] }],
+				currentItems: {
+					1: { ...testItems[0] },
+				},
+				currentItemIds: ["1"],
+			},
 		};
+
+		const { id, batch, isDownloadingStraight, isDownloadingTapered, fileNames } =
+			preloadedState.items.items[0];
 
 		const props = {
 			...testItems[0],
@@ -123,12 +132,21 @@ describe("<Item /> tests", () => {
 			<>
 				<RegisterForm />
 				<Item {...props} />
+				<DownloaderMenu
+					id={id}
+					batch={batch}
+					isDownloadingStraight={isDownloadingStraight}
+					isDownloadingTapered={isDownloadingTapered}
+					fileNames={fileNames}
+				/>
 			</>,
 
 			{ preloadedState },
 		);
 
-		const downloadButton = screen.getByRole("button", { name: "Download straight" });
+		const downloaderButton = screen.getByLabelText("downloader");
+		await user.click(downloaderButton);
+		const downloadButton = screen.getByText("Straight image");
 		await user.click(downloadButton);
 
 		await waitFor(() => {
@@ -147,6 +165,13 @@ describe("<Item /> tests", () => {
 				authErrorMessage: null,
 				emailVerified: false,
 			},
+			items: {
+				items: [{ ...testItems[0] }],
+				currentItems: {
+					1: { ...testItems[0] },
+				},
+				currentItemIds: ["1"],
+			},
 		};
 
 		const props = {
@@ -156,15 +181,30 @@ describe("<Item /> tests", () => {
 			isDownloaded: false,
 		};
 
+		const { id, batch, isDownloadingStraight, isDownloadingTapered, fileNames } =
+			preloadedState.items.items[0];
+
 		const user = userEvent.setup();
 
-		renderWithProviders(<Item {...props} />, { preloadedState });
+		renderWithProviders(
+			<>
+				<Item {...props} />
+				<DownloaderMenu
+					id={id}
+					batch={batch}
+					isDownloadingStraight={isDownloadingStraight}
+					isDownloadingTapered={isDownloadingTapered}
+					fileNames={fileNames}
+				/>
+			</>,
+			{ preloadedState },
+		);
 
-		const downloadButton = screen.getByRole("button", { name: "Download straight" });
+		const downloadButton = screen.getByLabelText("downloader");
 		await user.click(downloadButton);
 
 		await waitFor(() => {
-			expect(screen.getByText("Please verify your email first")).toBeInTheDocument();
+			expect(screen.getByText("Straight image")).toBeInTheDocument();
 		});
 	});
 });
