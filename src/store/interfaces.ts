@@ -14,5 +14,7 @@ export interface ItemProps {
 	likes: number;
 	disLikes: number;
 	downloads: number;
-	isDownloading: boolean;
+	isOpenDownloadMenu: boolean;
+	isDownloadingStraight: boolean;
+	isDownloadingTapered: boolean;
 }

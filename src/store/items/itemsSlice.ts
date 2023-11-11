@@ -47,9 +47,19 @@ export const itemsSlice = createSlice({
 			state.currentItemIds = shuffle(Object.keys(newItems));
 		},
 
-		switchDownloadingItem: (state, action: PayloadAction<string>) => {
-			state.currentItems[action.payload].isDownloading =
-				!state.currentItems[action.payload].isDownloading;
+		switchDownloadMenu: (state, action: PayloadAction<string>) => {
+			state.currentItems[action.payload].isOpenDownloadMenu =
+				!state.currentItems[action.payload].isOpenDownloadMenu;
+		},
+
+		switchDownloadingStraight: (state, action: PayloadAction<string>) => {
+			state.currentItems[action.payload].isDownloadingStraight =
+				!state.currentItems[action.payload].isDownloadingStraight;
+		},
+
+		switchDownloadingTapered: (state, action: PayloadAction<string>) => {
+			state.currentItems[action.payload].isDownloadingTapered =
+				!state.currentItems[action.payload].isDownloadingTapered;
 		},
 
 		addDownload: (state, action: PayloadAction<string>) => {
@@ -82,7 +92,9 @@ export const itemsSlice = createSlice({
 export const {
 	addItems,
 	setCurrentItems,
-	switchDownloadingItem,
+	switchDownloadMenu,
+	switchDownloadingStraight,
+	switchDownloadingTapered,
 	addDownload,
 	incrementLikes,
 	decrementLikes,

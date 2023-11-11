@@ -11,6 +11,8 @@ export const testItems: ItemProps[] = [
 		likes: 0,
 		disLikes: 0,
 		downloads: 0,
-		isDownloading: false,
+		isDownloadingStraight: false,
+		isDownloadingTapered: false,
+		isOpenDownloadMenu: false,
 	},
 ];

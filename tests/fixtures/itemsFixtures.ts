@@ -12,7 +12,9 @@ export const testItemsInitialState = {
 			likes: 0,
 			disLikes: 0,
 			downloads: 0,
-			isDownloading: false,
+			isOpenDownloadMenu: false,
+			isDownloadingStraight: false,
+			isDownloadingTapered: false,
 		},
 
 		{
@@ -25,7 +27,9 @@ export const testItemsInitialState = {
 			likes: 1,
 			disLikes: 0,
 			downloads: 0,
-			isDownloading: false,
+			isOpenDownloadMenu: false,
+			isDownloadingStraight: false,
+			isDownloadingTapered: false,
 		},
 	],
 	currentItems: {
@@ -39,7 +43,9 @@ export const testItemsInitialState = {
 			likes: 0,
 			disLikes: 0,
 			downloads: 0,
-			isDownloading: false,
+			isOpenDownloadMenu: false,
+			isDownloadingStraight: false,
+			isDownloadingTapered: false,
 		},
 
 		"2": {
@@ -52,7 +58,9 @@ export const testItemsInitialState = {
 			likes: 1,
 			disLikes: 0,
 			downloads: 0,
-			isDownloading: false,
+			isOpenDownloadMenu: false,
+			isDownloadingStraight: false,
+			isDownloadingTapered: false,
 		},
 	},
 	currentItemIds: ["1", "2"],
@@ -69,7 +77,9 @@ export const newTestItems: ItemProps[] = [
 		likes: 0,
 		disLikes: 0,
 		downloads: 0,
-		isDownloading: false,
+		isOpenDownloadMenu: false,
+		isDownloadingStraight: false,
+		isDownloadingTapered: false,
 	},
 
 	{
@@ -82,7 +92,9 @@ export const newTestItems: ItemProps[] = [
 		likes: 1,
 		disLikes: 0,
 		downloads: 0,
-		isDownloading: false,
+		isOpenDownloadMenu: false,
+		isDownloadingStraight: false,
+		isDownloadingTapered: false,
 	},
 ];
 
@@ -97,7 +109,9 @@ export const newTestCurrentItems = {
 		likes: 0,
 		disLikes: 0,
 		downloads: 0,
-		isDownloading: false,
+		isOpenDownloadMenu: false,
+		isDownloadingStraight: false,
+		isDownloadingTapered: false,
 	},
 
 	"4": {
@@ -110,7 +124,9 @@ export const newTestCurrentItems = {
 		likes: 1,
 		disLikes: 0,
 		downloads: 0,
-		isDownloading: false,
+		isOpenDownloadMenu: false,
+		isDownloadingStraight: false,
+		isDownloadingTapered: false,
 	},
 };
 
@@ -126,7 +142,9 @@ export const testNewItemsAddedState = {
 			likes: 0,
 			disLikes: 0,
 			downloads: 0,
-			isDownloading: false,
+			isOpenDownloadMenu: false,
+			isDownloadingStraight: false,
+			isDownloadingTapered: false,
 		},
 
 		{
@@ -139,7 +157,9 @@ export const testNewItemsAddedState = {
 			likes: 1,
 			disLikes: 0,
 			downloads: 0,
-			isDownloading: false,
+			isOpenDownloadMenu: false,
+			isDownloadingStraight: false,
+			isDownloadingTapered: false,
 		},
 
 		{
@@ -152,7 +172,9 @@ export const testNewItemsAddedState = {
 			likes: 0,
 			disLikes: 0,
 			downloads: 0,
-			isDownloading: false,
+			isOpenDownloadMenu: false,
+			isDownloadingStraight: false,
+			isDownloadingTapered: false,
 		},
 
 		{
@@ -165,7 +187,9 @@ export const testNewItemsAddedState = {
 			likes: 1,
 			disLikes: 0,
 			downloads: 0,
-			isDownloading: false,
+			isOpenDownloadMenu: false,
+			isDownloadingStraight: false,
+			isDownloadingTapered: false,
 		},
 	],
 	currentItems: {
@@ -179,7 +203,9 @@ export const testNewItemsAddedState = {
 			likes: 0,
 			disLikes: 0,
 			downloads: 0,
-			isDownloading: false,
+			isOpenDownloadMenu: false,
+			isDownloadingStraight: false,
+			isDownloadingTapered: false,
 		},
 
 		"4": {
@@ -192,7 +218,9 @@ export const testNewItemsAddedState = {
 			likes: 1,
 			disLikes: 0,
 			downloads: 0,
-			isDownloading: false,
+			isOpenDownloadMenu: false,
+			isDownloadingStraight: false,
+			isDownloadingTapered: false,
 		},
 	},
 	currentItemIds: ["1", "2"],
@@ -210,7 +238,9 @@ export const testNewCurrentItemsSettedState = {
 			likes: 0,
 			disLikes: 0,
 			downloads: 0,
-			isDownloading: false,
+			isOpenDownloadMenu: false,
+			isDownloadingStraight: false,
+			isDownloadingTapered: false,
 		},
 
 		{
@@ -223,7 +253,9 @@ export const testNewCurrentItemsSettedState = {
 			likes: 1,
 			disLikes: 0,
 			downloads: 0,
-			isDownloading: false,
+			isOpenDownloadMenu: false,
+			isDownloadingStraight: false,
+			isDownloadingTapered: false,
 		},
 
 		{
@@ -236,7 +268,9 @@ export const testNewCurrentItemsSettedState = {
 			likes: 0,
 			disLikes: 0,
 			downloads: 0,
-			isDownloading: false,
+			isOpenDownloadMenu: false,
+			isDownloadingStraight: false,
+			isDownloadingTapered: false,
 		},
 
 		{
@@ -249,7 +283,9 @@ export const testNewCurrentItemsSettedState = {
 			likes: 1,
 			disLikes: 0,
 			downloads: 0,
-			isDownloading: false,
+			isOpenDownloadMenu: false,
+			isDownloadingStraight: false,
+			isDownloadingTapered: false,
 		},
 	],
 	currentItems: {
@@ -263,7 +299,9 @@ export const testNewCurrentItemsSettedState = {
 			likes: 0,
 			disLikes: 0,
 			downloads: 0,
-			isDownloading: false,
+			isOpenDownloadMenu: false,
+			isDownloadingStraight: false,
+			isDownloadingTapered: false,
 		},
 
 		"2": {
@@ -276,7 +314,9 @@ export const testNewCurrentItemsSettedState = {
 			likes: 1,
 			disLikes: 0,
 			downloads: 0,
-			isDownloading: false,
+			isOpenDownloadMenu: false,
+			isDownloadingStraight: false,
+			isDownloadingTapered: false,
 		},
 	},
 	currentItemIds: ["1", "2"],

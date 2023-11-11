@@ -16,7 +16,9 @@ import {
 	incrementLikes,
 	itemsSlice,
 	setCurrentItems,
-	switchDownloadingItem,
+	switchDownloadMenu,
+	switchDownloadingStraight,
+	switchDownloadingTapered,
 } from "../../../src/store/items/itemsSlice";
 
 describe("itemsSlice.ts tests", () => {
@@ -45,10 +47,25 @@ describe("itemsSlice.ts tests", () => {
 		);
 	});
 
-	it("should change the downloading state of an item", () => {
-		const state = itemsSlice.reducer(testNewCurrentItemsSettedState, switchDownloadingItem("1"));
+	it("should change the downloading menu state of an item", () => {
+		const state = itemsSlice.reducer(testNewCurrentItemsSettedState, switchDownloadMenu("1"));
 
-		expect(state.currentItems["1"].isDownloading).toBeTruthy();
+		expect(state.currentItems["1"].isOpenDownloadMenu).toBeTruthy();
+	});
+
+	it("should change the straight image downloading state of an item", () => {
+		const state = itemsSlice.reducer(
+			testNewCurrentItemsSettedState,
+			switchDownloadingStraight("1"),
+		);
+
+		expect(state.currentItems["1"].isDownloadingStraight).toBeTruthy();
+	});
+
+	it("should change the tapered image downloading state of an item", () => {
+		const state = itemsSlice.reducer(testNewCurrentItemsSettedState, switchDownloadingTapered("1"));
+
+		expect(state.currentItems["1"].isDownloadingTapered).toBeTruthy();
 	});
 
 	it("should increment the download counter in an item", () => {
