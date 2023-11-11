@@ -4,19 +4,23 @@
 .navbar {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	position: fixed;
 	width: 100%;
 	top: 0;
 	left: 0;
-	z-index: 99;
+	z-index: 999;
 
 	&__main {
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
-		background-color: v.$black;
+		background-color: v.$white;
 		width: 100%;
 		padding: 1rem 2rem;
+
+		@include m.monitor {
+			max-width: 144rem;
+		}
 	}
 
 	&__logo {
@@ -31,31 +35,35 @@
 	&__user {
 		display: flex;
 		align-items: center;
-		border-radius: 50px;
-		border: 1px solid v.$gray;
+		border-radius: 5px;
 		font-size: 1.2rem;
 	}
 
 	&__userName {
 		margin: 0 2rem;
-		color: v.$white;
+		color: v.$gray;
 		font-weight: 700;
 	}
 
 	&__loginButton {
-		@include m.button(v.$crimson);
+		@include m.button(v.$black);
 	}
 
 	&__alert {
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-		background-color: v.$alert;
+		// background-color: lighten($color: v.$alert, $amount: 20);
+		background-color: v.$white;
 		padding: 1rem 2rem;
 		color: v.$gray;
 
 		@include m.tablet {
 			flex-direction: row;
+		}
+
+		@include m.monitor {
+			max-width: 144rem;
 		}
 	}
 

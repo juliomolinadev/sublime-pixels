@@ -26,12 +26,15 @@
 }
 
 @mixin iconButton($color) {
-	color: v.$gray;
-	border: 1px solid v.$gray;
 	display: flex;
-	padding: 1rem;
+	color: v.$gray;
+	background-color: v.$white;
+	border: 1px solid v.$lightGray;
+	padding: 0.8rem 1rem;
+	font-size: 1.4rem;
+	max-height: 3.2rem;
 	cursor: pointer;
-	border-radius: 50px;
+	border-radius: 4px;
 	transition: 0.3s ease-in-out;
 
 	&:hover {
@@ -42,17 +45,19 @@
 }
 
 @mixin activeIconButton($color) {
-	color: v.$white;
-	border: 1px solid $color;
-	background-color: $color;
 	display: flex;
-	padding: 1rem;
+	color: v.$white;
+	background-color: $color;
+	border: 1px solid $color;
+	padding: 0.8rem 1rem;
+	font-size: 1.4rem;
+	max-height: 3.2rem;
 	cursor: pointer;
-	border-radius: 50px;
+	border-radius: 4px;
 	transition: 0.3s ease-in-out;
 
 	&:hover {
-		border: 1px solid v.$gray;
+		border: 1px solid v.$lightGray;
 		background-color: v.$white;
 		color: v.$gray;
 	}
@@ -60,19 +65,22 @@
 
 @mixin button($color) {
 	color: v.$white;
-	font-weight: 700;
+	font-weight: 400;
+	font-size: 1.4rem;
 	background-color: $color;
 	display: flex;
-	padding: 1rem 2rem;
+	align-items: center;
+	gap: 1rem;
+	padding: 0.8rem 1rem;
 	cursor: pointer;
-	border-radius: 50px;
-	transition: 0.3s ease-in-out;
+	border-radius: 4px;
+	transition: 0.2s ease-in-out;
 	border-style: none;
 
 	&:hover {
-		transform: translateY(-0.6rem);
+		transform: translateY(-0.2rem);
 		cursor: pointer;
-		box-shadow: $color 0px 8px 8px -4px;
+		box-shadow: $color 0px 4px 4px -2px;
 	}
 }
 
@@ -121,6 +129,6 @@
 }
 
 @mixin shadow() {
-	// box-shadow: 0px 0px 10px 3px rgb(0 0 0 / 15%);
-	box-shadow: 0px 0px 8px 1px rgb(0 0 0 / 12%);
+	box-shadow: 0px 0px 10px 3px rgb(0 0 0 / 15%);
+	// box-shadow: 0px 0px 8px 1px rgb(0 0 0 / 12%);
 }
