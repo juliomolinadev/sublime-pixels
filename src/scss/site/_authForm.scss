@@ -5,23 +5,10 @@
 	width: 90%;
 	margin: 6rem auto;
 	padding: 1rem;
-	border-radius: 1rem;
+	border-radius: 0.4rem;
 	border: none;
 	background-color: v.$white;
 	position: relative;
-
-	// animation-name: fadeInAuthForm;
-	// animation-duration: 1000ms;
-	// animation-fill-mode: forwards;
-
-	// @keyframes fadeInAuthForm {
-	// 	from {
-	// 		bottom: -40rem;
-	// 	}
-	// 	to {
-	// 		bottom: 0rem;
-	// 	}
-	// }
 
 	@include m.tablet {
 		max-width: 32rem;
@@ -39,8 +26,8 @@
 	&__heading {
 		margin: 1rem 0;
 		font-size: 2.4rem;
-		font-family: v.$headersFont;
-		color: v.$crimson;
+		// font-family: v.$headersFont;
+		// color: v.$crimson;
 	}
 
 	&__closeButton {
@@ -71,14 +58,14 @@
 	&__link {
 		margin-left: 0.5rem;
 		text-decoration: none;
-		color: v.$crimson;
+		color: v.$black;
 		font-weight: 700;
 		transition: 0.3s ease-in-out;
 		cursor: pointer;
 
 		&:hover {
 			cursor: pointer;
-			box-shadow: v.$crimson 0px 4px 4px -4px;
+			box-shadow: v.$black 0px 4px 4px -4px;
 		}
 	}
 }
