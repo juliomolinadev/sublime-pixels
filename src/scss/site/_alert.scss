@@ -7,13 +7,15 @@
 	}
 
 	&__aceptButton {
-		@include m.button(v.$crimson);
+		@include m.button(v.$black);
 		font-size: 1.4rem;
 		margin: 2rem 0;
 	}
 
 	&__cancelButton {
-		@include m.button(v.$black);
+		@include m.button(v.$white);
+		color: v.$gray;
+		border: 1px solid v.$gray;
 		font-size: 1.4rem;
 		margin: 2rem 0 2rem 2rem;
 	}
