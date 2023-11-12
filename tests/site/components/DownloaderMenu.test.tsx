@@ -33,11 +33,12 @@ describe("<DownloaderMenu /> tests", () => {
 			isDownloadingStraight: false,
 			isDownloadingTapered: false,
 			fileNames: ["file1", "file2"],
+			buyLink: "https://example.com",
 		};
 
 		const { container } = renderWithProviders(<DownloaderMenu {...props} />, { preloadedState });
 
-		expect(screen.getByText("Straight image")).toBeInTheDocument();
+		expect(screen.getByText("Download straight image")).toBeInTheDocument();
 		expect(container).toMatchSnapshot();
 	});
 });

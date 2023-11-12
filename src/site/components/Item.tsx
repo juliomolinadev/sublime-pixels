@@ -94,6 +94,7 @@ export const Item = ({
 					isDownloadingStraight={isDownloadingStraight}
 					isDownloadingTapered={isDownloadingTapered}
 					fileNames={fileNames}
+					buyLink={buyLink}
 				/>
 			)}
 		</div>

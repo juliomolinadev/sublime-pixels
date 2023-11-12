@@ -7,7 +7,7 @@
 	bottom: -7rem;
 	z-index: 999;
 
-	width: 50%;
+	width: 60%;
 
 	display: flex;
 	flex-direction: column;
@@ -19,10 +19,10 @@
 	@include m.shadow();
 
 	&__item {
+		color: v.$gray;
 		display: flex;
 		justify-content: space-between;
 		height: 4rem;
-		// gap: 1rem;
 		padding: 0.8rem 1rem;
 		cursor: pointer;
 		transition: 0.3s ease-in-out;
@@ -32,9 +32,9 @@
 		}
 	}
 
-	&__spinnerSection {
-		margin-left: 1rem;
-		width: 20%;
+	&__iconSection {
+		// margin-left: 1rem;
+		width: 3rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;

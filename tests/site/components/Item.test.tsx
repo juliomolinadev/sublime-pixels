@@ -116,7 +116,7 @@ describe("<Item /> tests", () => {
 			},
 		};
 
-		const { id, batch, isDownloadingStraight, isDownloadingTapered, fileNames } =
+		const { id, batch, isDownloadingStraight, isDownloadingTapered, fileNames, buyLink } =
 			preloadedState.items.items[0];
 
 		const props = {
@@ -138,6 +138,7 @@ describe("<Item /> tests", () => {
 					isDownloadingStraight={isDownloadingStraight}
 					isDownloadingTapered={isDownloadingTapered}
 					fileNames={fileNames}
+					buyLink={buyLink}
 				/>
 			</>,
 
@@ -146,7 +147,7 @@ describe("<Item /> tests", () => {
 
 		const downloaderButton = screen.getByLabelText("downloader");
 		await user.click(downloaderButton);
-		const downloadButton = screen.getByText("Straight image");
+		const downloadButton = screen.getByText("Download straight image");
 		await user.click(downloadButton);
 
 		await waitFor(() => {
@@ -181,7 +182,7 @@ describe("<Item /> tests", () => {
 			isDownloaded: false,
 		};
 
-		const { id, batch, isDownloadingStraight, isDownloadingTapered, fileNames } =
+		const { id, batch, isDownloadingStraight, isDownloadingTapered, fileNames, buyLink } =
 			preloadedState.items.items[0];
 
 		const user = userEvent.setup();
@@ -195,6 +196,7 @@ describe("<Item /> tests", () => {
 					isDownloadingStraight={isDownloadingStraight}
 					isDownloadingTapered={isDownloadingTapered}
 					fileNames={fileNames}
+					buyLink={buyLink}
 				/>
 			</>,
 			{ preloadedState },
@@ -204,7 +206,7 @@ describe("<Item /> tests", () => {
 		await user.click(downloadButton);
 
 		await waitFor(() => {
-			expect(screen.getByText("Straight image")).toBeInTheDocument();
+			expect(screen.getByText("Download straight image")).toBeInTheDocument();
 		});
 	});
 });

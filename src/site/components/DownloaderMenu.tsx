@@ -10,6 +10,7 @@ import {
 } from "../../store/items";
 import { downloadImage } from "../helpers";
 import { startAddDownload } from "../../store/user/thunks/startAddDownload";
+import { FiArrowRight, FiDownload } from "react-icons/fi";
 
 interface Props {
 	id: string;
@@ -17,6 +18,7 @@ interface Props {
 	isDownloadingStraight: boolean;
 	isDownloadingTapered: boolean;
 	fileNames: string[];
+	buyLink: string;
 }
 
 export const DownloaderMenu = ({
@@ -25,6 +27,7 @@ export const DownloaderMenu = ({
 	isDownloadingStraight,
 	isDownloadingTapered,
 	fileNames,
+	buyLink,
 }: Props) => {
 	const handleOpenDownloadMenu = (): void => {
 		dispatch(switchDownloadMenu(id));
@@ -68,16 +71,17 @@ export const DownloaderMenu = ({
 
 	const downloaderMenuRef = useRef<HTMLDivElement>(null);
 	useOutsideAlerter({ ref: downloaderMenuRef, action: handleOpenDownloadMenu });
+
 	return (
 		<div ref={downloaderMenuRef} className="downloaderMenu animate__animated animate__fadeInDown">
 			<div
 				className="downloaderMenu__item"
 				onClick={() => onDownloadImage(fileNames[0], "straight")}
 			>
-				<span>Straight image</span>
+				<span>Download straight image</span>
 
-				<div className="downloaderMenu__spinnerSection">
-					{isDownloadingStraight && <div className="downloaderMenu__spinner"></div>}
+				<div className="downloaderMenu__iconSection">
+					{isDownloadingStraight ? <div className="downloaderMenu__spinner"></div> : <FiDownload />}
 				</div>
 			</div>
 
@@ -85,12 +89,25 @@ export const DownloaderMenu = ({
 				className="downloaderMenu__item"
 				onClick={() => onDownloadImage(fileNames[1], "tapered")}
 			>
-				<span>Tapered image</span>
+				<span>Download tapered image</span>
 
-				<div className="downloaderMenu__spinnerSection">
-					{isDownloadingTapered && <div className="downloaderMenu__spinner"></div>}
+				<div className="downloaderMenu__iconSection">
+					{isDownloadingTapered ? <div className="downloaderMenu__spinner"></div> : <FiDownload />}
 				</div>
 			</div>
+
+			<a
+				className="downloaderMenu__item"
+				href={buyLink}
+				target="_blank"
+				onClick={handleOpenDownloadMenu}
+			>
+				<span>Buy on Etsy</span>
+
+				<div className="downloaderMenu__iconSection">
+					<FiArrowRight />
+				</div>
+			</a>
 		</div>
 	);
 };
