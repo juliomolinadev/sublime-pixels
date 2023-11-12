@@ -4,26 +4,32 @@
 .downloadsCounter {
 	display: flex;
 	align-items: center;
-	margin: auto;
-
-	background-color: v.$gray;
-	border-radius: 50px;
 	font-size: 1.6rem;
-	padding: 1rem 2rem;
-	color: v.$white;
-
-	&--available {
-		background-color: v.$success;
-	}
+	color: v.$black;
+	padding: 0 1rem;
 
 	&__icon {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 4rem;
+		height: 4rem;
+		background-color: v.$black;
+		border-radius: 4px;
+		color: v.$white;
+		padding: 0.8rem 1rem;
 		margin-right: 1rem;
-		font-size: 2rem;
 		font-weight: 700;
 	}
 
 	&__counter {
 		margin-left: 1rem;
 		font-weight: 700;
+
+		&--available {
+			color: v.$crimson;
+		}
+
+		@include m.flashes(0.5);
 	}
 }

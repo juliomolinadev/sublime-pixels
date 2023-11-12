@@ -14,7 +14,7 @@ describe("<Batch /> tests", () => {
 		};
 		renderWithProviders(<Header />, { preloadedState });
 
-		expect(screen.getByText("Sign up to get free images.")).toBeInTheDocument();
+		expect(screen.getByText("No credit card needed!")).toBeInTheDocument();
 	});
 
 	it("should render component with downloads counter", () => {

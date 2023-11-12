@@ -13,18 +13,20 @@ export const DownloadsCounter = () => {
 	});
 
 	return (
-		<div
-			className={`downloadsCounter ${
-				batches[activeBatch] &&
-				batches[activeBatch].downloadables - downloadedItems.length > 0 &&
-				"downloadsCounter--available"
-			}`}
-		>
-			<FiGift className="downloadsCounter__icon" />
+		<div className="downloadsCounter">
+			<div className="downloadsCounter__icon">
+				<FiGift />
+			</div>
 
 			<div className="downloadsCounter__label">Free downloads:</div>
 
-			<div className="downloadsCounter__counter">
+			<div
+				className={`downloadsCounter__counter ${
+					batches[activeBatch] &&
+					batches[activeBatch].downloadables - downloadedItems.length > 0 &&
+					"downloadsCounter__counter--available downloadsCounter__counter--flashes"
+				}`}
+			>
 				{batches[activeBatch] && batches[activeBatch].downloadables - downloadedItems.length}
 			</div>
 		</div>

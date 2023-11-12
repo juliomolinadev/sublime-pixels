@@ -132,3 +132,47 @@
 	box-shadow: 0px 0px 10px 3px rgb(0 0 0 / 15%);
 	// box-shadow: 0px 0px 8px 1px rgb(0 0 0 / 12%);
 }
+
+@mixin flashes($opacity) {
+	&--flashes {
+		animation-name: flashes;
+		animation-duration: 2s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: infinite;
+
+		-webkit-animation-name: flashes;
+		-webkit-animation-duration: 2s;
+		-webkit-animation-timing-function: ease-in-out;
+		-webkit-animation-iteration-count: infinite;
+	}
+
+	@-moz-keyframes flashes {
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: $opacity;
+		}
+	}
+
+	@-webkit-keyframes flashes {
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: $opacity;
+		}
+	}
+
+	@keyframes flashes {
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: $opacity;
+		}
+	}
+}

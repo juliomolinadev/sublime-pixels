@@ -10,7 +10,8 @@ export const Invitation = () => {
 
 	return (
 		<div className="invitation" onClick={onClickInvitation}>
-			<span>Sign up to get free images.</span>
+			<button className="invitation__button">Sign up</button>
+			<span> to get free images.</span>
 			<span>No credit card needed!</span>
 		</div>
 	);

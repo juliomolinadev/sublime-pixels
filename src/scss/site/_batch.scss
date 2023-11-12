@@ -12,8 +12,4 @@
 	@include m.desktop {
 		@include m.grid(3, 2.4rem);
 	}
-
-	@include m.monitor {
-		@include m.grid(4, 2.4rem);
-	}
 }
