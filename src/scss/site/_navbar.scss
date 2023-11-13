@@ -24,7 +24,18 @@
 	}
 
 	&__logo {
-		max-width: 16rem;
+		max-width: 20rem;
+		max-height: 4rem;
+		display: flex;
+		gap: 0.8rem;
+		align-items: center;
+
+		font-weight: 700;
+		font-size: 2rem;
+	}
+
+	&__logoIcon {
+		height: 4rem;
 	}
 
 	&__controls {

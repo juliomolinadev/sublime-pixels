@@ -29,7 +29,12 @@ export const Navbar = () => {
 		<nav className="navbar">
 			<div className="navbar__main">
 				<div className="navbar__logo">
-					<img src="../../../img/sublimePixelsLogo.png" alt="Sublime pixels logo" />
+					<img
+						src="../../../img/sp-icon.png"
+						alt="Sublime pixels logo"
+						className="navbar__logoIcon"
+					/>
+					<span className="navbar__logoLabel">Sublime Pixels</span>
 				</div>
 
 				<div className="navbar__controls">
