@@ -1,7 +1,7 @@
 import { SweetAlertOptions } from "sweetalert2";
 import { authResponsesMessages, uiErrorMessages } from "../../../assets/errorMessages";
 import { registerUserWithEmailPassword } from "../../../firebase/firebaseProviders";
-import { messageAlert } from "../../../helpers";
+import { getEnvironments, messageAlert } from "../../../helpers";
 import { AppDispatch } from "../../store";
 import { setUiErrorMessage, switchRegisterModal } from "../../ui";
 import { checkingCredentials, login, logout } from "../authSlice";
@@ -22,13 +22,13 @@ export const startCreatingUserWithEmailPassword = ({
 	return async (dispatch: AppDispatch) => {
 		dispatch(checkingCredentials());
 
-		// TODO: Use dinamic url by enviroment
-		const redirectURL = "http://localhost:3000/";
+		const { VITE_REDIRECT_URL } = getEnvironments();
+
 		const result = await registerUserWithEmailPassword({
 			email,
 			password,
 			displayName,
-			redirectURL,
+			redirectURL: VITE_REDIRECT_URL,
 		});
 
 		if (!result.ok) {
