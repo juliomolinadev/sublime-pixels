@@ -34,7 +34,7 @@ export const Navbar = () => {
 						alt="Sublime pixels logo"
 						className="navbar__logoIcon"
 					/>
-					<span className="navbar__logoLabel">Sublime Pixels</span>
+					<span>Sublime Pixels</span>
 				</div>
 
 				<div className="navbar__controls">
