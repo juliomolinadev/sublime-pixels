@@ -2,6 +2,7 @@ import { updateDocInFirestore } from "../../../firebase/firestoreCRUD";
 import { AppDispatch, RootState } from "../../store";
 import { addDownload } from "../userSlice";
 import { addDownload as incrementDownloads } from "../../items";
+import { logAnalyticsEvent } from "../../../firebase/analytics/logAnalyticsEvent";
 
 export const startAddDownload = (itemId: string) => {
 	return async (dispatch: AppDispatch, getState: () => RootState) => {
@@ -29,6 +30,16 @@ export const startAddDownload = (itemId: string) => {
 		};
 
 		const wasIncremented = await updateDocInFirestore(incrementQuery);
+
+		const event = {
+			eventName: "select_content",
+			eventParams: {
+				content_type: "item_download",
+				item_id: itemId,
+			},
+		};
+
+		logAnalyticsEvent(event);
 
 		if (wasAdded && wasIncremented) {
 			dispatch(addDownload(itemId));
