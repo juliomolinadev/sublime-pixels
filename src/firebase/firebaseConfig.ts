@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { getAnalytics } from "firebase/analytics";
 import { getEnvironments } from "../helpers";
 
 const {
@@ -31,5 +32,6 @@ const FirebaseApp = initializeApp(firebaseConfig);
 const FirebaseAuth = getAuth(FirebaseApp);
 const FirebaseDB = getFirestore(FirebaseApp);
 const FirebaseStorage = getStorage(FirebaseApp);
+const FirebaseAnalyttcs = process.env.NODE_ENV !== "test" ? getAnalytics(FirebaseApp) : null;
 
-export { FirebaseApp, FirebaseAuth, FirebaseDB, FirebaseStorage };
+export { FirebaseApp, FirebaseAuth, FirebaseDB, FirebaseStorage, FirebaseAnalyttcs };
