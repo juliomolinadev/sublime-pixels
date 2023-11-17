@@ -86,6 +86,11 @@ export const itemsSlice = createSlice({
 			state.currentItems[action.payload].disLikes -= 1;
 			state.items.find((item) => item.id === action.payload)!.disLikes -= 1;
 		},
+
+		incrementBuyLinkCounter: (state, action: PayloadAction<string>) => {
+			state.currentItems[action.payload].buyLinkCounter += 1;
+			state.items.find((item) => item.id === action.payload)!.buyLinkCounter += 1;
+		},
 	},
 });
 
@@ -100,4 +105,5 @@ export const {
 	decrementLikes,
 	incrementDislikes,
 	decrementDislikes,
+	incrementBuyLinkCounter,
 } = itemsSlice.actions;

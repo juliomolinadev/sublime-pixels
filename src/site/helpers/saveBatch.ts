@@ -19,6 +19,7 @@ const saveItems = async (batch: Batch) => {
 			likes: 0,
 			disLikes: 0,
 			downloads: 0,
+			buyLinkCounter: 0,
 		};
 	});
 

@@ -15,6 +15,7 @@ export const testItemsInitialState = {
 			isOpenDownloadMenu: false,
 			isDownloadingStraight: false,
 			isDownloadingTapered: false,
+			buyLinkCounter: 0,
 		},
 
 		{
@@ -30,6 +31,7 @@ export const testItemsInitialState = {
 			isOpenDownloadMenu: false,
 			isDownloadingStraight: false,
 			isDownloadingTapered: false,
+			buyLinkCounter: 0,
 		},
 	],
 	currentItems: {
@@ -46,6 +48,7 @@ export const testItemsInitialState = {
 			isOpenDownloadMenu: false,
 			isDownloadingStraight: false,
 			isDownloadingTapered: false,
+			buyLinkCounter: 0,
 		},
 
 		"2": {
@@ -61,6 +64,7 @@ export const testItemsInitialState = {
 			isOpenDownloadMenu: false,
 			isDownloadingStraight: false,
 			isDownloadingTapered: false,
+			buyLinkCounter: 0,
 		},
 	},
 	currentItemIds: ["1", "2"],
@@ -80,6 +84,7 @@ export const newTestItems: ItemProps[] = [
 		isOpenDownloadMenu: false,
 		isDownloadingStraight: false,
 		isDownloadingTapered: false,
+		buyLinkCounter: 0,
 	},
 
 	{
@@ -95,6 +100,7 @@ export const newTestItems: ItemProps[] = [
 		isOpenDownloadMenu: false,
 		isDownloadingStraight: false,
 		isDownloadingTapered: false,
+		buyLinkCounter: 0,
 	},
 ];
 
@@ -112,6 +118,7 @@ export const newTestCurrentItems = {
 		isOpenDownloadMenu: false,
 		isDownloadingStraight: false,
 		isDownloadingTapered: false,
+		buyLinkCounter: 0,
 	},
 
 	"4": {
@@ -127,6 +134,7 @@ export const newTestCurrentItems = {
 		isOpenDownloadMenu: false,
 		isDownloadingStraight: false,
 		isDownloadingTapered: false,
+		buyLinkCounter: 0,
 	},
 };
 
@@ -145,6 +153,7 @@ export const testNewItemsAddedState = {
 			isOpenDownloadMenu: false,
 			isDownloadingStraight: false,
 			isDownloadingTapered: false,
+			buyLinkCounter: 0,
 		},
 
 		{
@@ -160,6 +169,7 @@ export const testNewItemsAddedState = {
 			isOpenDownloadMenu: false,
 			isDownloadingStraight: false,
 			isDownloadingTapered: false,
+			buyLinkCounter: 0,
 		},
 
 		{
@@ -175,6 +185,7 @@ export const testNewItemsAddedState = {
 			isOpenDownloadMenu: false,
 			isDownloadingStraight: false,
 			isDownloadingTapered: false,
+			buyLinkCounter: 0,
 		},
 
 		{
@@ -190,6 +201,7 @@ export const testNewItemsAddedState = {
 			isOpenDownloadMenu: false,
 			isDownloadingStraight: false,
 			isDownloadingTapered: false,
+			buyLinkCounter: 0,
 		},
 	],
 	currentItems: {
@@ -206,6 +218,7 @@ export const testNewItemsAddedState = {
 			isOpenDownloadMenu: false,
 			isDownloadingStraight: false,
 			isDownloadingTapered: false,
+			buyLinkCounter: 0,
 		},
 
 		"4": {
@@ -221,6 +234,7 @@ export const testNewItemsAddedState = {
 			isOpenDownloadMenu: false,
 			isDownloadingStraight: false,
 			isDownloadingTapered: false,
+			buyLinkCounter: 0,
 		},
 	},
 	currentItemIds: ["1", "2"],
@@ -241,6 +255,7 @@ export const testNewCurrentItemsSettedState = {
 			isOpenDownloadMenu: false,
 			isDownloadingStraight: false,
 			isDownloadingTapered: false,
+			buyLinkCounter: 0,
 		},
 
 		{
@@ -256,6 +271,7 @@ export const testNewCurrentItemsSettedState = {
 			isOpenDownloadMenu: false,
 			isDownloadingStraight: false,
 			isDownloadingTapered: false,
+			buyLinkCounter: 0,
 		},
 
 		{
@@ -271,6 +287,7 @@ export const testNewCurrentItemsSettedState = {
 			isOpenDownloadMenu: false,
 			isDownloadingStraight: false,
 			isDownloadingTapered: false,
+			buyLinkCounter: 0,
 		},
 
 		{
@@ -286,6 +303,7 @@ export const testNewCurrentItemsSettedState = {
 			isOpenDownloadMenu: false,
 			isDownloadingStraight: false,
 			isDownloadingTapered: false,
+			buyLinkCounter: 0,
 		},
 	],
 	currentItems: {
@@ -302,6 +320,7 @@ export const testNewCurrentItemsSettedState = {
 			isOpenDownloadMenu: false,
 			isDownloadingStraight: false,
 			isDownloadingTapered: false,
+			buyLinkCounter: 0,
 		},
 
 		"2": {
@@ -317,6 +336,7 @@ export const testNewCurrentItemsSettedState = {
 			isOpenDownloadMenu: false,
 			isDownloadingStraight: false,
 			isDownloadingTapered: false,
+			buyLinkCounter: 0,
 		},
 	},
 	currentItemIds: ["1", "2"],

@@ -11,7 +11,7 @@ export const startSwitchLike = (itemId: string) => {
 
 		if (!uid) return false;
 
-		// TODO: Implement transactions o batch writes
+		// TODO: Implement transactions or batch writes
 
 		// If the user has already DISLIKED the item, remove the dislike and add a like
 		if (dislikes.includes(itemId)) {

@@ -5,6 +5,7 @@ import { ItemProps } from "../../store";
 import { startSwitchDislike, startSwitchLike } from "../../store/user/thunks";
 import { switchDownloadMenu } from "../../store/items";
 import { DownloaderMenu } from "./DownloaderMenu";
+import { startIncreaseBuyLinkCounter } from "../../store/user/thunks/startIncreaseBuyLinkCounter";
 
 interface Props extends ItemProps {
 	hasDownloadables: boolean;
@@ -39,6 +40,10 @@ export const Item = ({
 
 	const handleOpenDownloadMenu = (): void => {
 		dispatch(switchDownloadMenu(id));
+	};
+
+	const onClickBuyButton = (): void => {
+		dispatch(startIncreaseBuyLinkCounter(id));
 	};
 
 	return (
@@ -80,7 +85,12 @@ export const Item = ({
 							</button>
 						</div>
 					) : (
-						<a className="item__buyButton" href={buyLink} target="_blank">
+						<a
+							className="item__buyButton"
+							href={buyLink}
+							target="_blank"
+							onClick={onClickBuyButton}
+						>
 							Buy on Etsy <FiArrowRight className="item__icon" />
 						</a>
 					)}

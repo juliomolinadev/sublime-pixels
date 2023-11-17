@@ -9,5 +9,9 @@ interface Params {
 export const logAnalyticsEvent = ({ eventName, eventParams }: Params): void => {
 	if (!FirebaseAnalyttcs) return;
 
-	logEvent(FirebaseAnalyttcs, eventName, eventParams);
+	try {
+		logEvent(FirebaseAnalyttcs, eventName, eventParams);
+	} catch (error) {
+		console.log(error);
+	}
 };

@@ -11,6 +11,7 @@ import {
 import { downloadImage } from "../helpers";
 import { startAddDownload } from "../../store/user/thunks/startAddDownload";
 import { FiArrowRight, FiDownload } from "react-icons/fi";
+import { startIncreaseBuyLinkCounter } from "../../store/user/thunks/startIncreaseBuyLinkCounter";
 
 interface Props {
 	id: string;
@@ -29,8 +30,13 @@ export const DownloaderMenu = ({
 	fileNames,
 	buyLink,
 }: Props) => {
-	const handleOpenDownloadMenu = (): void => {
+	const onCloseDownloadMenu = (): void => {
 		dispatch(switchDownloadMenu(id));
+	};
+
+	const onClickBuyButton = (): void => {
+		dispatch(switchDownloadMenu(id));
+		dispatch(startIncreaseBuyLinkCounter(id));
 	};
 
 	const { uid, emailVerified } = useTypedSelector((state) => state.auth);
@@ -70,7 +76,7 @@ export const DownloaderMenu = ({
 	};
 
 	const downloaderMenuRef = useRef<HTMLDivElement>(null);
-	useOutsideAlerter({ ref: downloaderMenuRef, action: handleOpenDownloadMenu });
+	useOutsideAlerter({ ref: downloaderMenuRef, action: onCloseDownloadMenu });
 
 	return (
 		<div ref={downloaderMenuRef} className="downloaderMenu animate__animated animate__fadeInDown">
@@ -96,12 +102,7 @@ export const DownloaderMenu = ({
 				</div>
 			</div>
 
-			<a
-				className="downloaderMenu__item"
-				href={buyLink}
-				target="_blank"
-				onClick={handleOpenDownloadMenu}
-			>
+			<a className="downloaderMenu__item" href={buyLink} target="_blank" onClick={onClickBuyButton}>
 				<span>Buy on Etsy</span>
 
 				<div className="downloaderMenu__iconSection">

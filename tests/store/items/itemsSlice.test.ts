@@ -12,6 +12,7 @@ import {
 	addItems,
 	decrementDislikes,
 	decrementLikes,
+	incrementBuyLinkCounter,
 	incrementDislikes,
 	incrementLikes,
 	itemsSlice,
@@ -106,5 +107,16 @@ describe("itemsSlice.ts tests", () => {
 
 		expect(state.currentItems[itemId].disLikes).toBe(-1);
 		expect(state.items.find((item) => item.id === itemId)!.disLikes).toBe(-1);
+	});
+
+	it("should increment the buy link counter in an item", () => {
+		const itemId = "1";
+		const state = itemsSlice.reducer(
+			testNewCurrentItemsSettedState,
+			incrementBuyLinkCounter(itemId),
+		);
+
+		expect(state.currentItems[itemId].buyLinkCounter).toBe(1);
+		expect(state.items.find((item) => item.id === itemId)!.buyLinkCounter).toBe(1);
 	});
 });

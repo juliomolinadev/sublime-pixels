@@ -17,4 +17,5 @@ export interface ItemProps {
 	isOpenDownloadMenu: boolean;
 	isDownloadingStraight: boolean;
 	isDownloadingTapered: boolean;
+	buyLinkCounter: number;
 }
