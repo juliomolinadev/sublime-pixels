@@ -1,3 +1,4 @@
+import { logAnalyticsEvent } from "../../../firebase/analytics/logAnalyticsEvent";
 import { updateDocInFirestore } from "../../../firebase/firestoreCRUD";
 import { decrementDislikes, decrementLikes, incrementLikes } from "../../items";
 import { AppDispatch, RootState } from "../../store";
@@ -58,6 +59,17 @@ export const startSwitchLike = (itemId: string) => {
 			const wasLikeIncremented = await updateDocInFirestore(incrementLikesQuery);
 			if (wasLikeIncremented) dispatch(incrementLikes(itemId));
 
+			// log analytics event
+			const event = {
+				eventName: "select_content",
+				eventParams: {
+					content_type: "item_like",
+					item_id: itemId,
+				},
+			};
+
+			logAnalyticsEvent(event);
+
 			if (wasDislikeRemoved && wasLikeAdded && wasDislikeDecremented && wasLikeIncremented)
 				return true;
 
@@ -115,6 +127,17 @@ export const startSwitchLike = (itemId: string) => {
 
 			const wasLikeIncremented = await updateDocInFirestore(incrementLikesQuery);
 			if (wasLikeIncremented) dispatch(incrementLikes(itemId));
+
+			// log analytics event
+			const event = {
+				eventName: "select_content",
+				eventParams: {
+					content_type: "item_like",
+					item_id: itemId,
+				},
+			};
+
+			logAnalyticsEvent(event);
 
 			if (wasLikeAdded && wasLikeIncremented) return true;
 			return false;
