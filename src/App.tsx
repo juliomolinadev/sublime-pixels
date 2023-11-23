@@ -8,7 +8,7 @@ import { RegisterForm } from "./site/components/RegisterForm";
 import { useSetItems } from "./hooks/useSetItems";
 
 export const App = () => {
-	const { email } = useTypedSelector((state) => state.auth);
+	const { userRole } = useTypedSelector((state) => state.user);
 
 	const status = useCheckAuth();
 
@@ -20,8 +20,7 @@ export const App = () => {
 			<Header />
 			<Batch />
 
-			{/* TODO: Implement user roles */}
-			{email === "t_kroqlr@hotmail.com" && <BatchUploader />}
+			{userRole === "admin" && <BatchUploader />}
 
 			<RegisterForm />
 			<LoginForm />

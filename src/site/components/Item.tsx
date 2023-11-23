@@ -23,7 +23,7 @@ export const Item = ({
 	isDownloadingTapered,
 	fileNames,
 }: Props) => {
-	const { likes, dislikes, downloads } = useTypedSelector((state) => state.user);
+	const { likes, dislikes, downloads, userRole } = useTypedSelector((state) => state.user);
 	const dispatch = useTypedDispatch();
 
 	const isDownloaded = downloads.includes(id);
@@ -72,7 +72,7 @@ export const Item = ({
 						</button>
 					</div>
 
-					{hasDownloadables || isDownloaded ? (
+					{hasDownloadables || isDownloaded || userRole === "admin" ? (
 						<div className="item__downloader">
 							<span className="item__downloaderLabel">Download</span>
 

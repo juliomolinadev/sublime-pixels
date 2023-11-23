@@ -14,7 +14,7 @@
 	&__img {
 		position: absolute;
 		top: 4rem;
-		width: 100%;
+		width: 100vw;
 
 		@include m.tablet {
 			position: relative;
