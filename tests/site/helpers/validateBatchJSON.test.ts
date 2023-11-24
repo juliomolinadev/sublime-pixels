@@ -27,17 +27,6 @@ describe("validateBatchJSON() tests", () => {
 		expect(isValidBatch).toBe(false);
 	});
 
-	it('should print "downloadables error" without number of downloadables', () => {
-		const batch = {
-			info: { id: "1" },
-		};
-
-		const isValidBatch = validateBatchJSON(batch);
-
-		expect(consoleMock).toHaveBeenLastCalledWith("Number of downloadable items is required");
-		expect(isValidBatch).toBe(false);
-	});
-
 	it('should print "name error" without batch name', () => {
 		const batch = {
 			info: { id: "1", downloadables: 1 },

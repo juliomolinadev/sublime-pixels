@@ -7,8 +7,6 @@ export const validateBatchJSON = (batch = {}): boolean => {
 	const info = infoEntrie ? Object(infoEntrie[1]) : {};
 
 	const id = info && Object.prototype.hasOwnProperty.call(info, "id") ? info.id : "";
-	const downloadables =
-		info && Object.prototype.hasOwnProperty.call(info, "downloadables") ? info.downloadables : 0;
 	const name = info && Object.prototype.hasOwnProperty.call(info, "name") ? info.name : "";
 
 	const itemsEntrie = entries.find(([key]) => key === "items");
@@ -22,11 +20,6 @@ export const validateBatchJSON = (batch = {}): boolean => {
 
 	if (id.length === 0) {
 		console.log("Batch id is required");
-		return false;
-	}
-
-	if (downloadables <= 0) {
-		console.log("Number of downloadable items is required");
 		return false;
 	}
 
