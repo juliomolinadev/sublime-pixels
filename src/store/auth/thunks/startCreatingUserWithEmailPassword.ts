@@ -57,6 +57,7 @@ export const startCreatingUserWithEmailPassword = ({
 			likes: [],
 			dislikes: [],
 			userRole: "user",
+			freeDownloads: 5,
 		};
 
 		const createUserQuery = {

@@ -7,6 +7,7 @@ interface UserSliceState {
 	likes: string[];
 	dislikes: string[];
 	userRole: string | null;
+	freeDownloads: number;
 }
 
 const initialState: UserSliceState = {
@@ -15,6 +16,7 @@ const initialState: UserSliceState = {
 	likes: [],
 	dislikes: [],
 	userRole: null,
+	freeDownloads: 0,
 };
 
 export const userSlice = createSlice({

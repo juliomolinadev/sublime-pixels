@@ -18,6 +18,7 @@ export const startSetUser = (userId: string) => {
 			likes: userResponse.data().likes,
 			dislikes: userResponse.data().dislikes,
 			userRole: userResponse.data().userRole,
+			freeDownloads: userResponse.data().freeDownloads,
 		};
 
 		dispatch(setUser(user));
