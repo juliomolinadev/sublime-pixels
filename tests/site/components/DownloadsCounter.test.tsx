@@ -8,36 +8,20 @@ import { renderWithProviders } from "../../utils/test-utils";
 import { expect } from "vitest";
 
 const preloadedState = {
-	batches: {
-		batches: {
-			3: {
-				downloadables: 1,
-				id: "3",
-				name: "Test Batch",
-			},
-		},
-		activeBatch: "3",
-		batchesArray: ["3"],
-	},
-
-	items: {
-		items: [],
-		currentItems: {},
-		currentItemIds: ["1", "2", "3"],
-	},
-
 	user: {
 		uid: "1",
 		likes: [],
 		dislikes: [],
 		downloads: ["1"],
+		userRole: "user",
+		freeDownloads: 5,
 	},
 };
 
 describe("<DownloadsCounter/>", () => {
-	it("should render component with 0 in counter", () => {
+	it("should render component with 5 in counter", () => {
 		renderWithProviders(<DownloadsCounter />, { preloadedState });
 
-		expect(screen.getByText("0")).toBeInTheDocument();
+		expect(screen.getByText("5")).toBeInTheDocument();
 	});
 });

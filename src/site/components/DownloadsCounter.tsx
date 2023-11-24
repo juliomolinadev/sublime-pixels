@@ -2,15 +2,7 @@ import { useTypedSelector } from "../../hooks";
 import { FiGift } from "react-icons/fi";
 
 export const DownloadsCounter = () => {
-	const { batches, activeBatch } = useTypedSelector((state) => state.batches);
-	const { currentItemIds } = useTypedSelector((state) => state.items);
-	const { downloads } = useTypedSelector((state) => state.user);
-
-	const downloadedItems: string[] = [];
-
-	currentItemIds.forEach((id) => {
-		if (downloads.includes(id)) downloadedItems.push(id);
-	});
+	const { freeDownloads } = useTypedSelector((state) => state.user);
 
 	return (
 		<div className="downloadsCounter">
@@ -22,12 +14,11 @@ export const DownloadsCounter = () => {
 
 			<div
 				className={`downloadsCounter__counter ${
-					batches[activeBatch] &&
-					batches[activeBatch].downloadables - downloadedItems.length > 0 &&
+					freeDownloads > 0 &&
 					"downloadsCounter__counter--available downloadsCounter__counter--flashes"
 				}`}
 			>
-				{batches[activeBatch] && batches[activeBatch].downloadables - downloadedItems.length}
+				{freeDownloads}
 			</div>
 		</div>
 	);
