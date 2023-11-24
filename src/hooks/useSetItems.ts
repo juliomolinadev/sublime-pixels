@@ -7,17 +7,21 @@ import { startSetItems } from "../store/items";
 export const useSetItems = () => {
 	const dispatch = useTypedDispatch();
 	const { status } = useTypedSelector((state) => state.auth);
+	const { userRole } = useTypedSelector((state) => state.user);
 	const { activeBatch, batches } = useTypedSelector((state) => state.batches);
 
 	useEffect(() => {
 		status !== "checking" && dispatch(startSetBatchesArray());
-	}, [dispatch, status]);
+	}, [dispatch, status, userRole]);
 
 	useEffect(() => {
-		!batches[activeBatch] && activeBatch !== "" && dispatch(startAddBatch(activeBatch));
+		activeBatch !== undefined &&
+			!batches[activeBatch] &&
+			activeBatch !== "" &&
+			dispatch(startAddBatch(activeBatch));
 	}, [dispatch, activeBatch, batches]);
 
 	useEffect(() => {
-		activeBatch !== "" && dispatch(startSetItems(activeBatch));
+		activeBatch !== undefined && activeBatch !== "" && dispatch(startSetItems(activeBatch));
 	}, [dispatch, activeBatch]);
 };

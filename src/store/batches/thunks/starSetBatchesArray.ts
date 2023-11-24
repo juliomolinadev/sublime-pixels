@@ -1,9 +1,12 @@
 import { readDocFromFirestore } from "../../../firebase/firestoreCRUD";
-import { AppDispatch } from "../../store";
+import { AppDispatch, RootState } from "../../store";
 import { setActiveBatch, setBatchesArray } from "../batchesSlice";
 
 export const startSetBatchesArray = () => {
-	return async (dispatch: AppDispatch) => {
+	return async (dispatch: AppDispatch, getState: () => RootState) => {
+		const state = getState();
+		const { userRole } = state.user;
+
 		const batchesArrayQuery = {
 			collectionPath: "app",
 			docId: "batches",
@@ -15,7 +18,11 @@ export const startSetBatchesArray = () => {
 			return false;
 		}
 
-		const batches = batchesArrayResponse.data().batches;
+		const batches =
+			userRole === "admin"
+				? batchesArrayResponse.data().privateBatches
+				: batchesArrayResponse.data().publicBatches;
+
 		batches.reverse();
 
 		dispatch(setBatchesArray(batches));

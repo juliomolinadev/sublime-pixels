@@ -51,7 +51,7 @@ const updateBatchesArray = async (batchId: string) => {
 		docId: "batches",
 		updates: {},
 		arrayUnionUpdate: {
-			fieldName: "batches",
+			fieldName: "privateBatches",
 			value: batchId,
 		},
 	};
