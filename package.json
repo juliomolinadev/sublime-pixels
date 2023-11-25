@@ -13,7 +13,6 @@
 		"coverage": "vitest --ui --coverage.enabled=true",
 		"format": " prettier --write .",
 		"prepareHusky": "husky install",
-		"changelog": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
 		"release": "release-it",
 		"deploy": "firebase deploy --only hosting:sublimepixels"
 	},
@@ -68,8 +67,7 @@
 	},
 	"release-it": {
 		"git": {
-			"commitMessage": "chore(release): :bookmark: ${version}",
-			"tagName": "v${version}"
+			"commitMessage": "chore(release): :bookmark: ${version}"
 		},
 		"plugins": {
 			"@release-it/conventional-changelog": {
