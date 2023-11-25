@@ -9,17 +9,12 @@ import { startIncreaseBuyLinkCounter } from "../../store/user/thunks/startIncrea
 import { useRef } from "react";
 import gsap from "gsap";
 
-// interface Props extends ItemProps {
-// 	hasDownloadables: boolean;
-// }
-
 export const Item = ({
 	id,
 	img,
 	title,
 	batch,
 	buyLink,
-	// hasDownloadables,
 	isOpenDownloadMenu,
 	isDownloadingStraight,
 	isDownloadingTapered,
