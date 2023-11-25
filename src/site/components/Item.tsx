@@ -6,6 +6,8 @@ import { startSwitchDislike, startSwitchLike } from "../../store/user/thunks";
 import { switchDownloadMenu } from "../../store/items";
 import { DownloaderMenu } from "./DownloaderMenu";
 import { startIncreaseBuyLinkCounter } from "../../store/user/thunks/startIncreaseBuyLinkCounter";
+import { useRef } from "react";
+import gsap from "gsap";
 
 // interface Props extends ItemProps {
 // 	hasDownloadables: boolean;
@@ -28,16 +30,27 @@ export const Item = ({
 	);
 	const dispatch = useTypedDispatch();
 
+	const likeButtonRef = useRef<HTMLButtonElement>(null);
+	const dislikeButtonRef = useRef<HTMLButtonElement>(null);
+
 	const hasDownloadables = freeDownloads > 0;
 	const isDownloaded = downloads.includes(id);
 	const isLoved = likes.includes(id);
 	const isDisliked = dislikes.includes(id);
 
 	const onSwitchLike = (): void => {
+		const tl = gsap.timeline();
+		tl.to(likeButtonRef.current, { y: -100, duration: 0.2, ease: "ease.out" });
+		tl.to(likeButtonRef.current, { y: 0, duration: 0.2, ease: "elastic" });
+
 		dispatch(startSwitchLike(id));
 	};
 
 	const onSwitchDislike = (): void => {
+		const tl = gsap.timeline();
+		tl.to(dislikeButtonRef.current, { y: -100, duration: 0.2, ease: "ease.out" });
+		tl.to(dislikeButtonRef.current, { y: 0, duration: 0.2, ease: "elastic" });
+
 		dispatch(startSwitchDislike(id));
 	};
 
@@ -59,6 +72,7 @@ export const Item = ({
 				<div className="item__footer">
 					<div className="item__iconButtons">
 						<button
+							ref={likeButtonRef}
 							aria-label="likeButton"
 							className={isLoved ? "item__likeButton--active" : "item__likeButton"}
 							onClick={onSwitchLike}
@@ -67,6 +81,7 @@ export const Item = ({
 						</button>
 
 						<button
+							ref={dislikeButtonRef}
 							aria-label="dislikeButton"
 							className={isDisliked ? "item__dislikeButton--active" : "item__dislikeButton"}
 							onClick={onSwitchDislike}
