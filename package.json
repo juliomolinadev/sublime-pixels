@@ -1,7 +1,7 @@
 {
 	"name": "sublime-pixels",
 	"private": true,
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite --host",
@@ -14,6 +14,7 @@
 		"format": " prettier --write .",
 		"prepareHusky": "husky install",
 		"changelog": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+		"release": "release-it",
 		"deploy": "firebase deploy --only hosting:sublimepixels"
 	},
 	"dependencies": {
@@ -36,6 +37,7 @@
 		"@babel/preset-typescript": "^7.22.5",
 		"@commitlint/cli": "^17.6.7",
 		"@commitlint/config-conventional": "^17.6.7",
+		"@release-it/conventional-changelog": "^8.0.1",
 		"@testing-library/jest-dom": "^6.1.2",
 		"@testing-library/react": "^14.0.0",
 		"@testing-library/user-event": "^14.4.3",
@@ -59,8 +61,55 @@
 		"jsdom": "^22.1.0",
 		"lint-staged": "^13.2.3",
 		"prettier": "^3.0.1",
+		"release-it": "^17.0.0",
 		"typescript": "^5.0.2",
 		"vite": "^4.4.5",
 		"vitest": "^0.34.3"
+	},
+	"release-it": {
+		"git": {
+			"commitMessage": "chore(release): :bookmark: ${version}",
+			"tagName": "v${version}"
+		},
+		"plugins": {
+			"@release-it/conventional-changelog": {
+				"infile": "CHANGELOG.md",
+				"preset": "conventionalcommits",
+				"types": [
+					{
+						"type": "feat",
+						"section": "Features"
+					},
+					{
+						"type": "fix",
+						"section": "Bug Fixes"
+					},
+					{
+						"type": "chore",
+						"hidden": true
+					},
+					{
+						"type": "docs",
+						"hidden": true
+					},
+					{
+						"type": "style",
+						"hidden": true
+					},
+					{
+						"type": "refactor",
+						"hidden": true
+					},
+					{
+						"type": "perf",
+						"hidden": true
+					},
+					{
+						"type": "test",
+						"hidden": true
+					}
+				]
+			}
+		}
 	}
 }
