@@ -35,7 +35,7 @@ export const Item = ({
 
 	const onSwitchLike = (): void => {
 		const tl = gsap.timeline();
-		tl.to(likeButtonRef.current, { y: -100, duration: 0.2, ease: "ease.out" });
+		tl.to(likeButtonRef.current, { y: -50, duration: 0.2, ease: "ease.out" });
 		tl.to(likeButtonRef.current, { y: 0, duration: 0.2, ease: "elastic" });
 
 		dispatch(startSwitchLike(id));
@@ -43,7 +43,7 @@ export const Item = ({
 
 	const onSwitchDislike = (): void => {
 		const tl = gsap.timeline();
-		tl.to(dislikeButtonRef.current, { y: -100, duration: 0.2, ease: "ease.out" });
+		tl.to(dislikeButtonRef.current, { y: -50, duration: 0.2, ease: "ease.out" });
 		tl.to(dislikeButtonRef.current, { y: 0, duration: 0.2, ease: "elastic" });
 
 		dispatch(startSwitchDislike(id));
