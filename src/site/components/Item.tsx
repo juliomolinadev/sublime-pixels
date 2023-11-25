@@ -33,18 +33,18 @@ export const Item = ({
 	const isLoved = likes.includes(id);
 	const isDisliked = dislikes.includes(id);
 
-	const onSwitchLike = (): void => {
+	const onSwitchLike = async () => {
 		const tl = gsap.timeline();
-		tl.to(likeButtonRef.current, { y: -50, duration: 0.2, ease: "ease.out" });
-		tl.to(likeButtonRef.current, { y: 0, duration: 0.2, ease: "elastic" });
+		await tl.to(likeButtonRef.current, { y: -50, duration: 0.2, ease: "ease.out" });
+		await tl.to(likeButtonRef.current, { y: 0, duration: 0.2, ease: "elastic" });
 
 		dispatch(startSwitchLike(id));
 	};
 
-	const onSwitchDislike = (): void => {
+	const onSwitchDislike = async () => {
 		const tl = gsap.timeline();
-		tl.to(dislikeButtonRef.current, { y: -50, duration: 0.2, ease: "ease.out" });
-		tl.to(dislikeButtonRef.current, { y: 0, duration: 0.2, ease: "elastic" });
+		await tl.to(dislikeButtonRef.current, { y: -50, duration: 0.2, ease: "ease.out" });
+		await tl.to(dislikeButtonRef.current, { y: 0, duration: 0.2, ease: "elastic" });
 
 		dispatch(startSwitchDislike(id));
 	};
