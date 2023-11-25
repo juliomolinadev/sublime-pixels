@@ -7,9 +7,9 @@ import { switchDownloadMenu } from "../../store/items";
 import { DownloaderMenu } from "./DownloaderMenu";
 import { startIncreaseBuyLinkCounter } from "../../store/user/thunks/startIncreaseBuyLinkCounter";
 
-interface Props extends ItemProps {
-	hasDownloadables: boolean;
-}
+// interface Props extends ItemProps {
+// 	hasDownloadables: boolean;
+// }
 
 export const Item = ({
 	id,
@@ -17,15 +17,18 @@ export const Item = ({
 	title,
 	batch,
 	buyLink,
-	hasDownloadables,
+	// hasDownloadables,
 	isOpenDownloadMenu,
 	isDownloadingStraight,
 	isDownloadingTapered,
 	fileNames,
-}: Props) => {
-	const { likes, dislikes, downloads, userRole } = useTypedSelector((state) => state.user);
+}: ItemProps) => {
+	const { likes, dislikes, downloads, userRole, freeDownloads } = useTypedSelector(
+		(state) => state.user,
+	);
 	const dispatch = useTypedDispatch();
 
+	const hasDownloadables = freeDownloads > 0;
 	const isDownloaded = downloads.includes(id);
 	const isLoved = likes.includes(id);
 	const isDisliked = dislikes.includes(id);

@@ -12,6 +12,7 @@ import { downloadImage } from "../helpers";
 import { startAddDownload } from "../../store/user/thunks/startAddDownload";
 import { FiArrowRight, FiDownload } from "react-icons/fi";
 import { startIncreaseBuyLinkCounter } from "../../store/user/thunks/startIncreaseBuyLinkCounter";
+import { startDecrementDownloadsCounter } from "../../store/user/thunks/startDecrementDownloadsCounter";
 
 interface Props {
 	id: string;
@@ -67,7 +68,10 @@ export const DownloaderMenu = ({
 		if (imageType === "tapered") dispatch(switchDownloadingTapered(id));
 
 		const isDownloaded = await downloadImage({ batch: `B${batch}`, file });
-		if (isDownloaded) dispatch(startAddDownload(id));
+		if (isDownloaded) {
+			dispatch(startAddDownload(id));
+			dispatch(startDecrementDownloadsCounter(id));
+		}
 
 		if (imageType === "straight") dispatch(switchDownloadingStraight(id));
 		if (imageType === "tapered") dispatch(switchDownloadingTapered(id));

@@ -4,6 +4,7 @@ import {
 	addDislike,
 	addDownload,
 	addLike,
+	decrementFreeDownloads,
 	removeDislike,
 	removeLike,
 	setUser,
@@ -32,6 +33,8 @@ describe("userSlice.ts tests", () => {
 			downloads: [],
 			likes: [],
 			dislikes: [],
+			userRole: "user",
+			freeDownloads: 5,
 		};
 		const state = userSlice.reducer(userInitialState, setUser(newUser));
 
@@ -61,5 +64,10 @@ describe("userSlice.ts tests", () => {
 	it("should remove a dislike", () => {
 		const state = userSlice.reducer(newDislikeUserState, removeDislike("1234567890"));
 		expect(state).toEqual(setUserState);
+	});
+
+	it("should decrement free downloads counter", () => {
+		const state = userSlice.reducer(setUserState, decrementFreeDownloads());
+		expect(state.freeDownloads).toBe(setUserState.freeDownloads - 1);
 	});
 });

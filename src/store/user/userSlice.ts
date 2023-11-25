@@ -52,8 +52,20 @@ export const userSlice = createSlice({
 		removeDislike: (state, action: PayloadAction<string>) => {
 			state.dislikes = state.dislikes.filter((id) => id !== action.payload);
 		},
+
+		decrementFreeDownloads: (state) => {
+			state.freeDownloads--;
+		},
 	},
 });
 
-export const { setUser, resetUser, addDownload, addLike, removeLike, addDislike, removeDislike } =
-	userSlice.actions;
+export const {
+	setUser,
+	resetUser,
+	addDownload,
+	addLike,
+	removeLike,
+	addDislike,
+	removeDislike,
+	decrementFreeDownloads,
+} = userSlice.actions;

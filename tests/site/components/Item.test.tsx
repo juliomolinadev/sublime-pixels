@@ -19,6 +19,8 @@ const preloadedState = {
 		likes: [],
 		dislikes: [],
 		downloads: [],
+		userRole: "user",
+		freeDownloads: 5,
 	},
 	items: {
 		items: [{ ...testItems[0] }],
@@ -32,7 +34,7 @@ const preloadedState = {
 describe("<Item /> tests", () => {
 	it("should render component", () => {
 		const title = "Test Product Title";
-		const props = { ...testItems[0], title, hasDownloadables: true };
+		const props = { ...testItems[0], title };
 
 		const { container } = renderWithProviders(<Item {...props} />, { preloadedState });
 
@@ -44,7 +46,6 @@ describe("<Item /> tests", () => {
 		const props = {
 			...testItems[0],
 			title: "Test Product Title",
-			hasDownloadables: true,
 			isDownloaded: false,
 		};
 
@@ -61,7 +62,6 @@ describe("<Item /> tests", () => {
 		const props = {
 			...testItems[0],
 			title: "Test Product Title",
-			hasDownloadables: true,
 			isDownloaded: false,
 		};
 
@@ -83,7 +83,6 @@ describe("<Item /> tests", () => {
 		const props = {
 			...testItems[0],
 			title: "Test Product Title",
-			hasDownloadables: true,
 			isDownloaded: false,
 		};
 
@@ -106,7 +105,10 @@ describe("<Item /> tests", () => {
 				likes: [],
 				dislikes: [],
 				downloads: [],
+				userRole: "user",
+				freeDownloads: 5,
 			},
+
 			items: {
 				items: [{ ...testItems[0] }],
 				currentItems: {
@@ -122,7 +124,6 @@ describe("<Item /> tests", () => {
 		const props = {
 			...testItems[0],
 			title: "Test Product Title",
-			hasDownloadables: true,
 			isDownloaded: false,
 		};
 
@@ -166,6 +167,7 @@ describe("<Item /> tests", () => {
 				authErrorMessage: null,
 				emailVerified: false,
 			},
+
 			items: {
 				items: [{ ...testItems[0] }],
 				currentItems: {
@@ -173,12 +175,20 @@ describe("<Item /> tests", () => {
 				},
 				currentItemIds: ["1"],
 			},
+
+			user: {
+				uid: "123",
+				likes: [],
+				dislikes: [],
+				downloads: [],
+				userRole: "user",
+				freeDownloads: 5,
+			},
 		};
 
 		const props = {
 			...testItems[0],
 			title: "Test Product Title",
-			hasDownloadables: true,
 			isDownloaded: false,
 		};
 

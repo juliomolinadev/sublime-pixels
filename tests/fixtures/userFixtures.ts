@@ -3,6 +3,8 @@ export const userInitialState = {
 	downloads: [],
 	likes: [],
 	dislikes: [],
+	userRole: null,
+	freeDownloads: 0,
 };
 
 export const setUserState = {
@@ -10,6 +12,8 @@ export const setUserState = {
 	downloads: [],
 	likes: [],
 	dislikes: [],
+	userRole: "user",
+	freeDownloads: 5,
 };
 
 export const newDownloadUserState = {
@@ -17,6 +21,8 @@ export const newDownloadUserState = {
 	downloads: ["1234567890"],
 	likes: [],
 	dislikes: [],
+	userRole: "user",
+	freeDownloads: 5,
 };
 
 export const newLikeUserState = {
@@ -24,6 +30,8 @@ export const newLikeUserState = {
 	downloads: [],
 	likes: ["1234567890"],
 	dislikes: [],
+	userRole: "user",
+	freeDownloads: 5,
 };
 
 export const newDislikeUserState = {
@@ -31,4 +39,6 @@ export const newDislikeUserState = {
 	downloads: [],
 	likes: [],
 	dislikes: ["1234567890"],
+	userRole: "user",
+	freeDownloads: 5,
 };
