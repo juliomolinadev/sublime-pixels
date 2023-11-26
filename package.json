@@ -14,7 +14,7 @@
 		"format": " prettier --write .",
 		"prepareHusky": "husky install",
 		"release": "release-it",
-		"deploy": "pnpm run build firebase deploy --only hosting"
+		"deploy": "firebase deploy --only hosting"
 	},
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.9.5",
