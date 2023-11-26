@@ -1,5 +1,12 @@
 
 
+## [1.1.1](https://github.com/juliomolinadev/sublime-pixels/compare/v1.1.0...v1.1.1) (2023-11-26)
+
+
+### Bug Fixes
+
+* **CI:** :bug: Fixes environment variables problem ([3bd187b](https://github.com/juliomolinadev/sublime-pixels/commit/3bd187b828667ce06bfc7f36eb4d30f91c47de44))
+
 ## 1.1.0 (2023-11-25)
 
 
