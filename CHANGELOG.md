@@ -1,5 +1,12 @@
 
 
+## [1.1.2](https://github.com/juliomolinadev/sublime-pixels/compare/v1.1.1...v1.1.2) (2023-11-30)
+
+
+### Bug Fixes
+
+* **Ui:** :bug: Fixed problem in pagination controls ([cfc4380](https://github.com/juliomolinadev/sublime-pixels/commit/cfc43809ba62d6c41ecfb95544d7c9bb6f6c2735))
+
 ## [1.1.1](https://github.com/juliomolinadev/sublime-pixels/compare/v1.1.0...v1.1.1) (2023-11-26)
 
 
